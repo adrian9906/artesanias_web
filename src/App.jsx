@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import InformacionEncargo from './pages/InformacionEncargo'
 import Tracking from './pages/Tracking'
 import SobreNosotros from './pages/SobreNosotros'
+import Encargos from './pages/Encargos'
 
 const categories = [
   {
@@ -164,6 +165,7 @@ export default function App() {
         <Route path="/informacion-de-encargo" element={<InformacionEncargo />} />
         <Route path="/tracking" element={<Tracking />} />
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+        <Route path="/encargos" element={<Encargos />} />
       </Routes>
     </Layout>
   )
