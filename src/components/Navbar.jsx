@@ -32,7 +32,7 @@ export default function Navbar() {
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Galería</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/tracking">Tracking</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Blog</Link>
-            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Noticias</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/noticias">Noticias</Link>
             <Link
               className="border border-gold-accent/60 text-gold-light px-5 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm"
               to="#"
