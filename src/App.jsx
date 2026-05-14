@@ -5,6 +5,7 @@ import Tracking from './pages/Tracking'
 import SobreNosotros from './pages/SobreNosotros'
 import Encargos from './pages/Encargos'
 import Noticias from './pages/Noticias'
+import Blog from './pages/Blog'
 
 const categories = [
   {
@@ -168,6 +169,7 @@ export default function App() {
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
         <Route path="/encargos" element={<Encargos />} />
         <Route path="/noticias" element={<Noticias />} />
+        <Route path="/blog" element={<Blog />} />
       </Routes>
     </Layout>
   )
