@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -18,24 +19,26 @@ export default function Navbar() {
           }`}
       >
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-gold-accent/40 to-gold-accent/10 border border-gold-accent/30" />
             <span className="font-display text-lg tracking-wide text-cream">Evergreen Cold Ceramics</span>
-          </div>
+          </Link>
 
-          <nav className="hidden md:flex items-center gap-10 text-sm font-medium">
-            <a className="text-cream/70 hover:text-gold-accent transition-colors duration-300" href="#">
-              Categorías
-            </a>
-            <a className="text-cream/70 hover:text-gold-accent transition-colors duration-300" href="#">
-              Sobre el Artesano
-            </a>
-            <a
-              className="border border-gold-accent/60 text-gold-light px-6 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm"
-              href="#"
+          <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/">Inicio</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Sobre Nosotros</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Encargos</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/informacion-de-encargo">Información de Encargo</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Galería</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/tracking">Tracking</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Blog</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Noticias</Link>
+            <Link
+              className="border border-gold-accent/60 text-gold-light px-5 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm"
+              to="#"
             >
-              Encargar pieza única
-            </a>
+              Encargar
+            </Link>
           </nav>
 
           <button className="md:hidden text-cream" aria-label="Menú">

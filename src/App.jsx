@@ -1,4 +1,7 @@
+import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
+import InformacionEncargo from './pages/InformacionEncargo'
+import Tracking from './pages/Tracking'
 
 const categories = [
   {
@@ -142,12 +145,24 @@ function CTABanner() {
   )
 }
 
-export default function App() {
+function HomePage() {
   return (
-    <Layout>
+    <>
       <Hero />
       <Categories />
       <CTABanner />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/informacion-de-encargo" element={<InformacionEncargo />} />
+        <Route path="/tracking" element={<Tracking />} />
+      </Routes>
     </Layout>
   )
 }

@@ -11,6 +11,11 @@
   --color-cream: #f5efe0;
   --font-family-display: "Playfair Display", serif;
   --font-family-body: Lato, sans-serif;
+  --color-evergreen-gold: #E6C186;
+  --color-evergreen-gold-light: #F9DFA8;
+  --color-evergreen-dark: #0d0d0d;
+  --font-family-sans: 'Inter', sans-serif;
+  --font-family-serif: 'Playfair Display', serif;
 }
 
 @keyframes fade-up {
@@ -122,4 +127,22 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+.glass-card {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 193, 134, 0.3);
+}
+
+.glow-text-primary {
+  text-shadow: 0 0 15px rgba(255, 230, 180, 0.6), 0 0 30px rgba(255, 230, 180, 0.3);
+}
+
+.shadow-glow-button {
+  box-shadow: 0 0 15px rgba(230, 193, 134, 0.5);
+}
+
+.bg-radial-gradient {
+  background-image: radial-gradient(var(--tw-gradient-stops));
 }
