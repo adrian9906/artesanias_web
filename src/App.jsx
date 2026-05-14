@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import InformacionEncargo from './pages/InformacionEncargo'
 import Tracking from './pages/Tracking'
+import SobreNosotros from './pages/SobreNosotros'
 
 const categories = [
   {
@@ -162,6 +163,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/informacion-de-encargo" element={<InformacionEncargo />} />
         <Route path="/tracking" element={<Tracking />} />
+        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
       </Routes>
     </Layout>
   )
