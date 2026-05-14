@@ -29,7 +29,7 @@ export default function Navbar() {
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/sobre-nosotros">Sobre Nosotros</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/encargos">Encargos</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/informacion-de-encargo">Información de Encargo</Link>
-            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="#">Galería</Link>
+            <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/galeria">Galería</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/tracking">Tracking</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/blog">Blog</Link>
             <Link className="text-cream/70 hover:text-gold-accent transition-colors duration-300" to="/noticias">Noticias</Link>

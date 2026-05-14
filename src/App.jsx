@@ -6,6 +6,7 @@ import SobreNosotros from './pages/SobreNosotros'
 import Encargos from './pages/Encargos'
 import Noticias from './pages/Noticias'
 import Blog from './pages/Blog'
+import Galeria from './pages/Galeria'
 
 const categories = [
   {
@@ -149,11 +150,78 @@ function CTABanner() {
   )
 }
 
+const testimonials = [
+  {
+    name: 'María Elena',
+    location: 'Ciudad de México',
+    text: 'La pieza transformó completamente mi jardín. Es como tener un pedazo del bosque en casa.',
+    image: null,
+  },
+  {
+    name: 'Carlos Ruiz',
+    location: 'Guadalajara',
+    text: 'Llevo este collar todos los días. Es único y tiene una energía especial que no puedo explicar.',
+    image: null,
+  },
+  {
+    name: 'Ana Sofía',
+    location: 'Monterrey',
+    text: 'La atención al detalle es increíble. Cada fibra, cada textura está perfectamente ejecutada.',
+    image: null,
+  },
+]
+
+function Testimonials() {
+  return (
+    <section className="py-24 bg-forest-dark relative overflow-hidden">
+      <div className="absolute inset-0 noise-overlay" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-8">
+        <div className="text-center mb-16">
+          <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">Testimonios</span>
+          <h2 className="font-display text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
+          <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {testimonials.map((t, i) => (
+            <div 
+              key={i}
+              className="p-8 rounded-2xl border border-gold-accent/10 bg-forest-mid/50"
+              style={{ background: 'rgba(15, 36, 22, 0.5)' }}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
+                <div>
+                  <p className="text-cream font-semibold">{t.name}</p>
+                  <p className="text-cream/40 text-xs uppercase tracking-widest">{t.location}</p>
+                </div>
+              </div>
+              <p className="text-cream/60 text-sm leading-relaxed font-light">
+                "{t.text}"
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <a href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
+            Ver más testimonios →
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function HomePage() {
   return (
     <>
       <Hero />
       <Categories />
+      <Testimonials />
       <CTABanner />
     </>
   )
@@ -170,6 +238,7 @@ export default function App() {
         <Route path="/encargos" element={<Encargos />} />
         <Route path="/noticias" element={<Noticias />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/galeria" element={<Galeria />} />
       </Routes>
     </Layout>
   )
