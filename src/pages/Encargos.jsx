@@ -1,128 +1,104 @@
-export default function Encargos() {
-  return (
-    <div className="min-h-screen relative bg-gray-900">
-      <div 
-        className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-80"
-        style={{ 
-          backgroundImage: 'url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1920&q=80")',
-          backgroundColor: '#1a202c'
-        }}
-      />
+import { useMemo, useState } from 'react'
 
-      <div className="relative z-10 flex items-center justify-center p-6 md:p-12 min-h-screen">
-        <div 
-          className="border border-amber-500/50 rounded-3xl p-8 md:p-12 max-w-2xl w-full"
-          style={{ 
-            background: 'rgba(20, 20, 20, 0.65)',
-            backdropFilter: 'blur(8px)',
-            boxShadow: '0 0 15px rgba(253, 224, 71, 0.4), inset 0 0 10px rgba(253, 224, 71, 0.2)'
-          }}
-        >
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-amber-100 mb-4 tracking-wide" style={{ textShadow: '0 0 10px rgba(253, 224, 71, 0.6)' }}>
-              Formulario de Encargo Místico
-            </h1>
-            <p className="text-gray-300 text-base leading-relaxed max-w-lg mx-auto">
-              Da vida a tu visión. Cada pieza de cerámica fría es modelada a mano. Comparte tu idea y trabajaremos juntos para materializarla con alma artesana.
-            </p>
+const categories = [
+  { id: 'jarra', name: 'Jarra de Autor', base: 95, eta: '10-14 dias' },
+  { id: 'funko', name: 'Figura Personalizada', base: 140, eta: '14-20 dias' },
+  { id: 'joyeria', name: 'Joyeria Botanica', base: 85, eta: '8-12 dias' },
+  { id: 'set', name: 'Set Coleccion', base: 220, eta: '18-26 dias' },
+]
+
+export default function Encargos() {
+  const [category, setCategory] = useState(categories[0].id)
+  const [quantity, setQuantity] = useState(1)
+
+  const selectedCategory = categories.find((c) => c.id === category)
+
+  const pricing = useMemo(() => {
+    const base = selectedCategory?.base || 0
+    const subtotal = base * quantity
+    const deposito = Math.round(subtotal * 0.5)
+
+    return { base, subtotal, deposito }
+  }, [quantity, selectedCategory])
+
+  return (
+    <section className="min-h-screen bg-forest-deep text-[#e3e2e2] pt-28 pb-16 px-4 sm:px-6 lg:px-10">
+      {/* todo: implementar el subir fotos */}
+      <div className="mx-auto w-full max-w-[1440px] grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <form className="rounded-lg border border-amber-500/50  bg-[#0A0A0A] p-6 md:p-8 space-y-5">
+          <div>
+            <p className="font-mono text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase">Formulario</p>
+            <h1 className="font-bold text-3xl md:text-4xl tracking-[-0.02em] mt-2">Encargar una pieza</h1>
           </div>
 
-          <form action="#" className="space-y-6" method="POST">
-            <div>
-              <label className="block text-sm font-medium text-amber-100 mb-2" htmlFor="fullName">
-                Nombre Completo
-              </label>
-              <input 
-                className="w-full bg-[#f4ecd8] text-gray-900 border-0 rounded-lg px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-gray-500 font-medium" 
-                id="fullName" 
-                name="fullName" 
-                placeholder="Ej. Elara Vance" 
-                type="text"
-              />
-            </div>
+          <div>
+            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Nombre</label>
+            <input className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" type="text" placeholder="Tu nombre" />
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-amber-100 mb-2" htmlFor="email">
-                Correo Electrónico
-              </label>
-              <input 
-                className="w-full bg-[#f4ecd8] text-gray-900 border-0 rounded-lg px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-gray-500 font-medium" 
-                id="email" 
-                name="email" 
-                placeholder="elara@ejemplo.com" 
-                type="email"
-              />
-            </div>
+          <div>
+            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Correo</label>
+            <input className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" type="email" placeholder="tu@email.com" />
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-amber-100 mb-2" htmlFor="category">
-                Categoría de la Pieza
-              </label>
-              <select 
-                className="w-full text-amber-100 border border-amber-600 rounded-lg px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:outline-none appearance-none cursor-pointer bg-transparent"
-                id="category" 
-                name="category"
-                style={{ backgroundColor: 'transparent' }}
-              >
-                <option className="text-gray-900" disabled selected value="">Selecciona una categoría...</option>
-                <option className="text-gray-900" value="jewelry">Joyería</option>
-                <option className="text-gray-900" value="sculpture">Escultura</option>
-                <option className="text-gray-900" value="decor">Decoración</option>
-              </select>
-            </div>
+          <div>
+            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Categoria</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]"
+            >
+              {categories.map((item) => (
+                <option key={item.id} value={item.id}>{item.name}</option>
+              ))}
+            </select>
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-amber-100 mb-2" htmlFor="description">
-                Describe tu Idea en Detalle
-              </label>
-              <textarea 
-                className="w-full bg-[#f4ecd8] text-gray-900 border-0 rounded-lg px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:outline-none placeholder-gray-500 font-medium resize-none" 
-                id="description" 
-                name="description" 
-                placeholder="Cuéntame sobre los colores, la inspiración, elementos de la naturaleza que deseas incluir..." 
-                rows="4"
-              />
-            </div>
+          <div>
+            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Cantidad</label>
+            <input
+              value={quantity}
+              onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
+              className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]"
+              type="number"
+              min="1"
+            />
+          </div>
 
-            <div>
-              <label className="block text-sm font-medium text-amber-100 mb-2">
-                Referencias Visuales
-              </label>
-              <div 
-                className="border-2 border-dashed border-amber-600/60 rounded-xl p-8 flex flex-col items-center justify-center text-center bg-black/20 hover:bg-black/30 transition-colors cursor-pointer group"
-                style={{ borderColor: 'rgba(217, 119, 6, 0.6)' }}
-              >
-                <div className="w-12 h-12 mb-4 opacity-80 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <svg className="w-12 h-12 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-                  </svg>
-                </div>
-                <p className="text-sm text-gray-300 mb-4">Arrastra y suelta imágenes aquí</p>
-                <button 
-                  className="bg-[#f4ecd8] text-gray-900 font-semibold py-2 px-6 rounded-full text-sm hover:bg-white transition-colors" 
-                  type="button"
-                >
-                  Explorar Archivos
-                </button>
-                <input className="hidden" id="fileUpload" multiple type="file" />
-              </div>
-            </div>
+          <div>
+            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Idea</label>
+            <textarea className="w-full min-h-28 rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" placeholder="Describe tu encargo..." />
+          </div>
 
-            <div className="pt-4 flex justify-center">
-              <button 
-                className="text-gray-900 font-bold text-lg py-3 px-10 rounded-full shadow-lg w-full sm:w-auto transition-all duration-300"
-                style={{ 
-                  background: 'linear-gradient(to right, #d97706, #fbbf24)',
-                  boxShadow: '0 4px 15px rgba(251, 191, 36, 0.3)'
-                }}
-                type="submit"
-              >
-                Enviar Solicitud
-              </button>
+          <button type="submit" className="w-full rounded-md py-3 font-bold text-white bg-evergreen-gold hover:bg-evergreen-gold/90 transition-colors duration-300">
+            Enviar solicitud
+          </button>
+        </form>
+
+        <aside className="rounded-lg border border-amber-500/50  bg-[#0A0A0A] p-6 md:p-8 h-fit sticky top-24">
+          <p className="font-mono text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase mb-3">Precios dinamicos</p>
+          <h2 className="text-2xl font-bold mb-4">{selectedCategory?.name}</h2>
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
+              <span className="text-[#c1c6d7]">Precio base</span>
+              <span className="font-bold">${pricing.base}</span>
             </div>
-          </form>
-        </div>
+            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
+              <span className="text-[#c1c6d7]">Subtotal</span>
+              <span className="font-bold text-[#aec6ff]">${pricing.subtotal}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
+              <span className="text-[#c1c6d7]">Deposito (50%)</span>
+              <span className="font-bold">${pricing.deposito}</span>
+            </div>
+            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
+              <span className="text-[#c1c6d7]">Tiempo estimado</span>
+              <span className="font-bold">{selectedCategory?.eta}</span>
+            </div>
+          </div>
+        </aside>
       </div>
-    </div>
+    </section>
   )
 }

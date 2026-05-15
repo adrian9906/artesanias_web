@@ -174,22 +174,107 @@ function Categories() {
 }
 
 function CTABanner() {
+  gsap.registerPlugin(ScrollTrigger)
+  const sectionRef = useRef(null)
+  const cardRef = useRef(null)
+  const buttonRef = useRef(null)
+  const contentRef = useRef(null)
+  useEffect(() => {
+    // ⚠️ IMPORTANTE: Asegurar que todo está cargado
+    if (!cardRef.current || !buttonRef.current) return
+
+    // 1. ESTADO INICIAL - Tarjeta GRANDE
+    gsap.set(cardRef.current, {
+      scale: 1.3,              // Tarjeta un 30% más grande
+      transformOrigin: 'center center',
+      borderRadius: '2.5rem',
+    })
+
+    // Botón invisible al inicio
+    gsap.set(buttonRef.current, {
+      opacity: 0,
+      y: 30,
+      scale: 0.8,
+    })
+
+    // Contenido ligeramente opaco
+    gsap.set(contentRef.current, {
+      opacity: 0.7,
+    })
+
+    // 2. CREAR SCROLLTRIGGER PARA LA TARJETA
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top 80%',        // Empieza cuando la sección está al 80%
+      end: 'top 20%',          // Termina cuando está al 20%
+      scrub: 1,                // Suavizado
+      animation: gsap.to(cardRef.current, {
+        scale: 1,               // Tamaño NORMAL
+        borderRadius: '1.5rem',
+        duration: 1,
+        ease: 'power2.out',
+      }),
+    })
+
+    // 3. SCROLLTRIGGER PARA EL BOTÓN
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top 60%',
+      end: 'top 30%',
+      scrub: 0.8,
+      animation: gsap.to(buttonRef.current, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        ease: 'back.out(0.6)',
+      }),
+    })
+
+    // 4. SCROLLTRIGGER PARA EL CONTENIDO
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top 70%',
+      end: 'top 40%',
+      scrub: 0.5,
+      animation: gsap.to(contentRef.current, {
+        opacity: 1,
+        duration: 0.6,
+      }),
+    })
+
+    // Limpieza
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+    }
+  }, [])
   return (
-    <section className="max-w-7xl mx-auto px-4 mb-[165px]">
-      <div className="bg-forest-mid rounded-3xl p-16 md:p-32 text-center relative overflow-hidden mt-8">
+    <section ref={sectionRef} className="max-w-8/12 mx-auto px-4 mb-[165px] mt-30">
+      <div
+        ref={cardRef}
+        className="bg-forest-mid rounded-3xl p-16 md:p-32 text-center relative overflow-hidden mt-8 transition-all"
+      >
+        {/* Círculos decorativos */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-gold-accent opacity-10 rounded-full"></div>
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gold-accent opacity-10 rounded-full"></div>
-        <div className="relative z-10 flex flex-col items-center">
+
+        <div ref={contentRef} className="relative z-10 flex flex-col items-center">
           <div className="size-16 bg-gold-accent/30 rounded-full flex items-center justify-center mb-8">
             <Sparkle className="text-gold-accent" size={32} />
           </div>
+
           <h2 className="font-heading text-4xl text-heading text-cream font-semibold max-w-3xl mb-8">
             Tienes una idea en mente?
           </h2>
+
           <p className="font-body text-body text-cream font-semibold max-w-xl mb-12">
             Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el ultimo detalle del acabado.
           </p>
-          <button className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300">
+
+          <button
+            ref={buttonRef}
+            className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
+          >
             <span className="truncate">Encargar pieza unica</span>
             <span className="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
           </button>
