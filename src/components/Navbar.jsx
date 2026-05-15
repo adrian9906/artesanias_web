@@ -11,11 +11,11 @@ export default function Navbar() {
   }, [])
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50">
+    <div className="fixed top-0 left-0 right-0 z-50 w-[70%] items-center mx-auto ">
       <header
         className={`transition-all duration-500 ${scrolled
-            ? 'bg-forest-deep/95 backdrop-blur-md border-b border-white/10'
-            : 'bg-transparent'
+          ? 'bg-forest-deep/95 backdrop-blur-md border-b rounded-full mt-2 border-white/10'
+          : 'bg-transparent'
           }`}
       >
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
