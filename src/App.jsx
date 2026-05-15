@@ -13,6 +13,7 @@ import Blog from './pages/Blog'
 import Galeria from './pages/Galeria'
 
 import { Sparkle } from 'lucide-react'
+import { Marquee } from './components/ui/marquee'
 
 const categories = [
   {
@@ -226,32 +227,35 @@ function Testimonials() {
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-8">
+      <div className="relative z-10 max-w-full mx-auto px-8">
         <div className="text-center mb-16">
           <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">Testimonios</span>
           <h2 className="font-display text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
           <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="p-8 rounded-2xl border border-gold-accent/10 bg-forest-mid/50"
-              style={{ background: 'rgba(15, 36, 22, 0.5)' }}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
-                <div>
-                  <p className="text-cream font-semibold">{t.name}</p>
-                  <p className="text-cream/40 text-xs uppercase tracking-widest">{t.location}</p>
+        <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
+          <Marquee pauseOnHover className="[--duration:20s]">
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="p-8 rounded-2xl border border-gold-accent/10 bg-forest-mid/50"
+                style={{ background: 'rgba(15, 36, 22, 0.5)' }}
+              >
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
+                  <div>
+                    <p className="text-cream font-semibold">{t.name}</p>
+                    <p className="text-cream/40 text-xs uppercase tracking-widest">{t.location}</p>
+                  </div>
                 </div>
+                <p className="text-cream/60 text-sm leading-relaxed font-light">
+                  "{t.text}"
+                </p>
               </div>
-              <p className="text-cream/60 text-sm leading-relaxed font-light">
-                "{t.text}"
-              </p>
-            </div>
-          ))}
+            ))}
+          </Marquee>
+
         </div>
 
         <div className="text-center mt-12">

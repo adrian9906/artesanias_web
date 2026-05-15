@@ -41,10 +41,12 @@ const gallerySlides = [
 
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isHeroImageReady, setIsHeroImageReady] = useState(false)
   const intervalRef = useRef(null)
   const sectionRef = useRef(null)
   const bgRef = useRef(null)
   const slideRefs = useRef([])
+  const heroSectionRef = useRef(null)
 
   const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex])
 
@@ -68,6 +70,33 @@ export default function Hero() {
       floatTweens.forEach((tw) => tw.kill())
     }
   }, [])
+
+  useEffect(() => {
+    if (!isHeroImageReady) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        '.hero-main-image',
+        { autoAlpha: 0, scale: 1.08, filter: 'blur(10px)' },
+        { autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: 2, ease: 'power3.out' },
+      )
+
+      gsap.fromTo(
+        '.hero-text-reveal',
+        { autoAlpha: 0, y: 32 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: 0.2,
+          stagger: 0.12,
+        },
+      )
+    }, heroSectionRef)
+
+    return () => ctx.revert()
+  }, [isHeroImageReady])
 
   useEffect(() => {
     slideRefs.current.forEach((slide, i) => {
@@ -127,9 +156,15 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/fondo2.jpeg" alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-[#0a1a0f]" />
+          <img
+            src="/fondo2.jpeg"
+            alt=""
+            onLoad={() => setIsHeroImageReady(true)}
+            className="hero-main-image w-full h-full object-cover opacity-0"
+          />
           <div className="absolute inset-0 hero-overlay" />
           <div className="absolute inset-0 noise-overlay" />
           <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-radial from-gold-accent/4 to-transparent rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
@@ -137,13 +172,13 @@ export default function Hero() {
         </div>
 
         <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl pt-24">
-          <h1 className="animate-fade-up stagger-2 font-display text-5xl md:text-7xl mb-6 text-cream leading-tight">
+          <h1 className="hero-text-reveal font-display text-5xl md:text-7xl mb-6 text-cream leading-tight opacity-0">
             Ceramica fria con <span className="text-gold-light italic">alma artesana</span>
           </h1>
-          <p className="animate-fade-up stagger-3 text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+          <p className="hero-text-reveal text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
             Piezas exclusivas modeladas a mano con acabado en porcelana fria. Disenos que capturan la esencia de la naturaleza en cada detalle.
           </p>
-          <a className="animate-fade-up stagger-4 inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium" href="#">
+          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="#">
             Encargar pieza unica
           </a>
         </div>
@@ -151,7 +186,7 @@ export default function Hero() {
       </section>
 
       <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
-        <div className="container aspect-square w-[40%] h-[60%] mx-auto px-6 relative">
+        <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
           <div className="mb-10 text-center">
             <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galeria</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
