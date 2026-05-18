@@ -11,8 +11,8 @@ const DefaultCursorSVG = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={30}
-      height={30}
+      width={20}
+      height={20}
       viewBox="0 0 24 24"
       fill="#1a3a22"
       style={{
@@ -44,8 +44,8 @@ export function SmoothCursor({
   const lastMousePos = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
   const lastUpdateTime = useRef(Date.now())
-  const previousAngle = useRef(0)
-  const accumulatedRotation = useRef(0)
+
+
   const [isEnabled, setIsEnabled] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -114,33 +114,11 @@ export function SmoothCursor({
       const currentPos = { x: e.clientX, y: e.clientY }
       updateVelocity(currentPos)
 
-      const speed = Math.sqrt(Math.pow(velocity.current.x, 2) + Math.pow(velocity.current.y, 2))
 
       cursorX.set(currentPos.x)
       cursorY.set(currentPos.y)
 
-      if (speed > 0.1) {
-        const currentAngle =
-          Math.atan2(velocity.current.y, velocity.current.x) * (180 / Math.PI) +
-          90
 
-        let angleDiff = currentAngle - previousAngle.current
-        if (angleDiff > 180) angleDiff -= 360
-        if (angleDiff < -180) angleDiff += 360
-        accumulatedRotation.current += angleDiff
-        rotation.set(accumulatedRotation.current)
-        previousAngle.current = currentAngle
-
-        scale.set(0.95)
-
-        if (timeout !== null) {
-          clearTimeout(timeout)
-        }
-
-        timeout = setTimeout(() => {
-          scale.set(1)
-        }, 150)
-      }
     }
 
     let rafId = 0

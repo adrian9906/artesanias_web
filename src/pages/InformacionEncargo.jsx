@@ -1,6 +1,8 @@
+import { Flower, Moon, FlaskConical, Sparkles, Gem } from "lucide-react";
+
 export default function InformacionEncargo() {
   return (
-    <section className="py-20 bg-[#050505] min-h-screen">
+    <section className="py-20 bg-[#050505] min-h-screen animate-blurred-fade-in">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl pt-24">
         <div className="text-center mb-16">
           <h1 className="font-display text-4xl md:text-6xl text-cream font-bold mb-4 glow-text-primary tracking-tight">
@@ -19,7 +21,7 @@ export default function InformacionEncargo() {
             <div className="glass-card rounded-xl p-8 col-span-1 md:col-span-2 relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-xs font-mono text-evergreen-gold tracking-widest uppercase">FASE 01</span>
-                <span className="material-symbols-outlined text-evergreen-gold opacity-80">local_florist</span>
+                <Flower className="text-evergreen-gold opacity-80 w-6 h-6" />
               </div>
               <h3 className="font-display text-2xl text-cream mb-3">Concepción &amp; Diseño</h3>
               <p className="text-cream/50 text-sm leading-relaxed pr-12">
@@ -27,7 +29,7 @@ export default function InformacionEncargo() {
               </p>
             </div>
             <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
-              <span className="material-symbols-outlined text-evergreen-gold text-3xl mx-auto mb-4 opacity-80">dark_mode</span>
+              <Moon className="text-evergreen-gold text-3xl mx-auto mb-4 opacity-80 w-8 h-8" />
               <h3 className="font-display text-xl text-cream mb-2">Compromiso Inicial</h3>
               <p className="text-cream/50 text-sm leading-relaxed">
                 Requerimos un depósito del 50% para agendar tu proyecto y comenzar la fase de diseño.
@@ -37,7 +39,7 @@ export default function InformacionEncargo() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
-              <span className="material-symbols-outlined text-evergreen-gold text-3xl mx-auto mb-4 opacity-80">science</span>
+              <FlaskConical className="text-evergreen-gold text-3xl mx-auto mb-4 opacity-80 w-8 h-8" />
               <h3 className="font-display text-xl text-cream mb-2">Tiempos de Creación</h3>
               <p className="text-cream/50 text-sm leading-relaxed">
                 Cada pieza requiere entre 4 y 6 semanas de meticuloso trabajo manual y curado.
@@ -49,7 +51,7 @@ export default function InformacionEncargo() {
                   <span className="text-xs font-mono text-evergreen-gold tracking-widest uppercase mb-1 block">FASE 02</span>
                   <h3 className="font-display text-2xl text-cream mb-3">Modelado &amp; Escultura</h3>
                 </div>
-                <span className="material-symbols-outlined text-evergreen-gold mt-2 opacity-80">auto_awesome</span>
+                <Sparkles className="text-evergreen-gold mt-2 opacity-80 w-6 h-6" />
               </div>
               <p className="text-cream/70 text-sm leading-relaxed w-full md:w-2/3">
                 Nuestros artesanos moldean la porcelana fría a mano, capturando la esencia de la naturaleza en cada detalle. Este proceso requiere paciencia y precisión técnica para asegurar la durabilidad y la estética refinada que nos caracteriza.
@@ -65,7 +67,7 @@ export default function InformacionEncargo() {
                     <span className="text-xs font-mono text-evergreen-gold tracking-widest uppercase block mb-2">FASE 03</span>
                     <h3 className="font-display text-2xl text-cream mb-3">Acabados &amp; Entrega</h3>
                   </div>
-                  <span className="material-symbols-outlined text-evergreen-gold text-3xl opacity-80 hidden md:block">diamond</span>
+                  <Gem className="text-evergreen-gold text-3xl opacity-80 hidden md:block w-8 h-8" />
                 </div>
                 <p className="text-cream/50 text-sm leading-relaxed mb-6">
                   Aplicamos pigmentos naturales y selladores protectores. Una vez que la pieza alcanza nuestros estándares de calidad clínica, se empaqueta con materiales sostenibles y se envía asegurada hasta tu puerta.
@@ -76,11 +78,11 @@ export default function InformacionEncargo() {
                 </div>
               </div>
               <div className="w-full md:w-2/5 mt-6 md:mt-0 flex justify-end relative">
-                <span className="material-symbols-outlined text-evergreen-gold text-3xl opacity-80 md:hidden absolute -top-12 right-0">diamond</span>
-                <img 
-                  alt="Hand Holding Flowers" 
-                  className="rounded-lg object-cover w-full max-w-[280px] border border-white/10 shadow-lg" 
-                  src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&q=80" 
+                <Gem className="text-evergreen-gold text-3xl opacity-80 md:hidden absolute -top-12 right-0 w-8 h-8" />
+                <img
+                  alt="Hand Holding Flowers"
+                  className="rounded-lg object-cover w-full max-w-[280px] border border-white/10 shadow-lg"
+                  src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&q=80"
                 />
               </div>
             </div>
@@ -95,7 +97,7 @@ export default function InformacionEncargo() {
           <p className="text-cream/50 text-sm mb-8 max-w-xl mx-auto relative z-10">
             Nuestro taller tiene cupos limitados cada mes para garantizar la máxima atención al detalle en cada encargo personalizado.
           </p>
-          <button className="bg-evergreen-gold hover:bg-evergreen-gold-light text-black font-mono text-sm font-semibold uppercase px-8 py-3 transition-all shadow-glow-button hover:shadow-[0_0_25px_rgba(230,193,134,0.7)] relative z-10 rounded flex items-center justify-center mx-auto space-x-2">
+          <button className="bg-evergreen-gold hover:bg-evergreen-gold-light text-black text-sm font-semibold uppercase px-8 py-3 transition-all shadow-glow-button hover:shadow-[0_0_25px_rgba(230,193,134,0.7)] relative z-10 rounded flex items-center justify-center mx-auto space-x-2">
             <span>Iniciar Solicitud</span>
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path d="M14 5l7 7m0 0l-7 7m7-7H3" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>

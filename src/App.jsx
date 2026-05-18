@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Layout from './components/Layout'
 import Hero from './components/hero'
+import VideoSection from './components/VideoSection'
 import InformacionEncargo from './pages/InformacionEncargo'
 import Tracking from './pages/Tracking'
 import SobreNosotros from './pages/SobreNosotros'
@@ -14,6 +15,8 @@ import Galeria from './pages/Galeria'
 
 import { Sparkle } from 'lucide-react'
 import { Marquee } from './components/ui/marquee'
+import { ChevronUpCircle } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 
 const categories = [
   {
@@ -275,8 +278,8 @@ function CTABanner() {
             ref={buttonRef}
             className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
           >
-            <span className="truncate">Encargar pieza unica</span>
-            <span className="material-symbols-outlined" data-icon="arrow_forward">arrow_forward</span>
+            <span className="truncate text-black font-extrabold">Encargar pieza unica</span>
+            <ChevronRight className="text-black" size={20} />
           </button>
         </div>
       </div>
@@ -322,6 +325,7 @@ function Testimonials() {
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
           <Marquee pauseOnHover className="[--duration:20s]">
             {testimonials.map((t, i) => (
+
               <div
                 key={i}
                 className="p-8 rounded-2xl border border-gold-accent/10 bg-forest-mid/50"
@@ -338,10 +342,13 @@ function Testimonials() {
                   "{t.text}"
                 </p>
               </div>
+
             ))}
           </Marquee>
 
         </div>
+        <div className="from-forest-dark pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r"></div>
+        <div className="from-forest-dark pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
 
         <div className="text-center mt-12">
           <a href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
@@ -359,6 +366,7 @@ function HomePage() {
       <Hero />
       <Categories />
       <Testimonials />
+      <VideoSection />
       <CTABanner />
     </>
   )

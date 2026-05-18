@@ -1,4 +1,10 @@
 import { useMemo, useState } from 'react'
+import { Button } from "@/components/ui/button"
+import { Field, FieldLabel, FieldGroup } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { cn } from "@/lib/utils"
 
 const categories = [
   { id: 'jarra', name: 'Jarra de Autor', base: 95, eta: '10-14 dias' },
@@ -6,6 +12,13 @@ const categories = [
   { id: 'joyeria', name: 'Joyeria Botanica', base: 85, eta: '8-12 dias' },
   { id: 'set', name: 'Set Coleccion', base: 220, eta: '18-26 dias' },
 ]
+
+const PricingRow = ({ label, value, highlight = false }) => (
+  <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
+    <span className="text-[#c1c6d7]">{label}</span>
+    <span className={cn("font-bold", highlight && "text-[#aec6ff]")}>{value}</span>
+  </div>
+)
 
 export default function Encargos() {
   const [category, setCategory] = useState(categories[0].id)
@@ -22,80 +35,70 @@ export default function Encargos() {
   }, [quantity, selectedCategory])
 
   return (
-    <section className="min-h-screen bg-forest-deep text-[#e3e2e2] pt-28 pb-16 px-4 sm:px-6 lg:px-10">
-      {/* todo: implementar el subir fotos */}
+    <section className="min-h-screen bg-forest-deep text-[#e3e2e2] pt-28 pb-16 px-4 sm:px-6 lg:px-10 animate-blurred-fade-in">
       <div className="mx-auto w-full max-w-[1440px] grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <form className="rounded-lg border border-amber-500/50  bg-[#0A0A0A] p-6 md:p-8 space-y-5">
+        <form className="rounded-lg border border-amber-500/50 bg-[#0A0A0A] p-6 md:p-8 space-y-5">
           <div>
-            <p className="font-mono text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase">Formulario</p>
+            <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase">Formulario</p>
             <h1 className="font-bold text-3xl md:text-4xl tracking-[-0.02em] mt-2">Encargar una pieza</h1>
           </div>
 
-          <div>
-            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Nombre</label>
-            <input className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" type="text" placeholder="Tu nombre" />
-          </div>
+          <FieldGroup>
+            <Field>
+              <FieldLabel htmlFor="nombre">Nombre</FieldLabel>
+              <Input id="nombre" placeholder="Tu nombre" />
+            </Field>
 
-          <div>
-            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Correo</label>
-            <input className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" type="email" placeholder="tu@email.com" />
-          </div>
+            <Field>
+              <FieldLabel htmlFor="correo">Correo</FieldLabel>
+              <Input id="correo" type="email" placeholder="tu@email.com" />
+            </Field>
 
-          <div>
-            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Categoria</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]"
-            >
-              {categories.map((item) => (
-                <option key={item.id} value={item.id}>{item.name}</option>
-              ))}
-            </select>
-          </div>
+            <Field>
+              <FieldLabel htmlFor="categoria">Categoria</FieldLabel>
+              <Select value={category} onValueChange={setCategory}>
+                <SelectTrigger id="categoria">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {categories.map((item) => (
+                    <SelectItem key={item.id} value={item.id}>{item.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </Field>
 
-          <div>
-            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Cantidad</label>
-            <input
-              value={quantity}
-              onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
-              className="w-full rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]"
-              type="number"
-              min="1"
-            />
-          </div>
+            <Field>
+              <FieldLabel htmlFor="cantidad">Cantidad</FieldLabel>
+              <Input
+                id="cantidad"
+                type="number"
+                min="1"
+                value={quantity}
+                onChange={(e) => setQuantity(Math.max(1, Number(e.target.value) || 1))}
+              />
+            </Field>
 
-          <div>
-            <label className="block font-mono text-[11px] tracking-[0.08em] text-[#8b90a0] uppercase mb-2">Idea</label>
-            <textarea className="w-full min-h-28 rounded-md border border-[#333333] bg-[#121414] px-3 py-2 outline-none focus:border-[#0070f3]" placeholder="Describe tu encargo..." />
-          </div>
+            <Field>
+              <FieldLabel htmlFor="idea">Idea</FieldLabel>
+              <Textarea id="idea" placeholder="Describe tu encargo..." />
+            </Field>
+          </FieldGroup>
 
-          <button type="submit" className="w-full rounded-md py-3 font-bold text-white bg-evergreen-gold hover:bg-evergreen-gold/90 transition-colors duration-300">
+          <Button type="submit" className="w-full bg-gold-accent text-black hover:bg-gold-light">
             Enviar solicitud
-          </button>
+          </Button>
         </form>
 
-        <aside className="rounded-lg border border-amber-500/50  bg-[#0A0A0A] p-6 md:p-8 h-fit sticky top-24">
-          <p className="font-mono text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase mb-3">Precios dinamicos</p>
+        <aside className="rounded-lg border border-amber-500/50 bg-[#0A0A0A] p-6 md:p-8 h-fit sticky top-24">
+          <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase mb-3">Precios dinamicos</p>
           <h2 className="text-2xl font-bold mb-4">{selectedCategory?.name}</h2>
 
-          <div className="space-y-3">
-            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
-              <span className="text-[#c1c6d7]">Precio base</span>
-              <span className="font-bold">${pricing.base}</span>
-            </div>
-            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
-              <span className="text-[#c1c6d7]">Subtotal</span>
-              <span className="font-bold text-[#aec6ff]">${pricing.subtotal}</span>
-            </div>
-            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
-              <span className="text-[#c1c6d7]">Deposito (50%)</span>
-              <span className="font-bold">${pricing.deposito}</span>
-            </div>
-            <div className="flex items-center justify-between rounded-md border border-[#414754] bg-[#121414] p-3">
-              <span className="text-[#c1c6d7]">Tiempo estimado</span>
-              <span className="font-bold">{selectedCategory?.eta}</span>
-            </div>
+          <div className="flex flex-col gap-3">
+            <PricingRow label="Precio base" value={`$${pricing.base}`} />
+            <PricingRow label="Subtotal" value={`$${pricing.subtotal}`} highlight />
+            <PricingRow label="Deposito (50%)" value={`$${pricing.deposito}`} />
+            <PricingRow label="Tiempo estimado" value={selectedCategory?.eta} />
           </div>
         </aside>
       </div>
