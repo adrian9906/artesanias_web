@@ -2,7 +2,7 @@ import { Flower, Moon, FlaskConical, Sparkles, Gem } from "lucide-react";
 
 export default function InformacionEncargo() {
   return (
-    <section className="py-20 bg-[#050505] min-h-screen animate-blurred-fade-in">
+    <section className="py-20 bg-forest-dark min-h-screen animate-blurred-fade-in">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl pt-24">
         <div className="text-center mb-16">
           <h1 className="font-display text-4xl md:text-6xl text-cream font-bold mb-4 glow-text-primary tracking-tight">
@@ -18,7 +18,7 @@ export default function InformacionEncargo() {
 
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass-card rounded-xl p-8 col-span-1 md:col-span-2 relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
+            <div className="glass-card rounded-xl p-8 col-span-1 md:col-span-2 relative overflow-hidden group hover:scale-105 transition-transform duration-500 hover:border-evergreen-gold ">
               <div className="flex justify-between items-start mb-4">
                 <span className="text-xs font-mono text-evergreen-gold tracking-widest uppercase">FASE 01</span>
                 <Flower className="text-evergreen-gold opacity-80 w-6 h-6" />
@@ -28,7 +28,7 @@ export default function InformacionEncargo() {
                 Todo comienza con tu visión. Realizamos una consulta detallada para comprender tus inspiraciones, paleta de colores y el propósito de la pieza. Elaboramos bocetos iniciales y seleccionamos las texturas y motivos botánicos que darán vida a tu encargo.
               </p>
             </div>
-            <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
+            <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold hover:scale-105 transition-transform duration-500">
               <Moon className="text-evergreen-gold text-3xl mx-auto mb-4 opacity-80 w-8 h-8" />
               <h3 className="font-display text-xl text-cream mb-2">Compromiso Inicial</h3>
               <p className="text-cream/50 text-sm leading-relaxed">
@@ -38,14 +38,14 @@ export default function InformacionEncargo() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500">
+            <div className="glass-card rounded-xl p-8 flex flex-col justify-center text-center relative overflow-hidden group hover:border-evergreen-gold hover:scale-105 transition-transform duration-500">
               <FlaskConical className="text-evergreen-gold text-3xl mx-auto mb-4 opacity-80 w-8 h-8" />
               <h3 className="font-display text-xl text-cream mb-2">Tiempos de Creación</h3>
               <p className="text-cream/50 text-sm leading-relaxed">
                 Cada pieza requiere entre 4 y 6 semanas de meticuloso trabajo manual y curado.
               </p>
             </div>
-            <div className="glass-card rounded-xl p-8 col-span-1 md:col-span-2 relative overflow-hidden group hover:border-evergreen-gold transition-colors duration-500 flex flex-col justify-center">
+            <div className="glass-card rounded-xl p-8 col-span-1 md:col-span-2 relative overflow-hidden group hover:border-evergreen-gold hover:scale-105 transition-transform duration-500 flex flex-col justify-center">
               <div className="relative z-10 flex justify-between items-start mb-2">
                 <div>
                   <span className="text-xs font-mono text-evergreen-gold tracking-widest uppercase mb-1 block">FASE 02</span>
@@ -59,7 +59,7 @@ export default function InformacionEncargo() {
             </div>
           </div>
 
-          <div className="glass-card rounded-xl p-8 relative overflow-hidden group hover:border-evergreen-gold/60 transition-colors duration-500">
+          <div className="glass-card rounded-xl p-8 relative overflow-hidden group hover:border-evergreen-gold/60 hover:scale-105 transition-transform duration-500">
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="w-full md:w-3/5">
                 <div className="flex justify-between items-start mb-4">
@@ -89,7 +89,7 @@ export default function InformacionEncargo() {
           </div>
         </div>
 
-        <div className="mt-16 glass-card rounded-xl p-12 text-center relative overflow-hidden group hover:border-evergreen-gold/60 transition-colors duration-500">
+        <div className="mt-16 glass-card rounded-xl p-12 text-center relative overflow-hidden group hover:border-evergreen-gold/60 hover:scale-105 transition-transform duration-500">
           <div className="absolute inset-0 bg-radial-gradient from-evergreen-gold-glow via-transparent to-transparent opacity-20"></div>
           <h2 className="text-3xl md:text-4xl font-display text-cream mb-4 relative z-10">
             ¿Listo para crear algo <span className="text-evergreen-gold glow-text-primary">extraordinario?</span>

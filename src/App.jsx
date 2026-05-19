@@ -309,14 +309,37 @@ const testimonials = [
 ]
 
 function Testimonials() {
+  const titleRef = useRef(null)
+  const sectionRef = useRef(null)
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        titleRef.current,
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 85%',
+          },
+        },
+      )
+    }, sectionRef)
+    return () => ctx.revert()
+  }, [])
   return (
-    <section className="py-24 bg-forest-dark relative overflow-hidden">
+    <section ref={sectionRef} className="py-24 bg-forest-dark relative overflow-hidden">
       <div className="absolute inset-0 noise-overlay" />
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-full mx-auto px-8">
-        <div className="text-center mb-16">
+        <div ref={titleRef} className="text-center mb-16">
           <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">Testimonios</span>
           <h2 className="font-display text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
           <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
@@ -378,7 +401,6 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/informacion-de-encargo" element={<InformacionEncargo />} />
-        <Route path="/tracking" element={<Tracking />} />
         <Route path="/sobre-nosotros" element={<SobreNosotros />} />
         <Route path="/encargos" element={<Encargos />} />
         <Route path="/noticias" element={<Noticias />} />

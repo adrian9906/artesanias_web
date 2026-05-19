@@ -35,7 +35,7 @@ export default function Encargos() {
   }, [quantity, selectedCategory])
 
   return (
-    <section className="min-h-screen bg-forest-deep text-[#e3e2e2] pt-28 pb-16 px-4 sm:px-6 lg:px-10 animate-blurred-fade-in">
+    <section className="min-h-screen bg-forest-dark text-[#e3e2e2] pt-28 pb-16 px-4 sm:px-6 lg:px-10 animate-blurred-fade-in">
       <div className="mx-auto w-full max-w-[1440px] grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <form className="rounded-lg border border-amber-500/50 bg-[#0A0A0A] p-6 md:p-8 space-y-5">
           <div>

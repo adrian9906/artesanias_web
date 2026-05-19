@@ -47,6 +47,7 @@ export default function Hero() {
   const bgRef = useRef(null)
   const slideRefs = useRef([])
   const heroSectionRef = useRef(null)
+  const titleRef = useRef(null)
 
   const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex])
 
@@ -75,6 +76,20 @@ export default function Hero() {
     if (!isHeroImageReady) return
 
     const ctx = gsap.context(() => {
+      gsap.fromTo(
+        titleRef.current,
+        { y: 40, autoAlpha: 0 },
+        {
+          y: 0,
+          autoAlpha: 1,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: titleRef.current,
+            start: 'top 85%',
+          },
+        },
+      )
       gsap.fromTo(
         '.hero-main-image',
         { autoAlpha: 0, scale: 1.08, filter: 'blur(10px)' },
@@ -187,7 +202,7 @@ export default function Hero() {
 
       <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
         <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
-          <div className="mb-10 text-center">
+          <div ref={titleRef} className="mb-10 text-center">
             <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galeria</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />

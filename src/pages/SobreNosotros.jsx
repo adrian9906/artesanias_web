@@ -92,7 +92,7 @@ export default function SobreNosotros() {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-[#050a06] animate-blurred-fade-in"
+      className="relative min-h-screen overflow-hidden bg-forest-dark animate-blurred-fade-in"
       style={{
         backgroundImage:
           'radial-gradient(circle at 20% 20%, rgba(197,160,89,0.1), transparent 40%), radial-gradient(circle at 80% 30%, rgba(92,150,110,0.1), transparent 40%)',

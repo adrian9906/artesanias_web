@@ -24,24 +24,18 @@ const relatedArticles = [
 
 export default function Blog() {
   return (
-    <div className="relative min-h-screen antialiased selection:bg-yellow-900 selection:text-white" style={{ 
-      backgroundColor: '#050a08',
-      backgroundImage: 'url("https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=1920&q=80")',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundAttachment: 'fixed'
-    }}>
-      <div className="fixed inset-0 bg-gradient-to-b from-black/60 via-[#050a08]/80 to-[#050a08] z-0 pointer-events-none" />
+    <div className="relative min-h-screen antialiased selection:bg-yellow-900 selection:text-white bg-forest-dark" >
+      <div className="fixed inset-0  z-0 pointer-events-none" />
 
       <div className="relative z-10 pt-32 pb-24">
         <section className="container mx-auto px-6 text-center pt-20 pb-32">
           <h1 className="text-6xl md:text-8xl font-bold text-cream leading-tight drop-shadow-lg max-w-5xl mx-auto font-display">
-            El Secreto Místico <br/> de la Porcelana
+            El Secreto Místico <br /> de la Porcelana
           </h1>
         </section>
 
         <section className="container mx-auto px-4 max-w-3xl relative">
-          <div 
+          <div
             className="rounded-2xl p-8 md:p-12 relative overflow-hidden"
             style={{
               background: 'rgba(10, 15, 12, 0.7)',
@@ -66,12 +60,12 @@ export default function Blog() {
             </div>
 
             <article className="text-cream/70 font-light leading-relaxed">
-              <p className="text-xl mb-6" style={{ 
+              <p className="text-xl mb-6" style={{
                 fontFamily: '"Playfair Display", serif',
                 fontSize: '1.25rem',
                 fontStyle: 'italic'
               }}>
-                <span style={{ 
+                <span style={{
                   fontFamily: '"Playfair Display", serif',
                   fontSize: '3.5rem',
                   float: 'left',
@@ -87,10 +81,10 @@ export default function Blog() {
               </p>
 
               <div className="my-12">
-                <img 
-                  alt="Manos esculpiendo flor de porcelana" 
-                  className="w-full h-auto rounded-lg shadow-2xl object-cover border border-white/5" 
-                  src="https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80" 
+                <img
+                  alt="Manos esculpiendo flor de porcelana"
+                  className="w-full h-auto rounded-lg shadow-2xl object-cover border border-white/5"
+                  src="https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=800&q=80"
                 />
               </div>
 
@@ -112,7 +106,7 @@ export default function Blog() {
 
             <div className="flex flex-wrap gap-3 mt-12 pt-8 border-t border-cream/20">
               {['#ARTESANÍA', '#MISTICISMO', '#NATURALEZA'].map((tag) => (
-                <span 
+                <span
                   key={tag}
                   className="px-4 py-1.5 rounded-full border border-cream/20 text-xs text-cream/60 hover:bg-cream/10 transition-colors cursor-pointer uppercase tracking-wider"
                 >
@@ -133,7 +127,7 @@ export default function Blog() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedArticles.map((article, i) => (
-              <a 
+              <a
                 key={i}
                 className="rounded-xl overflow-hidden hover:-translate-y-1 transition-transform duration-300 group"
                 href="#"
@@ -145,10 +139,10 @@ export default function Blog() {
                 }}
               >
                 <div className="h-48 overflow-hidden">
-                  <img 
-                    alt={article.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    src={article.image} 
+                  <img
+                    alt={article.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    src={article.image}
                   />
                 </div>
                 <div className="p-6">
