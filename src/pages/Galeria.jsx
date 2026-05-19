@@ -1,160 +1,238 @@
-const portfolio = [
+import { useEffect, useRef } from "react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+
+const catalogo = [
   {
-    id: 1,
-    title: 'Jarra Botánica de Luna',
-    client: 'María Elena',
-    description: 'Una pieza commissioned para un jardín zen. Representa la luna llena reflejada en un estanque de lirios.',
-    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=600&q=80',
-    category: 'Decoración',
-    testimonial: 'La pieza transformó completamente mi jardín. Es como tener un pedazo del bosque en casa.',
-    testimonialAuthor: 'María Elena, Cliente',
+    id: "funkos",
+    nombre: "Funkos Pop personalizados",
+    precio: "30 USD",
+    historia:
+      "Cada Funko nace de una historia real: profesiones, bandas favoritas y personajes que marcaron momentos importantes. Modelamos rasgos, colores y detalles para que cada pieza se sienta como un recuerdo vivo.",
+    casosExito: [
+      "https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?w=900&q=80",
+      "https://images.unsplash.com/photo-1601645191163-3fc0d5d64e96?w=900&q=80",
+      "https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?w=900&q=80",
+    ],
   },
   {
-    id: 2,
-    title: 'Collar de Espiral',
-    client: 'Carlos Ruiz',
-    description: 'Collar personalizado inspirado en spirals naturales, fatto con pigmentos de tierra.',
-    image: 'https://images.unsplash.com/photo-1515562141589-67f0d0eac004?w=600&q=80',
-    category: 'Joyería',
-    testimonial: 'Llevo este collar todos los días. Es único y tiene una energía especial que no puedo explicar.',
-    testimonialAuthor: 'Carlos Ruiz, Cliente',
+    id: "jarras",
+    nombre: "Jarras artesanales",
+    precio: "15 USD",
+    historia:
+      "Nuestras jarras se inspiran en mesas familiares y cafecitos de domingo. Cada pieza se termina a mano, con acabados organicos y tonos calidos para que cada bebida tenga su propio ritual.",
+    casosExito: [
+      "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80",
+      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80",
+      "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=900&q=80",
+    ],
   },
   {
-    id: 3,
-    title: 'Escultura de Hada Invernal',
-    client: 'Ana Sofía',
-    description: 'Figura decorativa para una colección privada de hadas y criaturas místicas.',
-    image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&q=80',
-    category: 'Escultura',
-    testimonial: 'La atención al detalle es increíble. Cada fibra, cada textura está perfectamente ejecutada.',
-    testimonialAuthor: 'Ana Sofía, Cliente',
-  },
-  {
-    id: 4,
-    title: 'Set de Tazas Forestales',
-    client: 'Roberto Mendoza',
-    description: 'Un set de 4 tazas con motivos de hojas y musgo, perfectas para el coleccionista de cerámica.',
-    image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&q=80',
-    category: 'Decoración',
-    testimonial: 'Son más bonitas en persona que en fotos. La calidad del trabajo artesanal se nota.',
-    testimonialAuthor: 'Roberto Mendoza, Cliente',
-  },
-  {
-    id: 5,
-    title: 'Aplique de Pared Floral',
-    client: 'Lucía Fernández',
-    description: 'Decoración mural con flores preservadas en porcelana fría para un spa natural.',
-    image: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=600&q=80',
-    category: 'Decoración',
-    testimonial: 'Los clientes del spa no paran de preguntar dónde lo conseguí. Es una pieza de arte.',
-    testimonialAuthor: 'Lucía Fernández, Propietaria de Spa',
-  },
-  {
-    id: 6,
-    title: 'Anillo de Raíces',
-    client: 'Javier Torres',
-    description: 'Anillo artesanal que simula raíces entrelazadas, symbolizeando conexión con la tierra.',
-    image: 'https://images.unsplash.com/photo-1611597615434-17d0e97c5e79?w=600&q=80',
-    category: 'Joyería',
-    testimonial: 'Es un diseño único que no encuentras en ninguna tienda. Exactly lo que buscaba.',
-    testimonialAuthor: 'Javier Torres, Cliente',
+    id: "aretes",
+    nombre: "Aretes artesanales",
+    precio: "5 USD",
+    historia:
+      "Los aretes son nuestra coleccion mas juguetona: pequenos acentos de color para usar todos los dias. Livianos, resistentes y hechos para combinar con estilos casuales o elegantes.",
+    casosExito: [
+      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=900&q=80",
+      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80",
+      "https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?w=900&q=80",
+    ],
   },
 ]
 
+function PolaroidStack({ fotos, titulo }) {
+  return (
+    <div className="relative md:h-[520px] h-auto w-full max-w-3xl mx-auto overflow-visible" data-photo-stage>
+      {fotos.map((foto, index) => (
+        <figure
+          key={foto}
+          data-photo-card
+          className="md:absolute md:left-1/2 relative mx-auto w-[78%] sm:w-[60%] md:w-[42%] bg-cream p-3 pb-10 shadow-2xl md:mt-0 mt-6"
+          style={{ zIndex: 10 - index }}
+        >
+          <img src={foto} alt={`${titulo} caso ${index + 1}`} className="h-44 w-full object-cover" />
+          <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.2em] text-forest-dark/75">
+            Caso de exito #{index + 1}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  )
+}
+
 export default function Galeria() {
+  const sectionRefs = useRef([])
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+    const sections = sectionRefs.current.filter(Boolean)
+    if (!sections.length) return
+
+    const ctx = gsap.context(() => {
+      const mm = gsap.matchMedia()
+      mm.add("(min-width: 768px)", () => {
+        const firstSection = sections[0]
+        if (firstSection) {
+          gsap.set(firstSection, { autoAlpha: 1, yPercent: 0 })
+          const firstContent = firstSection.querySelector("[data-catalog-content]")
+          const firstPhotos = firstSection.querySelector("[data-catalog-photos]")
+          gsap.set([firstContent, firstPhotos], { autoAlpha: 1, yPercent: 0 })
+        }
+
+        sections.forEach((section, index) => {
+          const content = section.querySelector("[data-catalog-content]")
+          const photos = section.querySelector("[data-catalog-photos]")
+          const cards = photos?.querySelectorAll("[data-photo-card]")
+          const previous = sections[index - 1]
+          if (!content || !photos || !cards?.length) return
+
+          const cardArray = Array.from(cards)
+
+          // Visible stack at the top of the card
+          gsap.set(cardArray, {
+            xPercent: -50,
+            y: (i) => i * 34,
+            rotate: (i) => (i - 1) * 7,
+            scale: 1,
+          })
+
+          // Content fades in for sections after the first
+          if (index > 0) {
+            gsap.fromTo(
+              [content, photos],
+              { yPercent: 14, autoAlpha: 0 },
+              {
+                yPercent: 0,
+                autoAlpha: 1,
+                duration: 0.9,
+                ease: "power3.out",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top 78%",
+                  end: "top 46%",
+                  scrub: 1,
+                },
+              }
+            )
+          }
+
+          const startPos = index === 0 ? "top top" : "top 50%"
+          const dropY = Math.min(Math.max(section.offsetHeight * 0.68, 280), 420)
+          const spreadY = dropY + 200
+          const spreadX = [-260, 0, 260]
+          const carouselStep1 = [-520, -140, 240]
+          const carouselStep2 = [-760, -380, 0]
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: startPos,
+              end: "bottom 12%",
+              scrub: 1,
+            },
+            defaults: { ease: "power3.out" },
+          })
+
+          // Phase 1: Stack breathes a bit to mark the start of the transition.
+          tl.to(cardArray, {
+            y: (i) => i * 40,
+            rotate: (i) => (i - 1) * 5,
+            duration: 0.16,
+            stagger: 0.02,
+          }, 0)
+            // Phase 2: Stack drops below the section card.
+            .to(cardArray, {
+              y: dropY,
+              rotate: 0,
+              scale: 0.95,
+              duration: 0.2,
+              stagger: 0.03,
+            }, 0.16)
+            // Phase 3: Spread into a horizontal carousel below the card.
+            .to(cardArray, {
+              x: (i) => spreadX[i] ?? 0,
+              y: spreadY,
+              scale: 1,
+              duration: 0.22,
+            }, 0.36)
+            // Phase 4: Carousel shifts with scroll.
+            .to(cardArray, {
+              x: (i) => carouselStep1[i] ?? 0,
+              duration: 0.28,
+            }, 0.58)
+            .to(cardArray, {
+              x: (i) => carouselStep2[i] ?? 0,
+              duration: 0.28,
+            }, 0.82)
+
+          if (previous) {
+            tl.to(previous, {
+              autoAlpha: 0.4,
+              yPercent: -5,
+              duration: 0.4,
+            }, 0.04)
+          }
+        })
+      })
+      return () => mm.revert()
+    })
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <div className="min-h-screen bg-forest-dark relative">
       <div className="absolute inset-0 noise-overlay" />
-      
-      <div className="relative z-10 pt-32 pb-20 px-6 max-w-7xl mx-auto">
+
+      <div className="relative z-10 pt-32 pb-20 px-6 max-w-6xl mx-auto">
         <section className="text-center mb-16">
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-cream mb-6">
-            Nuestra Galería
-          </h1>
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-cream mb-6">Catalogo</h1>
           <p className="text-cream/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Trabajos únicos creados con alma artesana. Cada pieza cuenta una historia.
+            Secciones con precio fijo, historia real de cada linea y casos de exito presentados en polaroids apiladas.
           </p>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {portfolio.map((item) => (
-            <div 
+        <section>
+          {catalogo.map((item, idx) => (
+            <article
               key={item.id}
-              className="group"
+              ref={(node) => {
+                sectionRefs.current[idx] = node
+              }}
+              className="rounded-3xl p-8 md:p-10 mb-96 border border-gold-accent/30 bg-[linear-gradient(145deg,rgba(14,21,16,0.82),rgba(28,35,30,0.9))] overflow-visible"
             >
-              <div className="relative overflow-hidden rounded-2xl mb-4 aspect-square">
-                <img 
-                  alt={item.title} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  src={item.image}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                  <span className="text-xs uppercase tracking-widest text-gold-accent bg-forest-dark/80 px-3 py-1 rounded-full">
-                    {item.category}
-                  </span>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div data-catalog-content className={idx % 2 === 1 ? "lg:order-2" : ""}>
+                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">Seccion destacada</p>
+                  <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{item.nombre}</h2>
+                  <div className="inline-flex items-center rounded-full border border-gold-accent/40 px-4 py-2 mb-6">
+                    <span className="text-gold-accent text-sm uppercase tracking-[0.2em]">Precio: {item.precio}</span>
+                  </div>
+                  <p className="text-cream/70 leading-relaxed mb-6">{item.historia}</p>
+                  <p className="text-cream/50 text-sm">Fotos reales de clientes satisfechos en formato polaroid stack.</p>
+                </div>
+
+                <div data-catalog-photos className={idx % 2 === 1 ? "lg:order-1" : ""}>
+                  <PolaroidStack fotos={item.casosExito} titulo={item.nombre} />
                 </div>
               </div>
-              
-              <div className="p-4">
-                <h3 className="font-display text-xl font-semibold text-cream mb-1">{item.title}</h3>
-                <p className="text-cream/50 text-sm mb-3">Para {item.client}</p>
-                <p className="text-cream/60 text-sm font-light line-clamp-2">{item.description}</p>
-              </div>
-            </div>
+            </article>
           ))}
         </section>
 
-        <section className="mt-24">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">Casos Exitosos</h2>
-            <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {portfolio.slice(0, 4).map((item, i) => (
-              <div 
-                key={i}
-                className="glass-card rounded-2xl p-8 relative overflow-hidden"
-                style={{
-                  background: 'rgba(20, 20, 20, 0.6)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(197, 160, 89, 0.2)'
-                }}
-              >
-                <div className="flex flex-col md:flex-row gap-6">
-                  <div className="w-full md:w-1/3">
-                    <img 
-                      alt={item.title} 
-                      className="w-full h-40 object-cover rounded-xl"
-                      src={item.image}
-                    />
-                  </div>
-                  <div className="w-full md:w-2/3">
-                    <h3 className="font-display text-xl text-cream mb-2">{item.title}</h3>
-                    <p className="text-cream/40 text-sm mb-4">{item.description}</p>
-                    
-                    <div className="border-t border-cream/10 pt-4 mt-4">
-                      <p className="text-gold-accent text-sm italic mb-2">"{item.testimonial}"</p>
-                      <p className="text-cream/50 text-xs uppercase tracking-widest">— {item.testimonialAuthor}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
         <section className="mt-24 text-center">
-          <div className="glass-card rounded-3xl p-12 max-w-3xl mx-auto" style={{
-            background: 'linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, rgba(20, 20, 20, 0.8) 100%)',
-            border: '1px solid rgba(197, 160, 89, 0.3)'
-          }}>
-            <h2 className="font-display text-3xl text-cream mb-4">¿Tienes una idea en mente?</h2>
+          <div
+            className="glass-card rounded-3xl p-12 max-w-3xl mx-auto"
+            style={{
+              background: "linear-gradient(135deg, rgba(197, 160, 89, 0.1) 0%, rgba(20, 20, 20, 0.8) 100%)",
+              border: "1px solid rgba(197, 160, 89, 0.3)",
+            }}
+          >
+            <h2 className="font-display text-3xl text-cream mb-4">Quieres tu pieza personalizada?</h2>
             <p className="text-cream/60 mb-8 max-w-xl mx-auto">
-              Cada pieza en esta galería comenzó como una visión única. Tu próxima pieza podría ser la siguiente en nuestra colección.
+              Cuentanos tu idea y te ayudamos a convertirla en una pieza artesanal con identidad propia.
             </p>
-            <a 
+            <a
               href="/encargos"
               className="inline-block bg-gold-accent text-forest-dark px-8 py-3 rounded-full font-semibold hover:bg-gold-light transition-colors duration-300"
             >
