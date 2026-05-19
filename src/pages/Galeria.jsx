@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react"
+﻿import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -8,7 +8,7 @@ const catalogo = [
     nombre: "Funkos Pop personalizados",
     precio: "30 USD",
     historia:
-      "Cada Funko nace de una historia real: profesiones, bandas favoritas y personajes que marcaron momentos importantes. Modelamos rasgos, colores y detalles para que cada pieza se sienta como un recuerdo vivo.",
+      "Cada Funko nace de una historia real: profesiones, bandas favoritas y personajes que marcaron momentos importantes. Modelamos rasgos, colores y detalles para que cada pieza sea un recuerdo vivo.",
     casosExito: [
       "https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?w=900&q=80",
       "https://images.unsplash.com/photo-1601645191163-3fc0d5d64e96?w=900&q=80",
@@ -20,7 +20,7 @@ const catalogo = [
     nombre: "Jarras artesanales",
     precio: "15 USD",
     historia:
-      "Nuestras jarras se inspiran en mesas familiares y cafecitos de domingo. Cada pieza se termina a mano, con acabados organicos y tonos calidos para que cada bebida tenga su propio ritual.",
+      "Nuestras jarras se inspiran en mesas familiares y cafecitos de domingo. Cada pieza se termina a mano, con acabados orgÃ¡nicos y tonos cÃ¡lidos para que cada bebida tenga su propio ritual.",
     casosExito: [
       "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80",
       "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80",
@@ -32,7 +32,7 @@ const catalogo = [
     nombre: "Aretes artesanales",
     precio: "5 USD",
     historia:
-      "Los aretes son nuestra coleccion mas juguetona: pequenos acentos de color para usar todos los dias. Livianos, resistentes y hechos para combinar con estilos casuales o elegantes.",
+      "Los aretes son nuestra colecciÃ³n mÃ¡s juguetona: pequeÃ±os acentos de color para usar todos los dÃ­as. Livianos, resistentes y hechos para combinar con estilos casuales o elegantes.",
     casosExito: [
       "https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=900&q=80",
       "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80",
@@ -53,7 +53,7 @@ function PolaroidStack({ fotos, titulo }) {
         >
           <img src={foto} alt={`${titulo} caso ${index + 1}`} className="h-44 w-full object-cover" />
           <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.2em] text-forest-dark/75">
-            Caso de exito #{index + 1}
+            Caso de éxito #{index + 1}
           </figcaption>
         </figure>
       ))}
@@ -181,14 +181,14 @@ export default function Galeria() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-forest-dark relative">
+    <div className="min-h-screen bg-forest-dark relative animate-blurred-fade-in">
       <div className="absolute inset-0 noise-overlay" />
 
       <div className="relative z-10 pt-32 pb-20 px-6 max-w-6xl mx-auto">
         <section className="text-center mb-16">
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-cream mb-6">Catalogo</h1>
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-cream mb-6">Catálogo</h1>
           <p className="text-cream/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Secciones con precio fijo, historia real de cada linea y casos de exito presentados en polaroids apiladas.
+            Secciones con precio fijo, historia real de cada línea y casos de éxito presentados en polaroids apiladas.
           </p>
         </section>
 
@@ -203,7 +203,7 @@ export default function Galeria() {
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div data-catalog-content className={idx % 2 === 1 ? "lg:order-2" : ""}>
-                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">Seccion destacada</p>
+                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">Sección destacada</p>
                   <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{item.nombre}</h2>
                   <div className="inline-flex items-center rounded-full border border-gold-accent/40 px-4 py-2 mb-6">
                     <span className="text-gold-accent text-sm uppercase tracking-[0.2em]">Precio: {item.precio}</span>
@@ -228,9 +228,9 @@ export default function Galeria() {
               border: "1px solid rgba(197, 160, 89, 0.3)",
             }}
           >
-            <h2 className="font-display text-3xl text-cream mb-4">Quieres tu pieza personalizada?</h2>
+            <h2 className="font-display text-3xl text-cream mb-4">¿Quieres tu pieza personalizada?</h2>
             <p className="text-cream/60 mb-8 max-w-xl mx-auto">
-              Cuentanos tu idea y te ayudamos a convertirla en una pieza artesanal con identidad propia.
+              Cuéntanos tu idea y te ayudamos a convertirla en una pieza artesanal con identidad propia.
             </p>
             <a
               href="/encargos"
@@ -244,3 +244,4 @@ export default function Galeria() {
     </div>
   )
 }
+

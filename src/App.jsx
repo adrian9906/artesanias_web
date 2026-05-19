@@ -6,7 +6,6 @@ import Layout from './components/Layout'
 import Hero from './components/hero'
 import VideoSection from './components/VideoSection'
 import InformacionEncargo from './pages/InformacionEncargo'
-import Tracking from './pages/Tracking'
 import SobreNosotros from './pages/SobreNosotros'
 import Encargos from './pages/Encargos'
 import Noticias from './pages/Noticias'
@@ -21,25 +20,25 @@ import { ChevronRight } from 'lucide-react'
 const categories = [
   {
     title: 'Jarras de Autor',
-    desc: 'Disenos organicos unicos que elevan tu mesa diaria.',
+    desc: 'Disenos orgánicos únicos que elevan tu mesa diaria.',
     story:
       'Cada jarra nace del estudio de formas naturales y termina con acabados que imitan piedra, corteza y musgo. Son piezas para convertir una mesa cotidiana en una escena ritual.',
     img: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1200&q=80',
-    cta: 'Ver coleccion',
+    cta: 'Ver colección',
   },
   {
     title: 'Funkos Personalizados',
-    desc: 'Tus personajes favoritos capturados en porcelana fria.',
+    desc: 'Tus personajes favoritos capturados en porcelana fría.',
     story:
       'Tomamos referencias, bocetos y expresiones clave para modelar versiones unicas de tus personajes. Cada figura conserva personalidad, gesto y narrativa.',
     img: 'https://images.unsplash.com/photo-1611597615434-17d0e97c5e79?w=1200&q=80',
-    cta: 'Saber mas',
+    cta: 'Saber más',
   },
   {
-    title: 'Joyeria Botanica',
+    title: 'Joyería Botánica',
     desc: 'Naturaleza preservada en piezas de arte para vestir.',
     story:
-      'Flores, hojas y texturas organicas se traducen en joyas ligeras con detalle escultorico. Es una linea pensada para llevar naturaleza contigo todos los dias.',
+      'Flores, hojas y texturas orgánicas se traducen en joyas ligeras con detalle escultorico. Es una linea pensada para llevar naturaleza contigo todos los días.',
     img: 'https://images.unsplash.com/photo-1515562141589-67f0d0eac004?w=1200&q=80',
     cta: 'Explorar',
   },
@@ -130,7 +129,7 @@ function Categories() {
     <section ref={sectionRef} className="py-24 bg-forest-deep overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="categories-title text-center mb-20">
-          <h2 className="font-display text-4xl text-cream mb-4">Nuestras Categorias</h2>
+          <h2 className="font-display text-4xl text-cream mb-4">Nuestras Categorías</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
         </div>
 
@@ -142,7 +141,7 @@ function Categories() {
             >
               <div className="category-story will-change-transform">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
-                  Categoria {String(i + 1).padStart(2, '0')}
+                  Categoría {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{cat.title}</h3>
                 <p className="text-cream/60 text-base leading-relaxed mb-6">{cat.story}</p>
@@ -271,14 +270,14 @@ function CTABanner() {
           </h2>
 
           <p className="font-body text-body text-cream font-semibold max-w-xl mb-12">
-            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el ultimo detalle del acabado.
+            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el último detalle del acabado.
           </p>
 
           <button
             ref={buttonRef}
             className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
           >
-            <span className="truncate text-black font-extrabold">Encargar pieza unica</span>
+            <span className="truncate text-black font-extrabold">Encargar pieza única</span>
             <ChevronRight className="text-black" size={20} />
           </button>
         </div>
@@ -290,20 +289,20 @@ function CTABanner() {
 const testimonials = [
   {
     name: 'Maria Elena',
-    location: 'Ciudad de Mexico',
-    text: 'La pieza transformo completamente mi jardin. Es como tener un pedazo del bosque en casa.',
+    location: 'Ciudad de México',
+    text: 'La pieza transformo completamente mi jardín. Es como tener un pedazo del bosque en casa.',
     image: null,
   },
   {
     name: 'Carlos Ruiz',
     location: 'Guadalajara',
-    text: 'Llevo este collar todos los dias. Es unico y tiene una energia especial que no puedo explicar.',
+    text: 'Llevo este collar todos los días. Es único y tiene una energía especial que no puedo explicar.',
     image: null,
   },
   {
     name: 'Ana Sofia',
     location: 'Monterrey',
-    text: 'La atencion al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
+    text: 'La atención al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
     image: null,
   },
 ]

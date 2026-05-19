@@ -7,10 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils"
 
 const categories = [
-  { id: 'jarra', name: 'Jarra de Autor', base: 95, eta: '10-14 dias' },
-  { id: 'funko', name: 'Figura Personalizada', base: 140, eta: '14-20 dias' },
-  { id: 'joyeria', name: 'Joyeria Botanica', base: 85, eta: '8-12 dias' },
-  { id: 'set', name: 'Set Coleccion', base: 220, eta: '18-26 dias' },
+  { id: 'jarra', name: 'Jarra de autor', base: 95, eta: '10-14 días' },
+  { id: 'funko', name: 'Figura personalizada', base: 140, eta: '14-20 días' },
+  { id: 'joyeria', name: 'Joyería botánica', base: 85, eta: '8-12 días' },
+  { id: 'set', name: 'Set colección', base: 220, eta: '18-26 días' },
 ]
 
 const PricingRow = ({ label, value, highlight = false }) => (
@@ -55,7 +55,7 @@ export default function Encargos() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="categoria">Categoria</FieldLabel>
+              <FieldLabel htmlFor="categoria">Categoría</FieldLabel>
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger id="categoria">
                   <SelectValue />

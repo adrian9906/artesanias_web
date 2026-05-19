@@ -8,7 +8,7 @@ const videos = [
     platform: 'youtube',
     id: 'dDBAPJxat2Y',
     title: 'Modelado a mano de jarra decorativa',
-    description: 'Cada pieza comienza con un bloque de porcelana fria y horas de dedicacion artesanal.',
+    description: 'Cada pieza comienza con un bloque de porcelana fría y horas de dedicacion artesanal.',
     thumbnail: null,
   },
   {
@@ -28,7 +28,7 @@ const videos = [
   {
     platform: 'instagram',
     id: 'Cx9V3KzOj8M',
-    title: 'Taller en vivo: creacion de joyeria botanica',
+    title: 'Taller en vivo: creación de joyería botánica',
     description: 'Un vistazo exclusivo a nuestro taller mientras transformamos flores preservadas en piezas de arte.',
     thumbnail: null,
   },
@@ -203,11 +203,11 @@ export default function VideoSection() {
         <div ref={titleRef} className="text-center mb-6">
           <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/60">Detras del arte</span>
           <h2 className="font-display text-4xl md:text-5xl text-cream mt-4 mb-3 leading-tight">
-            Procesos de Creacion
+            Procesos de Creación
           </h2>
           <div className="w-16 h-px bg-gold-accent/40 mx-auto mb-1" />
           <p className="text-cream/40 text-sm mt-4 max-w-md mx-auto">
-            Cada pieza cuenta una historia. Mira como nacen nuestras creaciones desde el primer boceto hasta el ultimo detalle.
+            Cada pieza cuenta una historia. Mira como nacen nuestras creaciones desde el primer boceto hasta el último detalle.
           </p>
         </div>
 
@@ -216,11 +216,10 @@ export default function VideoSection() {
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`px-5 py-2 rounded-full text-xs uppercase tracking-[0.15em] border transition-all duration-300 ${
-                filter === f.value
-                  ? 'bg-gold-accent text-forest-dark border-gold-accent font-semibold'
-                  : 'bg-transparent text-cream/50 border-gold-accent/20 hover:border-gold-accent/50 hover:text-cream/80'
-              }`}
+              className={`px-5 py-2 rounded-full text-xs uppercase tracking-[0.15em] border transition-all duration-300 ${filter === f.value
+                ? 'bg-gold-accent text-forest-dark border-gold-accent font-semibold'
+                : 'bg-transparent text-cream/50 border-gold-accent/20 hover:border-gold-accent/50 hover:text-cream/80'
+                }`}
             >
               {f.label}
             </button>
@@ -238,7 +237,7 @@ export default function VideoSection() {
             href="/galeria"
             className="inline-flex items-center gap-2 text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]"
           >
-            Ver galeria completa
+            Ver galería completa
             <ExternalLink size={14} />
           </a>
         </div>

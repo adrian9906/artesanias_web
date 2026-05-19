@@ -17,22 +17,22 @@ const gallerySlides = [
     ],
   },
   {
-    title: 'Trabajo Realizado: Joyeria Botanica',
+    title: 'Trabajo Realizado: Joyería Botánica',
     subtitle: 'Composiciones ligeras inspiradas en hojas y flores preservadas.',
     background: 'radial-gradient(circle at 80% 30%, rgba(102,152,94,0.32), rgba(10,26,15,0.95) 58%)',
     accent: '#7cb879',
     images: [
-      { src: '/hero.png', alt: 'Pieza botanica', className: 'left-[10%] top-[26%] h-48 w-36 md:h-64 md:w-48 rotate-[6deg]' },
+      { src: '/hero.png', alt: 'Pieza botánica', className: 'left-[10%] top-[26%] h-48 w-36 md:h-64 md:w-48 rotate-[6deg]' },
       { src: '/fondo2.jpeg', alt: 'Proceso artesanal', className: 'left-[40%] top-[12%] h-40 w-34 md:h-52 md:w-44 rotate-[-10deg]' },
     ],
   },
   {
-    title: 'Trabajo Realizado: Coleccion Personalizada',
+    title: 'Trabajo Realizado: Colección Personalizada',
     subtitle: 'Pedido especial con narrativa visual para evento privado.',
     background: 'radial-gradient(circle at 55% 80%, rgba(174,126,82,0.33), rgba(10,26,15,0.96) 62%)',
     accent: '#d18d60',
     images: [
-      { src: '/jarra.jpeg', alt: 'Coleccion personalizada', className: 'left-[12%] top-[14%] h-40 w-32 md:h-52 md:w-40 rotate-[-12deg]' },
+      { src: '/jarra.jpeg', alt: 'Colección personalizada', className: 'left-[12%] top-[14%] h-40 w-32 md:h-52 md:w-40 rotate-[-12deg]' },
       { src: '/fondo2.jpeg', alt: 'Mesa con piezas', className: 'left-[34%] top-[38%] h-44 w-38 md:h-60 md:w-48 rotate-[4deg]' },
       { src: '/hero.png', alt: 'Acabado final de obra', className: 'right-[9%] top-[20%] h-48 w-36 md:h-64 md:w-48 rotate-[12deg]' },
     ],
@@ -188,13 +188,13 @@ export default function Hero() {
 
         <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl pt-24">
           <h1 className="hero-text-reveal font-display text-5xl md:text-7xl mb-6 text-cream leading-tight opacity-0">
-            Ceramica fria con <span className="text-gold-light italic">alma artesana</span>
+            Cerámica fría con <span className="text-gold-light italic">alma artesana</span>
           </h1>
           <p className="hero-text-reveal text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
-            Piezas exclusivas modeladas a mano con acabado en porcelana fria. Disenos que capturan la esencia de la naturaleza en cada detalle.
+            Piezas exclusivas modeladas a mano con acabado en porcelana fría. Disenos que capturan la esencia de la naturaleza en cada detalle.
           </p>
           <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="#">
-            Encargar pieza unica
+            Encargar pieza única
           </a>
         </div>
         <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
@@ -203,7 +203,7 @@ export default function Hero() {
       <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
         <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
           <div ref={titleRef} className="mb-10 text-center">
-            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galeria</p>
+            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galería</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />
           </div>

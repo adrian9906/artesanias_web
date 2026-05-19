@@ -4,21 +4,21 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const branches = [
   {
-    title: 'Raiz del Taller',
-    text: 'Todo comenzo con barro, silencio y una mesa de trabajo improvisada.',
+    title: 'Raíz del taller',
+    text: 'Todo comenzó con barro, silencio y una mesa de trabajo improvisada.',
     image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80',
     side: 'left',
     top: '22%',
   },
   {
-    title: 'Rama de Aprendizaje',
-    text: 'Cada encargo trajo tecnicas nuevas y una sensibilidad mas precisa.',
+    title: 'Rama de aprendizaje',
+    text: 'Cada encargo trajo técnicas nuevas y una sensibilidad más precisa.',
     image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80',
     side: 'right',
     top: '42%',
   },
   {
-    title: 'Rama de Vinculos',
+    title: 'Rama de vínculos',
     text: 'Las piezas dejaron de ser objetos: pasaron a guardar historias familiares.',
     image: 'https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=900&q=80',
     side: 'left',

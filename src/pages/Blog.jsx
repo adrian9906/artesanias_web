@@ -2,21 +2,21 @@ const relatedArticles = [
   {
     category: 'Rituales',
     categoryColor: 'text-yellow-600',
-    title: 'Cantos de Arcilla al Amanecer',
+    title: 'Cantos de arcilla al amanecer',
     excerpt: 'Descubre cómo los sonidos del bosque influyen en el ritmo del modelado manual.',
     image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80',
   },
   {
     category: 'Técnica',
     categoryColor: 'text-pink-400',
-    title: 'Pigmentos de la Tierra Viva',
+    title: 'Pigmentos de la tierra viva',
     excerpt: 'Una guía sobre la extracción de colores naturales a partir de raíces y líquenes.',
     image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=400&q=80',
   },
   {
     category: 'Inspiración',
     categoryColor: 'text-blue-400',
-    title: 'Donde Habitan las Sombras',
+    title: 'Donde habitan las sombras',
     excerpt: 'Explorando la estética de la melancolía y la belleza en la penumbra del bosque.',
     image: 'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=400&q=80',
   },
@@ -24,13 +24,13 @@ const relatedArticles = [
 
 export default function Blog() {
   return (
-    <div className="relative min-h-screen antialiased selection:bg-yellow-900 selection:text-white bg-forest-dark" >
+    <div className="relative min-h-screen antialiased selection:bg-yellow-900 selection:text-white bg-forest-dark animate-blurred-fade-in" >
       <div className="fixed inset-0  z-0 pointer-events-none" />
 
       <div className="relative z-10 pt-32 pb-24">
         <section className="container mx-auto px-6 text-center pt-20 pb-32">
           <h1 className="text-6xl md:text-8xl font-bold text-cream leading-tight drop-shadow-lg max-w-5xl mx-auto font-display">
-            El Secreto Místico <br /> de la Porcelana
+            El secreto místico <br /> de la porcelana
           </h1>
         </section>
 
@@ -55,7 +55,7 @@ export default function Blog() {
                 </div>
               </div>
               <div className="text-right text-sm text-cream/40 uppercase tracking-widest">
-                12 Oct, 2024 · 8 min lectura
+                12 oct. 2024 · 8 min de lectura
               </div>
             </div>
 
