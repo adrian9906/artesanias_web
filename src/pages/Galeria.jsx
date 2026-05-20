@@ -1,45 +1,9 @@
 ﻿import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { galleryCatalog } from "../data/productCatalog"
 
-const catalogo = [
-  {
-    id: "funkos",
-    nombre: "Funkos Pop personalizados",
-    precio: "30 USD",
-    historia:
-      "Cada Funko nace de una historia real: profesiones, bandas favoritas y personajes que marcaron momentos importantes. Modelamos rasgos, colores y detalles para que cada pieza sea un recuerdo vivo.",
-    casosExito: [
-      "https://images.unsplash.com/photo-1608889825103-eb5ed706fc64?w=900&q=80",
-      "https://images.unsplash.com/photo-1601645191163-3fc0d5d64e96?w=900&q=80",
-      "https://images.unsplash.com/photo-1514327605112-b887c0e61c0a?w=900&q=80",
-    ],
-  },
-  {
-    id: "jarras",
-    nombre: "Jarras artesanales",
-    precio: "15 USD",
-    historia:
-      "Nuestras jarras se inspiran en mesas familiares y cafecitos de domingo. Cada pieza se termina a mano, con acabados orgÃ¡nicos y tonos cÃ¡lidos para que cada bebida tenga su propio ritual.",
-    casosExito: [
-      "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80",
-      "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80",
-      "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=900&q=80",
-    ],
-  },
-  {
-    id: "aretes",
-    nombre: "Aretes artesanales",
-    precio: "5 USD",
-    historia:
-      "Los aretes son nuestra colecciÃ³n mÃ¡s juguetona: pequeÃ±os acentos de color para usar todos los dÃ­as. Livianos, resistentes y hechos para combinar con estilos casuales o elegantes.",
-    casosExito: [
-      "https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=900&q=80",
-      "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=900&q=80",
-      "https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?w=900&q=80",
-    ],
-  },
-]
+const catalogo = galleryCatalog
 
 function PolaroidStack({ fotos, titulo }) {
   return (
@@ -244,4 +208,7 @@ export default function Galeria() {
     </div>
   )
 }
+
+
+
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function Navbar() {
@@ -24,7 +24,7 @@ export default function Navbar() {
       <header
         className={`transition-all duration-500 ${scrolled
           ? 'bg-forest-deep/95 gap-4 backdrop-blur-md border-b py-4 px-6 rounded-full mt-2 border-white/10'
-          : 'bg-transparent  py-1 px-2 gap-6'
+          : 'bg-transparent py-1 px-2 gap-6'
           }`}
       >
         <div className={`container mx-auto px-6 py-4 flex justify-between ${scrolled ? 'gap-6' : 'gap-4'} items-center`}>
@@ -63,13 +63,6 @@ export default function Navbar() {
             </Link>
 
             <Link
-              className={`${isActive('/blog') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`}
-              to="/blog"
-            >
-              Blog
-            </Link>
-
-            <Link
               className={`${isActive('/noticias') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`}
               to="/noticias"
             >
@@ -78,7 +71,7 @@ export default function Navbar() {
 
             <Link
               className="border border-gold-accent/60 text-gold-light px-5 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm"
-              to="#"
+              to="/encargos"
             >
               Encargar
             </Link>

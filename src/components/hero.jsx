@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+﻿import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ArrowDown } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
+import { productImages } from '../data/productCatalog'
 
 const gallerySlides = [
   {
@@ -11,34 +12,56 @@ const gallerySlides = [
     background: 'radial-gradient(circle at 20% 20%, rgba(189,156,92,0.35), rgba(10,26,15,0.95) 60%)',
     accent: '#d5b06b',
     images: [
-      { src: '/jarra.jpeg', alt: 'Jarra artesanal', className: 'left-[8%] top-[16%] h-44 w-36 md:h-60 md:w-48 rotate-[-8deg]' },
-      { src: '/hero.png', alt: 'Detalle de pieza artesanal', className: 'left-[35%] top-[34%] h-40 w-32 md:h-52 md:w-40 rotate-[5deg]' },
-      { src: '/fondo2.jpeg', alt: 'Ambiente del taller', className: 'right-[9%] top-[14%] h-48 w-38 md:h-64 md:w-52 rotate-[10deg]' },
+      { src: productImages.jarras[0], alt: 'Jarra artesanal 1', className: 'left-[8%] top-[16%] h-44 w-36 md:h-60 md:w-48 rotate-[-8deg]' },
+      { src: productImages.jarras[1], alt: 'Jarra artesanal 2', className: 'left-[35%] top-[34%] h-40 w-32 md:h-52 md:w-40 rotate-[5deg]' },
+      { src: productImages.jarras[2], alt: 'Jarra artesanal 3', className: 'right-[9%] top-[14%] h-48 w-38 md:h-64 md:w-52 rotate-[10deg]' },
     ],
   },
   {
-    title: 'Trabajo Realizado: Joyería Botánica',
-    subtitle: 'Composiciones ligeras inspiradas en hojas y flores preservadas.',
+    title: 'Trabajo Realizado: Funkos Personalizados',
+    subtitle: 'Personajes modelados a mano con acabados expresivos y unicos.',
     background: 'radial-gradient(circle at 80% 30%, rgba(102,152,94,0.32), rgba(10,26,15,0.95) 58%)',
     accent: '#7cb879',
     images: [
-      { src: '/hero.png', alt: 'Pieza botánica', className: 'left-[10%] top-[26%] h-48 w-36 md:h-64 md:w-48 rotate-[6deg]' },
-      { src: '/fondo2.jpeg', alt: 'Proceso artesanal', className: 'left-[40%] top-[12%] h-40 w-34 md:h-52 md:w-44 rotate-[-10deg]' },
+      { src: productImages.funkos[0], alt: 'Funko personalizado 1', className: 'left-[10%] top-[26%] h-48 w-36 md:h-64 md:w-48 rotate-[6deg]' },
+      { src: productImages.funkos[1], alt: 'Funko personalizado 2', className: 'left-[40%] top-[12%] h-40 w-34 md:h-52 md:w-44 rotate-[-10deg]' },
+      { src: productImages.funkos[2], alt: 'Funko personalizado 3', className: 'right-[8%] top-[20%] h-44 w-34 md:h-58 md:w-46 rotate-[8deg]' },
     ],
   },
   {
-    title: 'Trabajo Realizado: Colección Personalizada',
-    subtitle: 'Pedido especial con narrativa visual para evento privado.',
+    title: 'Trabajo Realizado: Aretes Artesanales',
+    subtitle: 'Piezas ligeras con identidad natural para looks diarios.',
     background: 'radial-gradient(circle at 55% 80%, rgba(174,126,82,0.33), rgba(10,26,15,0.96) 62%)',
     accent: '#d18d60',
     images: [
-      { src: '/jarra.jpeg', alt: 'Colección personalizada', className: 'left-[12%] top-[14%] h-40 w-32 md:h-52 md:w-40 rotate-[-12deg]' },
-      { src: '/fondo2.jpeg', alt: 'Mesa con piezas', className: 'left-[34%] top-[38%] h-44 w-38 md:h-60 md:w-48 rotate-[4deg]' },
-      { src: '/hero.png', alt: 'Acabado final de obra', className: 'right-[9%] top-[20%] h-48 w-36 md:h-64 md:w-48 rotate-[12deg]' },
+      { src: productImages.aretes[0], alt: 'Aretes artesanales 1', className: 'left-[12%] top-[14%] h-40 w-32 md:h-52 md:w-40 rotate-[-12deg]' },
+      { src: productImages.aretes[1], alt: 'Aretes artesanales 2', className: 'left-[34%] top-[38%] h-44 w-38 md:h-60 md:w-48 rotate-[4deg]' },
+      { src: productImages.aretes[2], alt: 'Aretes artesanales 3', className: 'right-[9%] top-[20%] h-48 w-36 md:h-64 md:w-48 rotate-[12deg]' },
+    ],
+  },
+  {
+    title: 'Coleccion Mixta: Funkos y Jarras',
+    subtitle: 'Contraste entre piezas decorativas y utilitarias con sello artesanal.',
+    background: 'radial-gradient(circle at 25% 78%, rgba(197,160,89,0.3), rgba(10,26,15,0.95) 60%)',
+    accent: '#c5a059',
+    images: [
+      { src: productImages.funkos[1], alt: 'Funko y estilo artesanal', className: 'left-[8%] top-[18%] h-42 w-34 md:h-56 md:w-44 rotate-[-8deg]' },
+      { src: productImages.jarras[0], alt: 'Jarra en coleccion mixta', className: 'left-[36%] top-[34%] h-40 w-34 md:h-52 md:w-42 rotate-[6deg]' },
+      { src: productImages.funkos[2], alt: 'Funko edicion especial', className: 'right-[8%] top-[16%] h-46 w-36 md:h-62 md:w-48 rotate-[12deg]' },
+    ],
+  },
+  {
+    title: 'Coleccion Mixta: Aretes y Jarras',
+    subtitle: 'Texturas botanicas y paletas calidas para una linea elegante.',
+    background: 'radial-gradient(circle at 78% 20%, rgba(130,176,117,0.3), rgba(10,26,15,0.95) 58%)',
+    accent: '#91c285',
+    images: [
+      { src: productImages.aretes[1], alt: 'Aretes en coleccion mixta', className: 'left-[9%] top-[22%] h-44 w-34 md:h-58 md:w-44 rotate-[7deg]' },
+      { src: productImages.jarras[2], alt: 'Jarra floral en coleccion mixta', className: 'left-[38%] top-[12%] h-40 w-34 md:h-52 md:w-42 rotate-[-10deg]' },
+      { src: productImages.aretes[0], alt: 'Aretes edicion natural', className: 'right-[10%] top-[24%] h-46 w-36 md:h-60 md:w-46 rotate-[10deg]' },
     ],
   },
 ]
-
 export default function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isHeroImageReady, setIsHeroImageReady] = useState(false)
@@ -188,13 +211,13 @@ export default function Hero() {
 
         <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl pt-24">
           <h1 className="hero-text-reveal font-display text-5xl md:text-7xl mb-6 text-cream leading-tight opacity-0">
-            Cerámica fría con <span className="text-gold-light italic">alma artesana</span>
+            CerÃ¡mica frÃ­a con <span className="text-gold-light italic">alma artesana</span>
           </h1>
           <p className="hero-text-reveal text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
-            Piezas exclusivas modeladas a mano con acabado en porcelana fría. Disenos que capturan la esencia de la naturaleza en cada detalle.
+            Piezas exclusivas modeladas a mano con acabado en porcelana frÃ­a. Disenos que capturan la esencia de la naturaleza en cada detalle.
           </p>
-          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="#">
-            Encargar pieza única
+          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="/encargos">
+            Encargar pieza Ãºnica
           </a>
         </div>
         <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
@@ -203,7 +226,7 @@ export default function Hero() {
       <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
         <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
           <div ref={titleRef} className="mb-10 text-center">
-            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galería</p>
+            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">GalerÃ­a</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />
           </div>
@@ -281,3 +304,4 @@ export default function Hero() {
     </>
   )
 }
+

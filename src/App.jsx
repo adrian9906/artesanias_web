@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -16,33 +16,9 @@ import { Sparkle } from 'lucide-react'
 import { Marquee } from './components/ui/marquee'
 import { ChevronUpCircle } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
+import { homeCategories } from './data/productCatalog'
 
-const categories = [
-  {
-    title: 'Jarras de Autor',
-    desc: 'Disenos orgánicos únicos que elevan tu mesa diaria.',
-    story:
-      'Cada jarra nace del estudio de formas naturales y termina con acabados que imitan piedra, corteza y musgo. Son piezas para convertir una mesa cotidiana en una escena ritual.',
-    img: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=1200&q=80',
-    cta: 'Ver colección',
-  },
-  {
-    title: 'Funkos Personalizados',
-    desc: 'Tus personajes favoritos capturados en porcelana fría.',
-    story:
-      'Tomamos referencias, bocetos y expresiones clave para modelar versiones unicas de tus personajes. Cada figura conserva personalidad, gesto y narrativa.',
-    img: 'https://images.unsplash.com/photo-1611597615434-17d0e97c5e79?w=1200&q=80',
-    cta: 'Saber más',
-  },
-  {
-    title: 'Joyería Botánica',
-    desc: 'Naturaleza preservada en piezas de arte para vestir.',
-    story:
-      'Flores, hojas y texturas orgánicas se traducen en joyas ligeras con detalle escultorico. Es una linea pensada para llevar naturaleza contigo todos los días.',
-    img: 'https://images.unsplash.com/photo-1515562141589-67f0d0eac004?w=1200&q=80',
-    cta: 'Explorar',
-  },
-]
+const categories = homeCategories
 
 function Categories() {
   const sectionRef = useRef(null)
@@ -129,7 +105,7 @@ function Categories() {
     <section ref={sectionRef} className="py-24 bg-forest-deep overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="categories-title text-center mb-20">
-          <h2 className="font-display text-4xl text-cream mb-4">Nuestras Categorías</h2>
+          <h2 className="font-display text-4xl text-cream mb-4">Nuestras Categorí­as</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
         </div>
 
@@ -141,7 +117,7 @@ function Categories() {
             >
               <div className="category-story will-change-transform">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
-                  Categoría {String(i + 1).padStart(2, '0')}
+                  CategorÃ­a {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{cat.title}</h3>
                 <p className="text-cream/60 text-base leading-relaxed mb-6">{cat.story}</p>
@@ -182,17 +158,17 @@ function CTABanner() {
   const buttonRef = useRef(null)
   const contentRef = useRef(null)
   useEffect(() => {
-    // ⚠️ IMPORTANTE: Asegurar que todo está cargado
+
     if (!cardRef.current || !buttonRef.current) return
 
     // 1. ESTADO INICIAL - Tarjeta GRANDE
     gsap.set(cardRef.current, {
-      scale: 1.3,              // Tarjeta un 30% más grande
+      scale: 1.3,              // Tarjeta un 30% mÃ¡s grande
       transformOrigin: 'center center',
       borderRadius: '2.5rem',
     })
 
-    // Botón invisible al inicio
+    // BotÃ³n invisible al inicio
     gsap.set(buttonRef.current, {
       opacity: 0,
       y: 30,
@@ -207,18 +183,18 @@ function CTABanner() {
     // 2. CREAR SCROLLTRIGGER PARA LA TARJETA
     ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: 'top 80%',        // Empieza cuando la sección está al 80%
-      end: 'top 20%',          // Termina cuando está al 20%
+      start: 'top 80%',        // Empieza cuando la secciÃ³n estÃ¡ al 80%
+      end: 'top 20%',          // Termina cuando estÃ¡ al 20%
       scrub: 1,                // Suavizado
       animation: gsap.to(cardRef.current, {
-        scale: 1,               // Tamaño NORMAL
+        scale: 1,               // TamaÃ±o NORMAL
         borderRadius: '1.5rem',
         duration: 1,
         ease: 'power2.out',
       }),
     })
 
-    // 3. SCROLLTRIGGER PARA EL BOTÓN
+    // 3. SCROLLTRIGGER PARA EL BOTÃ“N
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top 60%',
@@ -256,7 +232,7 @@ function CTABanner() {
         ref={cardRef}
         className="bg-forest-mid rounded-3xl p-16 md:p-32 text-center relative overflow-hidden mt-8 transition-all"
       >
-        {/* Círculos decorativos */}
+        {/* CÃ­rculos decorativos */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-gold-accent opacity-10 rounded-full"></div>
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gold-accent opacity-10 rounded-full"></div>
 
@@ -270,14 +246,14 @@ function CTABanner() {
           </h2>
 
           <p className="font-body text-body text-cream font-semibold max-w-xl mb-12">
-            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el último detalle del acabado.
+            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el Ãºltimo detalle del acabado.
           </p>
 
           <button
             ref={buttonRef}
             className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
           >
-            <span className="truncate text-black font-extrabold">Encargar pieza única</span>
+            <span className="truncate text-black font-extrabold">Encargar pieza Ãºnica</span>
             <ChevronRight className="text-black" size={20} />
           </button>
         </div>
@@ -289,20 +265,20 @@ function CTABanner() {
 const testimonials = [
   {
     name: 'Maria Elena',
-    location: 'Ciudad de México',
-    text: 'La pieza transformo completamente mi jardín. Es como tener un pedazo del bosque en casa.',
+    location: 'Ciudad de MÃ©xico',
+    text: 'La pieza transformo completamente mi jardÃ­n. Es como tener un pedazo del bosque en casa.',
     image: null,
   },
   {
     name: 'Carlos Ruiz',
     location: 'Guadalajara',
-    text: 'Llevo este collar todos los días. Es único y tiene una energía especial que no puedo explicar.',
+    text: 'Llevo este collar todos los dÃ­as. Es Ãºnico y tiene una energÃ­a especial que no puedo explicar.',
     image: null,
   },
   {
     name: 'Ana Sofia',
     location: 'Monterrey',
-    text: 'La atención al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
+    text: 'La atenciÃ³n al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
     image: null,
   },
 ]
@@ -409,3 +385,5 @@ export default function App() {
     </Layout>
   )
 }
+
+
