@@ -211,13 +211,13 @@ export default function Hero() {
 
         <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl pt-24">
           <h1 className="hero-text-reveal font-display text-5xl md:text-7xl mb-6 text-cream leading-tight opacity-0">
-            CerÃ¡mica frÃ­a con <span className="text-gold-light italic">alma artesana</span>
+            Cerámica fría con <span className="text-gold-light italic">alma artesana</span>
           </h1>
           <p className="hero-text-reveal text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
-            Piezas exclusivas modeladas a mano con acabado en porcelana frÃ­a. Disenos que capturan la esencia de la naturaleza en cada detalle.
+            Piezas exclusivas modeladas a mano con acabado en porcelana fría. Diseños que capturan la esencia de la naturaleza en cada detalle.
           </p>
           <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="/encargos">
-            Encargar pieza Ãºnica
+            Encargar pieza única
           </a>
         </div>
         <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
@@ -226,7 +226,7 @@ export default function Hero() {
       <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
         <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
           <div ref={titleRef} className="mb-10 text-center">
-            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">GalerÃ­a</p>
+            <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galería</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />
           </div>

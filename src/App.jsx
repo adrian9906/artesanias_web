@@ -17,6 +17,7 @@ import { Marquee } from './components/ui/marquee'
 import { ChevronUpCircle } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
 import { homeCategories } from './data/productCatalog'
+import { ArrowRight } from 'lucide-react'
 
 const categories = homeCategories
 
@@ -117,7 +118,7 @@ function Categories() {
             >
               <div className="category-story will-change-transform">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
-                  CategorÃ­a {String(i + 1).padStart(2, '0')}
+                  Categorí­a {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{cat.title}</h3>
                 <p className="text-cream/60 text-base leading-relaxed mb-6">{cat.story}</p>
@@ -246,14 +247,14 @@ function CTABanner() {
           </h2>
 
           <p className="font-body text-body text-cream font-semibold max-w-xl mb-12">
-            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el Ãºltimo detalle del acabado.
+            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el último detalle del acabado.
           </p>
 
           <button
             ref={buttonRef}
             className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
           >
-            <span className="truncate text-black font-extrabold">Encargar pieza Ãºnica</span>
+            <span className="truncate text-black font-extrabold">Encargar pieza única</span>
             <ChevronRight className="text-black" size={20} />
           </button>
         </div>
@@ -266,19 +267,19 @@ const testimonials = [
   {
     name: 'Maria Elena',
     location: 'Ciudad de MÃ©xico',
-    text: 'La pieza transformo completamente mi jardÃ­n. Es como tener un pedazo del bosque en casa.',
+    text: 'La pieza transformo completamente mi jardí­n. Es como tener un pedazo del bosque en casa.',
     image: null,
   },
   {
     name: 'Carlos Ruiz',
     location: 'Guadalajara',
-    text: 'Llevo este collar todos los dÃ­as. Es Ãºnico y tiene una energÃ­a especial que no puedo explicar.',
+    text: 'Llevo este collar todos los dí­as. Es Ãºnico y tiene una energí­a especial que no puedo explicar.',
     image: null,
   },
   {
     name: 'Ana Sofia',
     location: 'Monterrey',
-    text: 'La atenciÃ³n al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
+    text: 'La atención al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
     image: null,
   },
 ]
@@ -350,7 +351,7 @@ function Testimonials() {
 
         <div className="text-center mt-12">
           <a href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
-            Ver mas testimonios {'->'}
+            Ver más testimonios <ArrowRight className="inline-block" size={16} />
           </a>
         </div>
       </div>

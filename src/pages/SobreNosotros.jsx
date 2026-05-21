@@ -100,7 +100,7 @@ export default function SobreNosotros() {
     >
       <div className="absolute inset-0 noise-overlay" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-20">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-20 mt-20">
         <header className="text-center mb-10 md:mb-12">
           <h1 className="font-display text-4xl md:text-6xl text-cream mb-4">
             Nuestra Historia en Ramas

@@ -12,7 +12,7 @@ export const productImages = {
   aretes: [
     "/productos/aretes1.jpeg",
     "/productos/aretes2.jpeg",
-    "/productos/Generated_Image_May_19,_2026_202605201500.jpeg",
+    "/productos/aretes3.png",
   ],
 }
 

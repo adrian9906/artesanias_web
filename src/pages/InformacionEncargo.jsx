@@ -82,7 +82,7 @@ export default function InformacionEncargo() {
                 <img
                   alt="Hand Holding Flowers"
                   className="rounded-lg object-cover w-full max-w-[280px] border border-white/10 shadow-lg"
-                  src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=400&q=80"
+                  src="/productos/promocion1.jpeg"
                 />
               </div>
             </div>
