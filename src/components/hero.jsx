@@ -194,7 +194,7 @@ export default function Hero() {
 
   return (
     <>
-      <section ref={heroSectionRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section ref={heroSectionRef} className="relative min-h-[88vh] md:h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-[#0a1a0f]" />
           <img
@@ -209,30 +209,33 @@ export default function Hero() {
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-radial from-gold-accent/3 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 text-center max-w-4xl pt-24">
-          <h1 className="hero-text-reveal font-display text-5xl md:text-7xl mb-6 text-cream leading-tight opacity-0">
+        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center max-w-4xl pt-20 md:pt-24">
+          <h1 className="hero-text-reveal font-display text-3xl sm:text-4xl md:text-7xl mb-5 md:mb-6 text-cream leading-tight opacity-0">
             Cerámica fría con <span className="text-gold-light italic">alma artesana</span>
           </h1>
-          <p className="hero-text-reveal text-cream/60 text-lg mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
+          <p className="hero-text-reveal text-cream/60 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
             Piezas exclusivas modeladas a mano con acabado en porcelana fría. Diseños que capturan la esencia de la naturaleza en cada detalle.
           </p>
-          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="/encargos">
+          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-6 md:px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="/encargos">
             Encargar pieza única
           </a>
         </div>
         <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
       </section>
 
-      <section ref={sectionRef} className="py-20 md:py-24 bg-forest-dark relative">
-        <div className="container aspect-square w-[40%]  mx-auto px-6 relative">
+      <section ref={sectionRef} className="py-14 md:py-24 bg-forest-dark relative">
+        <div className="container w-full max-w-6xl mx-auto px-4 md:px-6 relative">
           <div ref={titleRef} className="mb-10 text-center">
             <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">Galería</p>
             <h2 className="font-display text-4xl md:text-5xl text-cream">Trabajos Realizados</h2>
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />
           </div>
 
-          <div ref={bgRef} className="relative rounded-[1.25rem] overflow-hidden border border-gold-accent/30 min-h-[520px] md:min-h-[560px] transition-colors duration-500" style={{ backgroundImage: activeSlide.background }}>
+          <div ref={bgRef} className="relative rounded-[1.25rem] overflow-hidden border border-gold-accent/30 min-h-[380px] md:min-h-[560px] transition-colors duration-500" style={{ backgroundImage: activeSlide.background }}>
             <div className="absolute inset-0">
+              <div className="absolute inset-x-6 top-20 md:hidden rounded-2xl overflow-hidden border border-white/20 shadow-[0_18px_40px_rgba(0,0,0,0.34)]">
+                <img src={activeSlide.images[0].src} alt={activeSlide.images[0].alt} className="h-44 w-full object-cover" />
+              </div>
               {gallerySlides.map((slide, slideIndex) => (
                 <div
                   key={slide.title}
@@ -242,7 +245,7 @@ export default function Hero() {
                   className="absolute inset-0 opacity-0 scale-105"
                 >
                   {slide.images.map((image) => (
-                    <div key={`${slide.title}-${image.alt}`} className={`floating-item absolute rounded-2xl overflow-hidden border border-white/30 shadow-[0_18px_40px_rgba(0,0,0,0.34)] ${image.className}`}>
+                    <div key={`${slide.title}-${image.alt}`} className={`floating-item absolute hidden md:block rounded-2xl overflow-hidden border border-white/30 shadow-[0_18px_40px_rgba(0,0,0,0.34)] ${image.className}`}>
                       <img src={image.src} alt={image.alt} className="h-full w-full object-cover" />
                     </div>
                   ))}
@@ -267,9 +270,9 @@ export default function Hero() {
               ))}
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-black/35" />
-            <div className="absolute z-20 left-6 right-6 bottom-8 md:left-10 md:right-auto md:max-w-md mt-6">
-              <h3 className="font-display text-2xl md:text-3xl text-cream mb-3">{activeSlide.title}</h3>
-              <p className="text-cream/75 text-sm md:text-base">{activeSlide.subtitle}</p>
+            <div className="absolute z-20 left-4 right-4 bottom-14 md:bottom-8 md:left-10 md:right-auto md:max-w-md mt-6">
+              <h3 className="font-display text-xl md:text-3xl text-cream mb-2 md:mb-3">{activeSlide.title}</h3>
+              <p className="text-cream/75 text-xs sm:text-sm md:text-base">{activeSlide.subtitle}</p>
             </div>
 
           </div>
@@ -278,7 +281,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={goPrevious}
-            className="absolute left-0 top-1/3 shadow-2xl rounded-2xl  -translate-y-1/2 -translate-x-12 p-3  transition-all duration-300 hover:scale-110 z-40"
+            className="absolute hidden md:block left-0 top-1/3 shadow-2xl rounded-2xl -translate-y-1/2 -translate-x-8 lg:-translate-x-12 p-3 transition-all duration-300 hover:scale-110 z-40"
             style={{
               color: activeSlide.accent,
               borderColor: activeSlide.accent,
@@ -290,7 +293,7 @@ export default function Hero() {
           <button
             type="button"
             onClick={goNext}
-            className="absolute right-0 top-1/3 -translate-y-1/2 translate-x-12 p-3 rounded-full transition-all duration-300 hover:scale-110 z-40"
+            className="absolute hidden md:block right-0 top-1/3 -translate-y-1/2 translate-x-8 lg:translate-x-12 p-3 rounded-full transition-all duration-300 hover:scale-110 z-40"
             style={{
               color: activeSlide.accent,
               borderColor: activeSlide.accent,
@@ -304,4 +307,8 @@ export default function Hero() {
     </>
   )
 }
+
+
+
+
 

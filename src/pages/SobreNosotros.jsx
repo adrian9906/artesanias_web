@@ -35,6 +35,7 @@ export default function SobreNosotros() {
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
+    if (window.innerWidth < 768) return
 
     const ctx = gsap.context(() => {
       gsap.set(trunkRef.current, { scaleY: 0, transformOrigin: 'top center' })
@@ -110,7 +111,23 @@ export default function SobreNosotros() {
           </p>
         </header>
 
-        <div className="relative h-[68vh] md:h-[72vh]">
+        <div className="md:hidden space-y-6">
+          {branches.map((branch) => (
+            <article
+              key={`mobile-${branch.title}`}
+              className="rounded-2xl border border-gold-accent/35 bg-[#0b1a10]/70 p-4 backdrop-blur-sm"
+              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.25)' }}
+            >
+              <div className="rounded-xl overflow-hidden mb-4 border border-gold-accent/25">
+                <img src={branch.image} alt={branch.title} className="w-full h-48 object-cover" />
+              </div>
+              <h2 className="font-display text-xl text-cream mb-2">{branch.title}</h2>
+              <p className="text-cream/70 text-sm">{branch.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <div className="relative hidden md:block h-[68vh] md:h-[72vh]">
           <div
             ref={trunkRef}
             className="absolute left-1/2 -translate-x-1/2 top-[10%] h-[76%] w-[10px] rounded-full"

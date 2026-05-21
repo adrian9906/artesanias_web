@@ -148,9 +148,9 @@ export default function Galeria() {
     <div className="min-h-screen bg-forest-dark relative animate-blurred-fade-in">
       <div className="absolute inset-0 noise-overlay" />
 
-      <div className="relative z-10 pt-32 pb-20 px-6 max-w-6xl mx-auto">
+      <div className="relative z-10 pt-24 md:pt-32 pb-16 md:pb-20 px-4 md:px-6 max-w-6xl mx-auto">
         <section className="text-center mb-16">
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-cream mb-6">Catálogo</h1>
+          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">Catálogo</h1>
           <p className="text-cream/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
             Secciones con precio fijo, historia real de cada línea y casos de éxito presentados en polaroids apiladas.
           </p>
@@ -163,7 +163,7 @@ export default function Galeria() {
               ref={(node) => {
                 sectionRefs.current[idx] = node
               }}
-              className="rounded-3xl p-8 md:p-10 mb-96 border border-gold-accent/30 bg-[linear-gradient(145deg,rgba(14,21,16,0.82),rgba(28,35,30,0.9))] overflow-visible"
+              className="rounded-3xl p-6 md:p-10 mb-24 md:mb-96 border border-gold-accent/30 bg-[linear-gradient(145deg,rgba(14,21,16,0.82),rgba(28,35,30,0.9))] overflow-visible"
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div data-catalog-content className={idx % 2 === 1 ? "lg:order-2" : ""}>

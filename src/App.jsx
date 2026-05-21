@@ -103,14 +103,14 @@ function Categories() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-24 bg-forest-deep overflow-hidden">
-      <div className="container mx-auto px-6">
-        <div className="categories-title text-center mb-20">
-          <h2 className="font-display text-4xl text-cream mb-4">Nuestras Categorí­as</h2>
+    <section ref={sectionRef} className="py-16 md:py-24 bg-forest-deep overflow-hidden">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="categories-title text-center mb-12 md:mb-20">
+          <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">Nuestras Categorí­as</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
         </div>
 
-        <div className="space-y-28">
+        <div className="space-y-14 md:space-y-28">
           {categories.map((cat, i) => (
             <div
               key={cat.title}
@@ -125,7 +125,7 @@ function Categories() {
                 <p className="text-cream/50 text-sm leading-relaxed">{cat.desc}</p>
               </div>
 
-              <div className="category-card-zoom category-card p-8 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm will-change-transform">
+              <div className="category-card-zoom category-card p-6 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm will-change-transform">
                 <div className="relative h-72 md:h-80 rounded-xl overflow-hidden border border-gold-accent/25">
                   <img
                     alt={cat.title}
@@ -228,10 +228,10 @@ function CTABanner() {
     }
   }, [])
   return (
-    <section ref={sectionRef} className="max-w-8/12 mx-auto px-4 mb-[165px] mt-30">
+    <section ref={sectionRef} className="max-w-6xl mx-auto px-4 md:px-6 mb-16 md:mb-[165px] mt-12 md:mt-20">
       <div
         ref={cardRef}
-        className="bg-forest-mid rounded-3xl p-16 md:p-32 text-center relative overflow-hidden mt-8 transition-all"
+        className="bg-forest-mid rounded-3xl p-8 md:p-32 text-center relative overflow-hidden mt-6 md:mt-8 transition-all"
       >
         {/* CÃ­rculos decorativos */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-gold-accent opacity-10 rounded-full"></div>
@@ -242,11 +242,11 @@ function CTABanner() {
             <Sparkle className="text-gold-accent" size={32} />
           </div>
 
-          <h2 className="font-heading text-4xl text-heading text-cream font-semibold max-w-3xl mb-8">
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-heading text-cream font-semibold max-w-3xl mb-6 md:mb-8">
             Tienes una idea en mente?
           </h2>
 
-          <p className="font-body text-body text-cream font-semibold max-w-xl mb-12">
+          <p className="font-body text-sm md:text-base text-cream font-semibold max-w-xl mb-8 md:mb-12">
             Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el último detalle del acabado.
           </p>
 
@@ -309,15 +309,15 @@ function Testimonials() {
     return () => ctx.revert()
   }, [])
   return (
-    <section ref={sectionRef} className="py-24 bg-forest-dark relative overflow-hidden">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-forest-dark relative overflow-hidden">
       <div className="absolute inset-0 noise-overlay" />
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-full mx-auto px-8">
+      <div className="relative z-10 max-w-full mx-auto px-4 md:px-8">
         <div ref={titleRef} className="text-center mb-16">
           <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">Testimonios</span>
-          <h2 className="font-display text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
           <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
         </div>
 
@@ -386,5 +386,4 @@ export default function App() {
     </Layout>
   )
 }
-
 

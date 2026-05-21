@@ -4,11 +4,11 @@ export default function Footer() {
   const years = new Date().getFullYear()
 
   return (
-    <footer className="bg-forest-deep border-t border-white/5 py-16">
-      <div className="max-w-[90%] mx-auto px-6">
+    <footer className="bg-forest-deep border-t border-white/5 py-12 md:py-16">
+      <div className="max-w-[95%] md:max-w-[90%] mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-12 items-start">
           <div className="lg:col-span-7">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-10 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 mt-8 md:mt-10">
               <div className="flex flex-col items-start gap-2 mb-6">
                 <div className="h-6 w-6 rounded-full bg-gradient-to-br from-gold-accent/40 to-gold-accent/10 border border-gold-accent/30" />
                 <span className="font-display text-xl text-cream tracking-wide">Evergreen</span>
