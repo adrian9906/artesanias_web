@@ -18,11 +18,13 @@ import { ChevronUpCircle } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
 import { homeCategories } from './data/productCatalog'
 import { ArrowRight } from 'lucide-react'
+import { useI18n } from './i18n'
 
 const categories = homeCategories
 
 function Categories() {
   const sectionRef = useRef(null)
+  const { t } = useI18n()
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -106,7 +108,7 @@ function Categories() {
     <section ref={sectionRef} className="py-16 md:py-24 bg-forest-deep overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <div className="categories-title text-center mb-12 md:mb-20">
-          <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">Nuestras Categorí­as</h2>
+          <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{t('home.categories')}</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
         </div>
 
@@ -118,7 +120,7 @@ function Categories() {
             >
               <div className="category-story will-change-transform">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
-                  Categorí­a {String(i + 1).padStart(2, '0')}
+                  {t('home.category')} {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{cat.title}</h3>
                 <p className="text-cream/60 text-base leading-relaxed mb-6">{cat.story}</p>
@@ -154,6 +156,7 @@ function Categories() {
 
 function CTABanner() {
   gsap.registerPlugin(ScrollTrigger)
+  const { t } = useI18n()
   const sectionRef = useRef(null)
   const cardRef = useRef(null)
   const buttonRef = useRef(null)
@@ -243,18 +246,18 @@ function CTABanner() {
           </div>
 
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-heading text-cream font-semibold max-w-3xl mb-6 md:mb-8">
-            Tienes una idea en mente?
+            {t('home.ctaTitle')}
           </h2>
 
           <p className="font-body text-sm md:text-base text-cream font-semibold max-w-xl mb-8 md:mb-12">
-            Creamos piezas personalizadas que cuentan tu historia. Desde el boceto inicial hasta el último detalle del acabado.
+            {t('home.ctaText')}
           </p>
 
           <button
             ref={buttonRef}
             className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
           >
-            <span className="truncate text-black font-extrabold">Encargar pieza única</span>
+            <span className="truncate text-black font-extrabold">{t('home.ctaButton')}</span>
             <ChevronRight className="text-black" size={20} />
           </button>
         </div>
@@ -287,6 +290,7 @@ const testimonials = [
 function Testimonials() {
   const titleRef = useRef(null)
   const sectionRef = useRef(null)
+  const { t } = useI18n()
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -316,8 +320,8 @@ function Testimonials() {
 
       <div className="relative z-10 max-w-full mx-auto px-4 md:px-8">
         <div ref={titleRef} className="text-center mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">Testimonios</span>
-          <h2 className="font-display text-3xl md:text-4xl text-cream mt-4 mb-4">Lo que dicen nuestros clientes</h2>
+          <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">{t('home.testimonials')}</span>
+          <h2 className="font-display text-3xl md:text-4xl text-cream mt-4 mb-4">{t('home.testimonialsTitle')}</h2>
           <div className="w-16 h-px bg-gold-accent/50 mx-auto" />
         </div>
 
@@ -351,7 +355,7 @@ function Testimonials() {
 
         <div className="text-center mt-12">
           <a href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
-            Ver más testimonios <ArrowRight className="inline-block" size={16} />
+            {t('home.moreTestimonials')} <ArrowRight className="inline-block" size={16} />
           </a>
         </div>
       </div>
@@ -386,4 +390,3 @@ export default function App() {
     </Layout>
   )
 }
-

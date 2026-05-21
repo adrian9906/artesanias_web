@@ -1,4 +1,5 @@
 ﻿import { useLocation, useNavigate } from "react-router-dom"
+import { useI18n } from "../i18n"
 import { blogRelatedArticles, productImages } from "../data/productCatalog"
 
 const relatedArticles = blogRelatedArticles
@@ -17,6 +18,7 @@ const fallbackArticle = {
 export default function Blog() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useI18n()
 
   const article = location.state?.article ?? fallbackArticle
 
@@ -32,7 +34,7 @@ export default function Blog() {
             className="inline-flex items-center gap-2 rounded-full border border-gold-accent/40 px-5 py-2 text-sm text-gold-light hover:bg-gold-accent hover:text-forest-dark transition-colors"
           >
             <span aria-hidden>←</span>
-            Volver a Noticias
+            {t("common.backToNews")}
           </button>
         </section>
 
@@ -135,5 +137,8 @@ export default function Blog() {
     </div>
   )
 }
+
+
+
 
 

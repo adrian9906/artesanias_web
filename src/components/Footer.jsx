@@ -1,7 +1,9 @@
 ﻿import { Link } from "react-router-dom"
+import { useI18n } from "../i18n"
 
 export default function Footer() {
   const years = new Date().getFullYear()
+  const { t } = useI18n()
 
   return (
     <footer className="bg-forest-deep border-t border-white/5 py-12 md:py-16">
@@ -12,25 +14,21 @@ export default function Footer() {
               <div className="flex flex-col items-start gap-2 mb-6">
                 <div className="h-6 w-6 rounded-full bg-gradient-to-br from-gold-accent/40 to-gold-accent/10 border border-gold-accent/30" />
                 <span className="font-display text-xl text-cream tracking-wide">Evergreen</span>
-                <p className="text-cream/40 max-w-sm text-sm leading-relaxed font-light">
-                  Artesanía consciente en porcelana fría. Piezas modeladas con calma y respeto por el proceso creativo.
-                </p>
+                <p className="text-cream/40 max-w-sm text-sm leading-relaxed font-light">{t("footer.brandText")}</p>
               </div>
 
               <div className="max-w-xs">
-                <h4 className="text-cream/70 font-bold mb-6 text-xs uppercase tracking-[0.15em]">Navegación</h4>
+                <h4 className="text-cream/70 font-bold mb-6 text-xs uppercase tracking-[0.15em]">{t("footer.navigation")}</h4>
                 <ul className="space-y-4 text-sm text-cream/40">
                   {[
-                    { label: "Inicio", to: "/" },
-                    { label: "Sobre Nosotros", to: "/sobre-nosotros" },
-                    { label: "Encargos", to: "/encargos" },
-                    { label: "Información de Encargo", to: "/informacion-de-encargo" },
-                    { label: "Galería", to: "/galeria" },
-                    { label: "Blog", to: "/blog" },
-                    { label: "Noticias", to: "/noticias" },
-                    { label: "Encargar", to: "/encargos" },
+                    { label: t("nav.home"), to: "/" },
+                    { label: t("nav.about"), to: "/sobre-nosotros" },
+                    { label: t("nav.order"), to: "/encargos" },
+                    { label: t("nav.orderInfo"), to: "/informacion-de-encargo" },
+                    { label: t("nav.gallery"), to: "/galeria" },
+                    { label: t("nav.news"), to: "/noticias" },
                   ].map((item) => (
-                    <li key={item.label}>
+                    <li key={item.label + item.to}>
                       <Link className="hover:text-gold-accent transition-colors duration-300" to={item.to}>
                         {item.label}
                       </Link>
@@ -40,7 +38,7 @@ export default function Footer() {
               </div>
 
               <div className="max-w-xs">
-                <h4 className="text-cream/70 font-bold mb-6 text-xs uppercase tracking-[0.15em]">Social</h4>
+                <h4 className="text-cream/70 font-bold mb-6 text-xs uppercase tracking-[0.15em]">{t("footer.social")}</h4>
                 <ul className="space-y-4 text-sm text-cream/40">
                   {["Instagram", "Pinterest", "Facebook"].map((link) => (
                     <li key={link}>
@@ -64,7 +62,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-cream/30">
-          <div>&copy; {years} Evergreen Cold Ceramics. Todos los derechos reservados.</div>
+          <div>&copy; {years} Evergreen Cold Ceramics. {t("footer.rights")}</div>
         </div>
       </div>
     </footer>

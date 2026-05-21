@@ -1,10 +1,12 @@
 ﻿import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useI18n } from '../i18n'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
+  const { lang, setLang, t } = useI18n()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60)
@@ -22,12 +24,12 @@ export default function Navbar() {
   }
 
   const mobileLinks = [
-    { label: 'Inicio', to: '/' },
-    { label: 'Sobre Nosotros', to: '/sobre-nosotros' },
-    { label: 'Información de Encargo', to: '/informacion-de-encargo' },
-    { label: 'Galería', to: '/galeria' },
-    { label: 'Noticias', to: '/noticias' },
-    { label: 'Encargar', to: '/encargos' },
+    { label: t('nav.home'), to: '/' },
+    { label: t('nav.about'), to: '/sobre-nosotros' },
+    { label: t('nav.orderInfo'), to: '/informacion-de-encargo' },
+    { label: t('nav.gallery'), to: '/galeria' },
+    { label: t('nav.news'), to: '/noticias' },
+    { label: t('nav.order'), to: '/encargos' },
   ]
 
   return (
@@ -46,18 +48,22 @@ export default function Navbar() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
-            <Link className={`${isActive('/') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/">Inicio</Link>
-            <Link className={`${isActive('/sobre-nosotros') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/sobre-nosotros">Sobre Nosotros</Link>
-            <Link className={`${isActive('/informacion-de-encargo') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/informacion-de-encargo">Información de Encargo</Link>
-            <Link className={`${isActive('/galeria') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/galeria">Galería</Link>
-            <Link className={`${isActive('/noticias') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/noticias">Noticias</Link>
-            <Link className="border border-gold-accent/60 text-gold-light px-5 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm" to="/encargos">Encargar</Link>
+            <Link className={`${isActive('/') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/">{t('nav.home')}</Link>
+            <Link className={`${isActive('/sobre-nosotros') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/sobre-nosotros">{t('nav.about')}</Link>
+            <Link className={`${isActive('/informacion-de-encargo') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/informacion-de-encargo">{t('nav.orderInfo')}</Link>
+            <Link className={`${isActive('/galeria') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/galeria">{t('nav.gallery')}</Link>
+            <Link className={`${isActive('/noticias') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} to="/noticias">{t('nav.news')}</Link>
+            <Link className="border border-gold-accent/60 text-gold-light px-5 py-2 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 text-sm" to="/encargos">{t('nav.order')}</Link>
+            <div className="inline-flex rounded-full border border-white/15 overflow-hidden">
+              <button type="button" onClick={() => setLang('es')} className={`px-2 py-1 text-xs ${lang === 'es' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>ES</button>
+              <button type="button" onClick={() => setLang('en')} className={`px-2 py-1 text-xs ${lang === 'en' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>EN</button>
+            </div>
           </nav>
 
           <button
             type="button"
             className="md:hidden text-cream rounded-lg border border-white/15 px-2 py-1"
-            aria-label="Menú"
+            aria-label={t('nav.menu')}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
             onClick={() => setMobileOpen((prev) => !prev)}
@@ -75,6 +81,10 @@ export default function Navbar() {
           }`}
         >
           <div className="space-y-2">
+            <div className="flex items-center justify-end gap-2 pb-1">
+              <button type="button" onClick={() => setLang('es')} className={`px-2 py-1 rounded text-xs border ${lang === 'es' ? 'bg-gold-accent text-forest-dark border-gold-accent' : 'text-cream/80 border-white/15'}`}>ES</button>
+              <button type="button" onClick={() => setLang('en')} className={`px-2 py-1 rounded text-xs border ${lang === 'en' ? 'bg-gold-accent text-forest-dark border-gold-accent' : 'text-cream/80 border-white/15'}`}>EN</button>
+            </div>
             {mobileLinks.map((item) => (
               <Link
                 key={item.label}
