@@ -1,33 +1,22 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useI18n } from '../i18n'
 
-const branches = [
-  {
-    title: 'Raíz del taller',
-    text: 'Todo comenzó con barro, silencio y una mesa de trabajo improvisada.',
-    image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80',
-    side: 'left',
-    top: '22%',
-  },
-  {
-    title: 'Rama de aprendizaje',
-    text: 'Cada encargo trajo técnicas nuevas y una sensibilidad más precisa.',
-    image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80',
-    side: 'right',
-    top: '42%',
-  },
-  {
-    title: 'Rama de vínculos',
-    text: 'Las piezas dejaron de ser objetos: pasaron a guardar historias familiares.',
-    image: 'https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=900&q=80',
-    side: 'left',
-    top: '62%',
-  },
+const branchImages = [
+  { image: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=900&q=80', side: 'left', top: '22%' },
+  { image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?w=900&q=80', side: 'right', top: '42%' },
+  { image: 'https://images.unsplash.com/photo-1493106641515-6b5631de4bb9?w=900&q=80', side: 'left', top: '62%' },
 ]
 
 export default function SobreNosotros() {
+  const { t } = useI18n()
   const sectionRef = useRef(null)
+  const branches = useMemo(() => [
+    { title: t('about.branch1Title'), text: t('about.branch1Text'), ...branchImages[0] },
+    { title: t('about.branch2Title'), text: t('about.branch2Text'), ...branchImages[1] },
+    { title: t('about.branch3Title'), text: t('about.branch3Text'), ...branchImages[2] },
+  ], [t])
   const trunkRef = useRef(null)
   const branchLineRefs = useRef([])
   const branchCardRefs = useRef([])
@@ -104,10 +93,10 @@ export default function SobreNosotros() {
       <div className="relative z-10 mx-auto max-w-6xl px-6 py-16 md:py-20 mt-20">
         <header className="text-center mb-10 md:mb-12">
           <h1 className="font-display text-4xl md:text-6xl text-cream mb-4">
-            Nuestra Historia en Ramas
+            {t('about.title')}
           </h1>
           <p className="text-cream/70 max-w-3xl mx-auto">
-            Baja lentamente: cada tramo del scroll revela una nueva rama de la historia.
+            {t('about.subtitle')}
           </p>
         </header>
 
@@ -186,7 +175,7 @@ export default function SobreNosotros() {
 
         <div ref={finalRef} className="text-center mt-8 md:mt-10">
           <p className="text-gold-light font-display text-2xl md:text-4xl leading-tight">
-            Artesanias no solo es un regalo, es un vinculo eterno.
+            {t('about.finalLine')}
           </p>
         </div>
       </div>

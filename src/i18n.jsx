@@ -32,7 +32,8 @@ const translations = {
       createYourPiece: "Crear Tu Pieza",
     },
     hero: {
-      title: "Cerámica fría con alma artesana",
+      titleBefore: "Cerámica fría con",
+      titleHighlight: "alma artesana",
       subtitle: "Piezas exclusivas modeladas a mano con acabado en porcelana fría. Diseños que capturan la esencia de la naturaleza en cada detalle.",
       cta: "Encargar pieza única",
       galleryLabel: "Galería",
@@ -49,6 +50,7 @@ const translations = {
         mixedEarringsTitle: "Coleccion Mixta: Aretes y Jarras",
         mixedEarringsSubtitle: "Texturas botanicas y paletas calidas para una linea elegante.",
       },
+      slideAriaLabel: "Ir al slide",
     },
     home: {
       categories: "Nuestras Categorías",
@@ -87,14 +89,29 @@ const translations = {
         sustainability: "Sostenibilidad",
         interviews: "Entrevistas",
         materials: "Materiales",
-        events: "Eventos",
+      events: "Eventos",
       },
+      author: "Equipo Evergreen",
+      readTime: "6 min de lectura",
     },
     blog: {
       writtenBy: "Escrito por",
       creativeJournal: "Esta noticia forma parte de nuestra bitácora creativa. Aquí compartimos el proceso artesanal, la inspiración natural y los detalles de cada colección para que puedas conocer la historia detrás de cada pieza.",
       customNote: "Si deseas una versión personalizada o tienes una idea en mente, nuestro taller puede adaptar estilos, paletas y acabados según tu visión para convertirla en una pieza única.",
       relatedStories: "Relatos Relacionados",
+      fallbackArticle: {
+        category: "Destacado",
+        date: "12 oct. 2024",
+        title: "El secreto místico de la porcelana",
+        excerpt: "Existe un momento preciso entre el ocaso y la medianoche donde la porcelana fría comienza su verdadera transformación.",
+        author: "Elena Vance",
+        readTime: "8 min de lectura",
+      },
+      relatedArticles: [
+        { category: "Rituales", categoryColor: "text-yellow-600", title: "Cantos de arcilla al amanecer", excerpt: "Descubre cómo los sonidos del bosque influyen en el ritmo del modelado manual." },
+        { category: "Técnica", categoryColor: "text-pink-400", title: "Pigmentos de la tierra viva", excerpt: "Una guía sobre la extracción de colores naturales a partir de raíces y líquenes." },
+        { category: "Inspiración", categoryColor: "text-blue-400", title: "Donde habitan las sombras", excerpt: "Explorando la estética de la melancolía y la belleza en la penumbra del bosque." },
+      ],
     },
     orders: {
       form: "Formulario",
@@ -142,6 +159,56 @@ const translations = {
       branch3Title: "Rama de vínculos",
       branch3Text: "Las piezas dejaron de ser objetos: pasaron a guardar historias familiares.",
     },
+    videoSection: {
+      badge: "Detras del arte",
+      title: "Procesos de Creación",
+      subtitle: "Cada pieza cuenta una historia. Mira como nacen nuestras creaciones desde el primer boceto hasta el último detalle.",
+      filterAll: "Todos",
+      viewGallery: "Ver galería completa",
+    },
+    videoData: [
+      { title: "Modelado a mano de jarra decorativa", description: "Cada pieza comienza con un bloque de porcelana fría y horas de dedicacion artesanal." },
+      { title: "Texturizado con herramientas naturales", description: "Hojas, cortezas y fibras se convierten en sellos que graban la naturaleza en la superficie." },
+      { title: "Proceso de pintado a mano", description: "Capas de pigmento natural aplicadas con pinceles de fibra vegetal para acabados unicos." },
+      { title: "Taller en vivo: creación de joyería botánica", description: "Un vistazo exclusivo a nuestro taller mientras transformamos flores preservadas en piezas de arte." },
+      { title: "De la idea al molde: el proceso creativo", description: "Sigue el recorrido completo de una pieza personalizada desde el boceto inicial hasta el horno." },
+      { title: "Detalles que marcan la diferencia", description: "Macro close-up de los acabados finales: texturas, bordes dorados y sellos de autenticidad." },
+    ],
+    testimonialsData: [
+      { name: "Maria Elena", location: "Ciudad de México", text: "La pieza transformo completamente mi jardín. Es como tener un pedazo del bosque en casa." },
+      { name: "Carlos Ruiz", location: "Guadalajara", text: "Llevo este collar todos los días. Es único y tiene una energía especial que no puedo explicar." },
+      { name: "Ana Sofia", location: "Monterrey", text: "La atención al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada." },
+    ],
+    homeCategoriesData: [
+      { title: "Jarras de Autor", desc: "Diseños orgánicos únicos que elevan tu mesa diaria.", story: "Cada jarra nace del estudio de formas naturales y termina con acabados que imitan piedra, corteza y musgo. Son piezas para convertir una mesa cotidiana en una escena ritual.", cta: "Ver colección" },
+      { title: "Funkos Personalizados", desc: "Tus personajes favoritos capturados en porcelana fría.", story: "Tomamos referencias, bocetos y expresiones clave para modelar versiones únicas de tus personajes. Cada figura conserva personalidad, gesto y narrativa.", cta: "Saber más" },
+      { title: "Joyería Botánica", desc: "Naturaleza preservada en piezas de arte para vestir.", story: "Flores, hojas y texturas orgánicas se traducen en joyas ligeras con detalle escultórico. Es una línea pensada para llevar naturaleza contigo todos los días.", cta: "Explorar" },
+    ],
+    galleryCatalogData: [
+      { nombre: "Funkos Pop personalizados", precio: "30 USD", historia: "Cada Funko nace de una historia real: profesiones, bandas favoritas y personajes que marcaron momentos importantes. Modelamos rasgos, colores y detalles para que cada pieza sea un recuerdo vivo." },
+      { nombre: "Jarras artesanales", precio: "15 USD", historia: "Nuestras jarras se inspiran en mesas familiares y cafecitos de domingo. Cada pieza se termina a mano, con acabados orgánicos y tonos cálidos para que cada bebida tenga su propio ritual." },
+      { nombre: "Aretes artesanales", precio: "5 USD", historia: "Los aretes son nuestra colección más juguetona: pequeños acentos de color para usar todos los días. Livianos, resistentes y hechos para combinar con estilos casuales o elegantes." },
+    ],
+    newsArticlesData: {
+      articles: [
+        { id:1, category: "Destacado", date: "12 de octubre, 2024", title: "El despertar de las hadas de invierno", excerpt: "Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal. Cada pieza ha sido modelada a mano con porcelana fría y pigmentos minerales." },
+        { id:2, category: "Taller y proceso", date: "05 de octubre, 2024", title: "Secretos de la botánica prensada", excerpt: "La técnica de impresión botánica directa sobre arcilla polimérica para preservar la belleza de los helechos locales." },
+        { id:3, category: "Inspiración", date: "28 de septiembre, 2024", title: "Amuletos de la tierra firme", excerpt: "Las bellotas y piñas dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección." },
+        { id:4, category: "Detrás de escena", date: "20 de septiembre, 2024", title: "La paciencia de lo translúcido", excerpt: "El reto de trabajar con pastas cerámicas de alta transparencia y cómo logramos ese acabado de hielo eterno." },
+        { id:5, category: "Sostenibilidad", date: "10 de septiembre, 2024", title: "Compromiso con el bosque", excerpt: "Por cada pieza mística que viaja a un nuevo hogar, plantamos un brote de roble en las colinas que nos vieron nacer." },
+      ],
+      carouselArticles: [
+        { id:6, category: "Entrevistas", date: "15 de septiembre, 2024", title: "El arte de la paciencia", excerpt: "Conversamos con Elena sobre las horas de silencio que requiere cada pieza." },
+        { id:7, category: "Materiales", date: "8 de septiembre, 2024", title: "Arcillas del mundo", excerpt: "Un recorrido por las distintas tierras que usamos y su textura única." },
+        { id:8, category: "Eventos", date: "1 de septiembre, 2024", title: "Feria de artesanos 2024", excerpt: "Nos preparamos para la feria anual con piezas inéditas." },
+      ],
+    },
+    orderCategoriesData: [
+      { id: "jarra", name: "Jarra de autor", eta: "10-14 días" },
+      { id: "funko", name: "Figura personalizada", eta: "14-20 días" },
+      { id: "joyeria", name: "Joyería botánica", eta: "8-12 días" },
+      { id: "set", name: "Set colección", eta: "18-26 días" },
+    ],
   },
   en: {
     nav: {
@@ -174,7 +241,8 @@ const translations = {
       createYourPiece: "Create Your Piece",
     },
     hero: {
-      title: "Cold porcelain with artisan soul",
+      titleBefore: "Cold porcelain with",
+      titleHighlight: "artisan soul",
       subtitle: "Exclusive hand-modeled pieces with a cold porcelain finish. Designs that capture nature's essence in every detail.",
       cta: "Order a unique piece",
       galleryLabel: "Gallery",
@@ -191,6 +259,7 @@ const translations = {
         mixedEarringsTitle: "Mixed Collection: Earrings and Jars",
         mixedEarringsSubtitle: "Botanical textures and warm palettes for an elegant line.",
       },
+      slideAriaLabel: "Go to slide",
     },
     home: {
       categories: "Our Categories",
@@ -231,12 +300,27 @@ const translations = {
         materials: "Materials",
         events: "Events",
       },
+      author: "Evergreen Team",
+      readTime: "6 min read",
     },
     blog: {
       writtenBy: "Written by",
       creativeJournal: "This news is part of our creative journal. Here we share the handcrafted process, natural inspiration, and collection details so you can discover the story behind each piece.",
       customNote: "If you want a custom version or have an idea in mind, our workshop can adapt styles, palettes, and finishes to turn it into a unique piece.",
       relatedStories: "Related Stories",
+      fallbackArticle: {
+        category: "Featured",
+        date: "Oct 12, 2024",
+        title: "The Mystical Secret of Porcelain",
+        excerpt: "There is a precise moment between dusk and midnight when cold porcelain begins its true transformation.",
+        author: "Elena Vance",
+        readTime: "8 min read",
+      },
+      relatedArticles: [
+        { category: "Rituals", categoryColor: "text-yellow-600", title: "Songs of Clay at Dawn", excerpt: "Discover how forest sounds influence the rhythm of hand modeling." },
+        { category: "Technique", categoryColor: "text-pink-400", title: "Pigments of the Living Earth", excerpt: "A guide to extracting natural colors from roots and lichens." },
+        { category: "Inspiration", categoryColor: "text-blue-400", title: "Where Shadows Dwell", excerpt: "Exploring the aesthetics of melancholy and beauty in the forest twilight." },
+      ],
     },
     orders: {
       form: "Form",
@@ -284,6 +368,56 @@ const translations = {
       branch3Title: "Connection branch",
       branch3Text: "Pieces stopped being objects and became keepers of family stories.",
     },
+    videoSection: {
+      badge: "Behind the art",
+      title: "Creation Processes",
+      subtitle: "Each piece tells a story. Watch how our creations come to life from the first sketch to the final detail.",
+      filterAll: "All",
+      viewGallery: "View full gallery",
+    },
+    videoData: [
+      { title: "Hand modeling a decorative jar", description: "Each piece begins with a block of cold porcelain and hours of artisan dedication." },
+      { title: "Texturing with natural tools", description: "Leaves, bark, and fibers become stamps that imprint nature onto the surface." },
+      { title: "Hand painting process", description: "Layers of natural pigment applied with plant-fiber brushes for unique finishes." },
+      { title: "Live workshop: creating botanical jewelry", description: "An exclusive look into our workshop as we transform preserved flowers into art pieces." },
+      { title: "From idea to mold: the creative process", description: "Follow the complete journey of a custom piece from initial sketch to kiln." },
+      { title: "Details that make a difference", description: "Macro close-up of final finishes: textures, golden edges, and authenticity seals." },
+    ],
+    testimonialsData: [
+      { name: "Maria Elena", location: "Mexico City", text: "The piece completely transformed my garden. It's like having a piece of the forest at home." },
+      { name: "Carlos Ruiz", location: "Guadalajara", text: "I wear this necklace every day. It's unique and has a special energy I can't explain." },
+      { name: "Ana Sofia", location: "Monterrey", text: "The attention to detail is incredible. Every fiber, every texture is perfectly executed." },
+    ],
+    homeCategoriesData: [
+      { title: "Author Jars", desc: "Unique organic designs that elevate your daily table.", story: "Each jar is born from the study of natural forms and finished with textures that mimic stone, bark, and moss. Pieces that turn an everyday table into a ritual scene.", cta: "View collection" },
+      { title: "Custom Funkos", desc: "Your favorite characters captured in cold porcelain.", story: "We take references, sketches, and key expressions to model unique versions of your characters. Each figure retains personality, gesture, and narrative.", cta: "Learn more" },
+      { title: "Botanical Jewelry", desc: "Preserved nature in wearable art pieces.", story: "Flowers, leaves, and organic textures become lightweight jewelry with sculptural detail. A line designed to carry nature with you every day.", cta: "Explore" },
+    ],
+    galleryCatalogData: [
+      { nombre: "Custom Pop Funkos", precio: "30 USD", historia: "Each Funko is born from a real story: professions, favorite bands, and characters that marked important moments. We model features, colors, and details so each piece is a living memory." },
+      { nombre: "Artisan Jars", precio: "15 USD", historia: "Our jars are inspired by family tables and Sunday coffee. Each piece is hand-finished with organic finishes and warm tones so every drink has its own ritual." },
+      { nombre: "Artisan Earrings", precio: "5 USD", historia: "Earrings are our most playful collection: small color accents to wear every day. Lightweight, durable, and made to match casual or elegant styles." },
+    ],
+    newsArticlesData: {
+      articles: [
+        { id:1, category: "Featured", date: "October 12, 2024", title: "The Awakening of the Winter Fairies", excerpt: "Discover our new collection of mystical figures inspired by winter folklore. Each piece is hand-modeled with cold porcelain and mineral pigments." },
+        { id:2, category: "Workshop and process", date: "October 5, 2024", title: "Secrets of Pressed Botany", excerpt: "The technique of direct botanical printing on polymer clay to preserve the beauty of local ferns." },
+        { id:3, category: "Inspiration", date: "September 28, 2024", title: "Amulets of the Firm Earth", excerpt: "Acorns and pine cones dominate our aesthetic this quarter. A journey through the symbolism of protection." },
+        { id:4, category: "Behind the scenes", date: "September 20, 2024", title: "The Patience of the Translucent", excerpt: "The challenge of working with high-transparency ceramic pastes and how we achieve that eternal ice finish." },
+        { id:5, category: "Sustainability", date: "September 10, 2024", title: "Commitment to the Forest", excerpt: "For every mystical piece that travels to a new home, we plant an oak sapling in the hills that saw us born." },
+      ],
+      carouselArticles: [
+        { id:6, category: "Interviews", date: "September 15, 2024", title: "The Art of Patience", excerpt: "We spoke with Elena about the hours of silence each piece requires." },
+        { id:7, category: "Materials", date: "September 8, 2024", title: "Clays of the World", excerpt: "A journey through the different earths we use and their unique textures." },
+        { id:8, category: "Events", date: "September 1, 2024", title: "Artisan Fair 2024", excerpt: "We are preparing for the annual fair with never-before-seen pieces." },
+      ],
+    },
+    orderCategoriesData: [
+      { id: "jarra", name: "Author jar", eta: "10-14 days" },
+      { id: "funko", name: "Custom figure", eta: "14-20 days" },
+      { id: "joyeria", name: "Botanical jewelry", eta: "8-12 days" },
+      { id: "set", name: "Collection set", eta: "18-26 days" },
+    ],
   },
 }
 

@@ -1,11 +1,10 @@
-﻿import { useEffect, useRef } from "react"
+﻿import { useEffect, useRef, useMemo } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { galleryCatalog } from "../data/productCatalog"
+import { useI18n } from "../i18n"
 
-const catalogo = galleryCatalog
-
-function PolaroidStack({ fotos, titulo }) {
+function PolaroidStack({ fotos, titulo, t }) {
   return (
     <div className="relative md:h-[520px] h-auto w-full max-w-3xl mx-auto overflow-visible" data-photo-stage>
       {fotos.map((foto, index) => (
@@ -15,9 +14,9 @@ function PolaroidStack({ fotos, titulo }) {
           className="md:absolute md:left-1/2 relative mx-auto w-[78%] sm:w-[60%] md:w-[42%] bg-cream p-3 pb-10 shadow-2xl md:mt-0 mt-6"
           style={{ zIndex: 10 - index }}
         >
-          <img src={foto} alt={`${titulo} caso ${index + 1}`} className="h-44 w-full object-cover" />
+          <img src={foto} alt={`${titulo} ${t('gallery.successCase')} ${index + 1}`} className="h-44 w-full object-cover" />
           <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.2em] text-forest-dark/75">
-            Caso de éxito #{index + 1}
+            {t('gallery.successCase')} #{index + 1}
           </figcaption>
         </figure>
       ))}
@@ -26,7 +25,18 @@ function PolaroidStack({ fotos, titulo }) {
 }
 
 export default function Galeria() {
+  const { t } = useI18n()
   const sectionRefs = useRef([])
+
+  const catalogo = useMemo(() => {
+    const data = t('galleryCatalogData')
+    return galleryCatalog.map((item, i) => ({
+      ...item,
+      nombre: data[i]?.nombre ?? item.nombre,
+      precio: data[i]?.precio ?? item.precio,
+      historia: data[i]?.historia ?? item.historia,
+    }))
+  }, [t])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -150,9 +160,9 @@ export default function Galeria() {
 
       <div className="relative z-10 pt-24 md:pt-32 pb-16 md:pb-20 px-4 md:px-6 max-w-6xl mx-auto">
         <section className="text-center mb-16">
-          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">Catálogo</h1>
+          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">{t('gallery.title')}</h1>
           <p className="text-cream/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Secciones con precio fijo, historia real de cada línea y casos de éxito presentados en polaroids apiladas.
+            {t('gallery.subtitle')}
           </p>
         </section>
 
@@ -167,17 +177,17 @@ export default function Galeria() {
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div data-catalog-content className={idx % 2 === 1 ? "lg:order-2" : ""}>
-                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">Sección destacada</p>
+                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">{t('gallery.sectionHighlight')}</p>
                   <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{item.nombre}</h2>
                   <div className="inline-flex items-center rounded-full border border-gold-accent/40 px-4 py-2 mb-6">
-                    <span className="text-gold-accent text-sm uppercase tracking-[0.2em]">Precio: {item.precio}</span>
+                    <span className="text-gold-accent text-sm uppercase tracking-[0.2em]">{t('common.price')}: {item.precio}</span>
                   </div>
                   <p className="text-cream/70 leading-relaxed mb-6">{item.historia}</p>
-                  <p className="text-cream/50 text-sm">Fotos reales de clientes satisfechos en formato polaroid stack.</p>
+                  <p className="text-cream/50 text-sm">{t('gallery.photoCaption')}</p>
                 </div>
 
                 <div data-catalog-photos className={idx % 2 === 1 ? "lg:order-1" : ""}>
-                  <PolaroidStack fotos={item.casosExito} titulo={item.nombre} />
+                  <PolaroidStack fotos={item.casosExito} titulo={item.nombre} t={t} />
                 </div>
               </div>
             </article>
@@ -192,15 +202,15 @@ export default function Galeria() {
               border: "1px solid rgba(197, 160, 89, 0.3)",
             }}
           >
-            <h2 className="font-display text-3xl text-cream mb-4">¿Quieres tu pieza personalizada?</h2>
+            <h2 className="font-display text-3xl text-cream mb-4">{t('gallery.customTitle')}</h2>
             <p className="text-cream/60 mb-8 max-w-xl mx-auto">
-              Cuéntanos tu idea y te ayudamos a convertirla en una pieza artesanal con identidad propia.
+              {t('gallery.customText')}
             </p>
             <a
               href="/encargos"
               className="inline-block bg-gold-accent text-forest-dark px-8 py-3 rounded-full font-semibold hover:bg-gold-light transition-colors duration-300"
             >
-              Crear Tu Pieza
+              {t('common.createYourPiece')}
             </a>
           </div>
         </section>

@@ -1,55 +1,7 @@
-﻿import { useRef, useState, useEffect, useCallback } from "react"
+﻿import { useRef, useState, useEffect, useCallback, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 import { productImages } from "../data/productCatalog"
-
-const articles = [
-  {
-    id: 1,
-    category: "Destacado",
-    date: "12 de octubre, 2024",
-    title: "El despertar de las hadas de invierno",
-    excerpt:
-      "Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal. Cada pieza ha sido modelada a mano con porcelana fría y pigmentos minerales.",
-    image: productImages.funkos[2],
-    span: "feature",
-  },
-  {
-    id: 2,
-    category: "Taller y proceso",
-    date: "05 de octubre, 2024",
-    title: "Secretos de la botánica prensada",
-    excerpt: "La técnica de impresión botánica directa sobre arcilla polimérica para preservar la belleza de los helechos locales.",
-    image: productImages.aretes[0],
-    span: "side-top",
-  },
-  {
-    id: 3,
-    category: "Inspiración",
-    date: "28 de septiembre, 2024",
-    title: "Amuletos de la tierra firme",
-    excerpt: "Las bellotas y piñas dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección.",
-    image: productImages.jarras[1],
-    span: "side-bottom",
-  },
-  {
-    id: 4,
-    category: "Detrás de escena",
-    date: "20 de septiembre, 2024",
-    title: "La paciencia de lo translúcido",
-    excerpt: "El reto de trabajar con pastas cerámicas de alta transparencia y cómo logramos ese acabado de hielo eterno.",
-    image: productImages.aretes[1],
-    span: "medium",
-  },
-  {
-    id: 5,
-    category: "Sostenibilidad",
-    date: "10 de septiembre, 2024",
-    title: "Compromiso con el bosque",
-    excerpt: "Por cada pieza mística que viaja a un nuevo hogar, plantamos un brote de roble en las colinas que nos vieron nacer.",
-    image: productImages.jarras[2],
-    span: "wide",
-  },
-]
+import { useI18n } from "../i18n"
 
 const carouselArticles = [
   {
@@ -101,7 +53,7 @@ function CardReveal({ children, index }) {
   return <div ref={revealRef} className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>{children}</div>
 }
 
-function BentoCard({ article, index, className, onOpenArticle }) {
+function BentoCard({ article, index, className, onOpenArticle, t }) {
   const isFeature = article.span === "feature"
 
   return (
@@ -133,7 +85,7 @@ function BentoCard({ article, index, className, onOpenArticle }) {
             <p className={`text-cream/60 font-light leading-relaxed text-left ${isFeature ? "text-sm md:text-base line-clamp-3" : "text-xs md:text-sm line-clamp-2"}`}>{article.excerpt}</p>
 
             <div className="mt-4 inline-flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.2em] text-cream/50 transition-colors duration-300 hover:text-gold-accent w-fit">
-              {isFeature ? "Leer crónica" : "Ver más"}
+              {isFeature ? t('news.readChronicle') : t('news.readMore')}
             </div>
           </div>
         </article>
@@ -143,7 +95,7 @@ function BentoCard({ article, index, className, onOpenArticle }) {
   )
 }
 
-function CarouselCard({ article, onOpenArticle }) {
+function CarouselCard({ article, onOpenArticle, t }) {
   return (
     <>
       <button type="button" onClick={() => onOpenArticle(article)} >
@@ -166,7 +118,7 @@ function CarouselCard({ article, onOpenArticle }) {
             <h4 className="mt-1.5 font-display text-base font-semibold text-cream leading-snug line-clamp-2">{article.title}</h4>
             <p className="mt-2 text-xs leading-relaxed text-cream/50 line-clamp-2 font-light">{article.excerpt}</p>
             <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-[0.2em] text-cream/40 transition-colors duration-300 hover:text-gold-accent">
-              Leer
+              {t('news.read')}
             </div>
           </div>
         </article>
@@ -176,10 +128,24 @@ function CarouselCard({ article, onOpenArticle }) {
 }
 
 export default function Noticias() {
+  const { t } = useI18n()
   const navigate = useNavigate()
   const carouselRef = useRef(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
   const [canScrollRight, setCanScrollRight] = useState(true)
+
+  const articles = useMemo(() => {
+    const data = t('newsArticlesData.articles')
+    const images = [productImages.funkos[2], productImages.jarras[0], productImages.jarras[1], productImages.aretes[1], productImages.jarras[2]]
+    const spans = ["feature", "side-top", "side-bottom", "medium", "wide"]
+    return data.map((item, i) => ({ ...item, image: images[i], span: spans[i] }))
+  }, [t])
+
+  const carouselArticles = useMemo(() => {
+    const data = t('newsArticlesData.carouselArticles')
+    const images = [productImages.funkos[0], productImages.jarras[0], productImages.funkos[1]]
+    return data.map((item, i) => ({ ...item, image: images[i] }))
+  }, [t])
 
   const updateScrollButtons = useCallback(() => {
     const el = carouselRef.current
@@ -206,8 +172,8 @@ export default function Noticias() {
       state: {
         article: {
           ...article,
-          author: "Equipo Evergreen",
-          readTime: "6 min de lectura",
+          author: t('news.author'),
+          readTime: t('news.readTime'),
         },
       },
     })
@@ -244,32 +210,32 @@ export default function Noticias() {
       <div className="relative z-10 pt-32 pb-24 px-6 max-w-7xl mx-auto">
         <section className="text-center mb-16 mt-4">
           <span className="inline-block rounded-full px-4 py-1.5 text-[10px] font-semibold uppercase tracking-[0.22em] mb-6" style={{ background: "rgba(197, 160, 89, 0.12)", color: "#C5A059", border: "1px solid rgba(197, 160, 89, 0.2)" }}>
-            Bitácora del bosque
+            {t('news.badge')}
           </span>
-          <h1 className="font-display text-5xl md:text-7xl font-semibold text-cream mb-6 leading-tight tracking-tight">Crónicas de la <br /><span style={{ color: "#C5A059" }}>Tierra Fría</span></h1>
-          <p className="text-base md:text-lg text-cream/50 max-w-2xl mx-auto font-light leading-relaxed">Relatos de barro, botánica y la magia que habita en las manos de la artesana.</p>
+          <h1 className="font-display text-5xl md:text-7xl font-semibold text-cream mb-6 leading-tight tracking-tight">{t('news.title')}</h1>
+          <p className="text-base md:text-lg text-cream/50 max-w-2xl mx-auto font-light leading-relaxed">{t('news.subtitle')}</p>
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto">
           {articles.map((article, i) => (
             <div key={article.id} className={gridClass(article.span)}>
-              <BentoCard article={article} index={i} className="h-full" onOpenArticle={openArticle} />
+              <BentoCard article={article} index={i} className="h-full" onOpenArticle={openArticle} t={t} />
             </div>
           ))}
         </section>
 
         <section className="mt-20">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display text-2xl md:text-3xl font-semibold text-cream">Noticias y Novedades</h2>
+            <h2 className="font-display text-2xl md:text-3xl font-semibold text-cream">{t('news.sectionTitle')}</h2>
             <div className="hidden md:flex items-center gap-3">
-              <button onClick={() => scrollCarousel(-1)} disabled={!canScrollLeft} className="flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 disabled:opacity-20" aria-label="Anterior">◀</button>
-              <button onClick={() => scrollCarousel(1)} disabled={!canScrollRight} className="flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 disabled:opacity-20" aria-label="Siguiente">▶</button>
+              <button onClick={() => scrollCarousel(-1)} disabled={!canScrollLeft} className="flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 disabled:opacity-20" aria-label={t('news.prev')}>◀</button>
+              <button onClick={() => scrollCarousel(1)} disabled={!canScrollRight} className="flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300 disabled:opacity-20" aria-label={t('news.next')}>▶</button>
             </div>
           </div>
 
           <div ref={carouselRef} className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
             {carouselArticles.map((article) => (
-              <CarouselCard key={article.id} article={article} onOpenArticle={openArticle} />
+              <CarouselCard key={article.id} article={article} onOpenArticle={openArticle} t={t} />
             ))}
           </div>
         </section>

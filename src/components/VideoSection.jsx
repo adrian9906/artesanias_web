@@ -1,52 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Play, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
-
-const videos = [
-  {
-    platform: 'youtube',
-    id: 'dDBAPJxat2Y',
-    title: 'Modelado a mano de jarra decorativa',
-    description: 'Cada pieza comienza con un bloque de porcelana fría y horas de dedicacion artesanal.',
-    thumbnail: null,
-  },
-  {
-    platform: 'youtube',
-    id: 'NxRdTuRtYVM',
-    title: 'Texturizado con herramientas naturales',
-    description: 'Hojas, cortezas y fibras se convierten en sellos que graban la naturaleza en la superficie.',
-    thumbnail: null,
-  },
-  {
-    platform: 'youtube',
-    id: '7VnYBkXSNu8',
-    title: 'Proceso de pintado a mano',
-    description: 'Capas de pigmento natural aplicadas con pinceles de fibra vegetal para acabados unicos.',
-    thumbnail: null,
-  },
-  {
-    platform: 'instagram',
-    id: 'Cx9V3KzOj8M',
-    title: 'Taller en vivo: creación de joyería botánica',
-    description: 'Un vistazo exclusivo a nuestro taller mientras transformamos flores preservadas en piezas de arte.',
-    thumbnail: null,
-  },
-  {
-    platform: 'youtube',
-    id: 'Hb3HgRWTSZc',
-    title: 'De la idea al molde: el proceso creativo',
-    description: 'Sigue el recorrido completo de una pieza personalizada desde el boceto inicial hasta el horno.',
-    thumbnail: null,
-  },
-  {
-    platform: 'facebook',
-    id: '1015938792278541',
-    title: 'Detalles que marcan la diferencia',
-    description: 'Macro close-up de los acabados finales: texturas, bordes dorados y sellos de autenticidad.',
-    thumbnail: null,
-  },
-]
+import { useI18n } from '../i18n'
 
 function getEmbedUrl(video) {
   switch (video.platform) {
@@ -139,11 +95,28 @@ function VideoCard({ video, index }) {
   )
 }
 
+const staticVideos = [
+  { platform: 'youtube', id: 'dDBAPJxat2Y', thumbnail: null },
+  { platform: 'youtube', id: 'NxRdTuRtYVM', thumbnail: null },
+  { platform: 'youtube', id: '7VnYBkXSNu8', thumbnail: null },
+  { platform: 'instagram', id: 'Cx9V3KzOj8M', thumbnail: null },
+  { platform: 'youtube', id: 'Hb3HgRWTSZc', thumbnail: null },
+  { platform: 'facebook', id: '1015938792278541', thumbnail: null },
+]
+
 export default function VideoSection() {
+  const { t } = useI18n()
   const sectionRef = useRef(null)
   const titleRef = useRef(null)
   const filterRef = useRef(null)
   const [filter, setFilter] = useState('all')
+
+  const videoData = t('videoData')
+  const videos = useMemo(() => staticVideos.map((v, i) => ({
+    ...v,
+    title: videoData[i]?.title ?? v.id,
+    description: videoData[i]?.description ?? '',
+  })), [videoData])
 
   const filtered = filter === 'all' ? videos : videos.filter(v => v.platform === filter)
 
@@ -187,7 +160,7 @@ export default function VideoSection() {
   }, [])
 
   const filters = [
-    { value: 'all', label: 'Todos' },
+    { value: 'all', label: t('videoSection.filterAll') },
     { value: 'youtube', label: 'YouTube' },
     { value: 'instagram', label: 'Instagram' },
     { value: 'facebook', label: 'Facebook' },
@@ -201,13 +174,13 @@ export default function VideoSection() {
 
       <div className="relative z-10 container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-6">
-          <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/60">Detras del arte</span>
+          <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/60">{t('videoSection.badge')}</span>
           <h2 className="font-display text-4xl md:text-5xl text-cream mt-4 mb-3 leading-tight">
-            Procesos de Creación
+            {t('videoSection.title')}
           </h2>
           <div className="w-16 h-px bg-gold-accent/40 mx-auto mb-1" />
           <p className="text-cream/40 text-sm mt-4 max-w-md mx-auto">
-            Cada pieza cuenta una historia. Mira como nacen nuestras creaciones desde el primer boceto hasta el último detalle.
+            {t('videoSection.subtitle')}
           </p>
         </div>
 
@@ -237,7 +210,7 @@ export default function VideoSection() {
             href="/galeria"
             className="inline-flex items-center gap-2 text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]"
           >
-            Ver galería completa
+            {t('videoSection.viewGallery')}
             <ExternalLink size={14} />
           </a>
         </div>

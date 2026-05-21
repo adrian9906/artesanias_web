@@ -4,6 +4,7 @@ import { useI18n } from "../i18n"
 export default function Footer() {
   const years = new Date().getFullYear()
   const { t } = useI18n()
+  const isMobile = window.innerWidth < 768
 
   return (
     <footer className="bg-forest-deep border-t border-white/5 py-12 md:py-16">
@@ -55,7 +56,7 @@ export default function Footer() {
           <div className="lg:col-span-5">
             <div className="rounded-3xl overflow-hidden border border-gold-accent/30 bg-forest-mid/60 shadow-[0_0_40px_rgba(197,160,89,0.16)]">
               <video className="w-full h-[320px] md:h-[380px] object-cover" autoPlay muted loop playsInline>
-                <source src="/promo.webm" type="video/webm" />
+                <source src={isMobile ? "/promoMovil.webm" : "/promo.webm"} type="video/webm" />
               </video>
             </div>
           </div>

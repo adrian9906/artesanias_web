@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from 'react'
+﻿import { useEffect, useMemo, useRef } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -25,6 +25,8 @@ const categories = homeCategories
 function Categories() {
   const sectionRef = useRef(null)
   const { t } = useI18n()
+
+  const categoriesData = useMemo(() => t('homeCategoriesData'), [t])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -113,7 +115,9 @@ function Categories() {
         </div>
 
         <div className="space-y-14 md:space-y-28">
-          {categories.map((cat, i) => (
+          {categories.map((cat, i) => {
+            const catText = categoriesData[i] ?? {}
+            return (
             <div
               key={cat.title}
               className="category-story-row grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center"
@@ -122,9 +126,9 @@ function Categories() {
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
                   {t('home.category')} {String(i + 1).padStart(2, '0')}
                 </p>
-                <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{cat.title}</h3>
-                <p className="text-cream/60 text-base leading-relaxed mb-6">{cat.story}</p>
-                <p className="text-cream/50 text-sm leading-relaxed">{cat.desc}</p>
+                <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{catText.title}</h3>
+                <p className="text-cream/60 text-base leading-relaxed mb-6">{catText.story}</p>
+                <p className="text-cream/50 text-sm leading-relaxed">{catText.desc}</p>
               </div>
 
               <div className="category-card-zoom category-card p-6 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm will-change-transform">
@@ -137,17 +141,18 @@ function Categories() {
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/80 via-transparent to-transparent" />
                 </div>
                 <div className="pt-6">
-                  <h4 className="font-display text-2xl text-cream mb-3">{cat.title}</h4>
+                  <h4 className="font-display text-2xl text-cream mb-3">{catText.title}</h4>
                   <a
                     className="inline-block px-6 py-2 bg-gold-accent text-forest-dark rounded-full text-xs font-bold hover:bg-gold-light transition-all duration-300"
                     href="#"
                   >
-                    {cat.cta}
+                    {catText.cta}
                   </a>
                 </div>
               </div>
             </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
@@ -266,31 +271,15 @@ function CTABanner() {
   )
 }
 
-const testimonials = [
-  {
-    name: 'Maria Elena',
-    location: 'Ciudad de MÃ©xico',
-    text: 'La pieza transformo completamente mi jardí­n. Es como tener un pedazo del bosque en casa.',
-    image: null,
-  },
-  {
-    name: 'Carlos Ruiz',
-    location: 'Guadalajara',
-    text: 'Llevo este collar todos los dí­as. Es Ãºnico y tiene una energí­a especial que no puedo explicar.',
-    image: null,
-  },
-  {
-    name: 'Ana Sofia',
-    location: 'Monterrey',
-    text: 'La atención al detalle es increible. Cada fibra, cada textura esta perfectamente ejecutada.',
-    image: null,
-  },
-]
+const testimonials = []
 
 function Testimonials() {
   const titleRef = useRef(null)
   const sectionRef = useRef(null)
   const { t } = useI18n()
+
+  const testimonialsData = useMemo(() => t('testimonialsData'), [t])
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
 
@@ -327,7 +316,7 @@ function Testimonials() {
 
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
           <Marquee pauseOnHover className="[--duration:20s]">
-            {testimonials.map((t, i) => (
+            {testimonialsData.map((item, i) => (
 
               <div
                 key={i}
@@ -337,12 +326,12 @@ function Testimonials() {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
                   <div>
-                    <p className="text-cream font-semibold">{t.name}</p>
-                    <p className="text-cream/40 text-xs uppercase tracking-widest">{t.location}</p>
+                    <p className="text-cream font-semibold">{item.name}</p>
+                    <p className="text-cream/40 text-xs uppercase tracking-widest">{item.location}</p>
                   </div>
                 </div>
                 <p className="text-cream/60 text-sm leading-relaxed font-light">
-                  "{t.text}"
+                  "{item.text}"
                 </p>
               </div>
 

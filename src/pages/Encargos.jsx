@@ -5,12 +5,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { useI18n } from "../i18n"
 
-const categories = [
-  { id: 'jarra', name: 'Jarra de autor', base: 95, eta: '10-14 días' },
-  { id: 'funko', name: 'Figura personalizada', base: 140, eta: '14-20 días' },
-  { id: 'joyeria', name: 'Joyería botánica', base: 85, eta: '8-12 días' },
-  { id: 'set', name: 'Set colección', base: 220, eta: '18-26 días' },
+const staticCategories = [
+  { id: 'jarra', base: 95 },
+  { id: 'funko', base: 140 },
+  { id: 'joyeria', base: 85 },
+  { id: 'set', base: 220 },
 ]
 
 const PricingRow = ({ label, value, highlight = false }) => (
@@ -21,7 +22,16 @@ const PricingRow = ({ label, value, highlight = false }) => (
 )
 
 export default function Encargos() {
-  const [category, setCategory] = useState(categories[0].id)
+  const { t } = useI18n()
+  const categories = useMemo(() => {
+    const data = t('orderCategoriesData')
+    return staticCategories.map((c, i) => ({
+      ...c,
+      name: data[i]?.name ?? c.id,
+      eta: data[i]?.eta ?? '',
+    }))
+  }, [t])
+  const [category, setCategory] = useState(categories[0]?.id ?? 'jarra')
   const [quantity, setQuantity] = useState(1)
 
   const selectedCategory = categories.find((c) => c.id === category)
@@ -39,23 +49,23 @@ export default function Encargos() {
       <div className="mx-auto w-full max-w-[1440px] grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
         <form className="rounded-lg border border-amber-500/50 bg-[#0A0A0A] p-6 md:p-8 space-y-5">
           <div>
-            <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase">Formulario</p>
-            <h1 className="font-bold text-3xl md:text-4xl tracking-[-0.02em] mt-2">Encargar una pieza</h1>
+            <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase">{t('orders.form')}</p>
+            <h1 className="font-bold text-3xl md:text-4xl tracking-[-0.02em] mt-2">{t('orders.title')}</h1>
           </div>
 
           <FieldGroup>
             <Field>
-              <FieldLabel htmlFor="nombre">Nombre</FieldLabel>
-              <Input id="nombre" placeholder="Tu nombre" />
+              <FieldLabel htmlFor="nombre">{t('orders.name')}</FieldLabel>
+              <Input id="nombre" placeholder={t('orders.name')} />
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="correo">Correo</FieldLabel>
-              <Input id="correo" type="email" placeholder="tu@email.com" />
+              <FieldLabel htmlFor="correo">{t('orders.email')}</FieldLabel>
+              <Input id="correo" type="email" placeholder={t('orders.email')} />
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="categoria">Categoría</FieldLabel>
+              <FieldLabel htmlFor="categoria">{t('orders.category')}</FieldLabel>
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger id="categoria">
                   <SelectValue />
@@ -69,7 +79,7 @@ export default function Encargos() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="cantidad">Cantidad</FieldLabel>
+              <FieldLabel htmlFor="cantidad">{t('orders.quantity')}</FieldLabel>
               <Input
                 id="cantidad"
                 type="number"
@@ -80,25 +90,25 @@ export default function Encargos() {
             </Field>
 
             <Field>
-              <FieldLabel htmlFor="idea">Idea</FieldLabel>
-              <Textarea id="idea" placeholder="Describe tu encargo..." />
+              <FieldLabel htmlFor="idea">{t('orders.idea')}</FieldLabel>
+              <Textarea id="idea" placeholder={t('orders.idea')} />
             </Field>
           </FieldGroup>
 
           <Button type="submit" className="w-full bg-gold-accent text-black hover:bg-gold-light">
-            Enviar solicitud
+            {t('orders.send')}
           </Button>
         </form>
 
         <aside className="rounded-lg border border-amber-500/50 bg-[#0A0A0A] p-6 md:p-8 h-fit sticky top-24">
-          <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase mb-3">Precios dinamicos</p>
+          <p className="text-[10px] tracking-[0.1em] text-[#8b90a0] uppercase mb-3">{t('orders.dynamicPricing')}</p>
           <h2 className="text-2xl font-bold mb-4">{selectedCategory?.name}</h2>
 
           <div className="flex flex-col gap-3">
-            <PricingRow label="Precio base" value={`$${pricing.base}`} />
-            <PricingRow label="Subtotal" value={`$${pricing.subtotal}`} highlight />
-            <PricingRow label="Deposito (50%)" value={`$${pricing.deposito}`} />
-            <PricingRow label="Tiempo estimado" value={selectedCategory?.eta} />
+            <PricingRow label={t('orders.basePrice')} value={`$${pricing.base}`} />
+            <PricingRow label={t('orders.subtotal')} value={`$${pricing.subtotal}`} highlight />
+            <PricingRow label={t('orders.deposit')} value={`$${pricing.deposito}`} />
+            <PricingRow label={t('orders.eta')} value={selectedCategory?.eta} />
           </div>
         </aside>
       </div>

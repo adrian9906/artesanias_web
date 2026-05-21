@@ -1,24 +1,24 @@
-﻿import { useLocation, useNavigate } from "react-router-dom"
+﻿import { useMemo } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
 import { useI18n } from "../i18n"
-import { blogRelatedArticles, productImages } from "../data/productCatalog"
+import { productImages } from "../data/productCatalog"
 
-const relatedArticles = blogRelatedArticles
-
-const fallbackArticle = {
-  category: "Destacado",
-  date: "12 oct. 2024",
-  title: "El secreto místico de la porcelana",
-  excerpt:
-    "Existe un momento preciso entre el ocaso y la medianoche donde la porcelana fría comienza su verdadera transformación.",
-  image: productImages.funkos[0],
-  author: "Elena Vance",
-  readTime: "8 min de lectura",
-}
+const relatedImages = [productImages.jarras[1], productImages.aretes[1], productImages.funkos[0]]
 
 export default function Blog() {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useI18n()
+
+  const fallbackArticle = useMemo(() => {
+    const fb = t('blog.fallbackArticle')
+    return { ...fb, image: productImages.funkos[0] }
+  }, [t])
+
+  const relatedArticles = useMemo(() => {
+    const data = t('blog.relatedArticles')
+    return data.map((item, i) => ({ ...item, image: relatedImages[i] }))
+  }, [t])
 
   const article = location.state?.article ?? fallbackArticle
 
@@ -58,7 +58,7 @@ export default function Blog() {
               <div className="flex items-center space-x-4">
                 <div className="w-12 h-12 rounded-full object-cover border border-cream/20 bg-gradient-to-br from-gold-accent/30 to-gold-accent/10" />
                 <div>
-                  <p className="text-xs text-cream/40 uppercase tracking-wider mb-1">Escrito por</p>
+                  <p className="text-xs text-cream/40 uppercase tracking-wider mb-1">{t('blog.writtenBy')}</p>
                   <p className="text-lg font-medium text-cream">{article.author ?? "Equipo Evergreen"}</p>
                 </div>
               </div>
@@ -78,12 +78,10 @@ export default function Blog() {
             <article className="text-cream/70 font-light leading-relaxed">
               <p className="text-xl mb-6 italic">{article.excerpt}</p>
               <p className="mb-6">
-                Esta noticia forma parte de nuestra bitácora creativa. Aquí compartimos el proceso artesanal,
-                la inspiración natural y los detalles de cada colección para que puedas conocer la historia detrás de cada pieza.
+                {t('blog.creativeJournal')}
               </p>
               <p className="mb-6">
-                Si deseas una versión personalizada o tienes una idea en mente, nuestro taller puede adaptar estilos,
-                paletas y acabados según tu visión para convertirla en una pieza única.
+                {t('blog.customNote')}
               </p>
             </article>
 
@@ -101,7 +99,7 @@ export default function Blog() {
         </section>
 
         <section className="container mx-auto px-6 max-w-6xl mt-24">
-          <h3 className="text-3xl font-display text-cream mb-8">Relatos Relacionados</h3>
+          <h3 className="text-3xl font-display text-cream mb-8">{t('blog.relatedStories')}</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {relatedArticles.map((related, i) => (
