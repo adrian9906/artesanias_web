@@ -4,10 +4,10 @@ import { SmoothCursor } from './ui/smooth-cursor'
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-forest-deep text-cream font-body antialiased">
+    <div className="min-h-screen w-full overflow-x-hidden bg-forest-deep text-cream font-body antialiased">
       <SmoothCursor />
       <Navbar />
-      <main>
+      <main className="w-full overflow-x-hidden">
         {children}
       </main>
       <Footer />

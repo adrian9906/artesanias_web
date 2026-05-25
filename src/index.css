@@ -164,6 +164,18 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+}
+
 .glass-card {
   background: rgba(20, 20, 20, 0.6);
   backdrop-filter: blur(10px);

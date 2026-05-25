@@ -196,14 +196,14 @@ export default function Hero() {
 
   return (
     <>
-      <section ref={heroSectionRef} className="relative min-h-[88vh] md:h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      <section ref={heroSectionRef} className="relative flex min-h-screen w-full items-center justify-center overflow-hidden md:h-screen">
+        <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-[#0a1a0f]" />
           <img
             src="/fondo2.jpeg"
             alt=""
             onLoad={() => setIsHeroImageReady(true)}
-            className="hero-main-image w-full h-full object-cover opacity-0"
+            className="hero-main-image absolute inset-0 block h-full w-full object-cover object-center opacity-0"
           />
           <div className="absolute inset-0 hero-overlay" />
           <div className="absolute inset-0 noise-overlay" />
@@ -233,10 +233,20 @@ export default function Hero() {
             <div className="w-16 h-px bg-gold-accent/60 mx-auto mt-0.5" />
           </div>
 
-          <div ref={bgRef} className="relative rounded-[1.25rem] overflow-hidden border border-gold-accent/30 min-h-[380px] md:min-h-[560px] transition-colors duration-500" style={{ backgroundImage: activeSlide.background }}>
+          <div
+            ref={bgRef}
+            className="relative overflow-hidden rounded-[1.25rem] border border-gold-accent/30 min-h-[380px] md:min-h-[560px] transition-colors duration-500"
+            style={{ backgroundImage: activeSlide.background }}
+          >
             <div className="absolute inset-0">
-              <div className="absolute inset-x-6 top-20 md:hidden rounded-2xl overflow-hidden border border-white/20 shadow-[0_18px_40px_rgba(0,0,0,0.34)]">
-                <img src={activeSlide.images[0].src} alt={activeSlide.images[0].alt} className="h-44 w-full object-cover" />
+              <div className="absolute inset-x-4 top-6 sm:inset-x-6 sm:top-8 md:hidden">
+                <div className="overflow-hidden rounded-[1.5rem] border border-white/20 shadow-[0_18px_40px_rgba(0,0,0,0.34)]">
+                  <img
+                    src={activeSlide.images[0].src}
+                    alt={activeSlide.images[0].alt}
+                    className="h-56 w-full object-cover sm:h-64"
+                  />
+                </div>
               </div>
               {gallerySlides.map((slide, slideIndex) => (
                 <div
@@ -272,7 +282,7 @@ export default function Hero() {
               ))}
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-black/35" />
-            <div className="absolute z-20 left-4 right-4 bottom-14 md:bottom-8 md:left-10 md:right-auto md:max-w-md mt-6">
+            <div className="relative z-20 px-4 pb-20 pt-[17.5rem] sm:px-6 sm:pb-24 sm:pt-[20rem] md:absolute md:left-10 md:right-auto md:bottom-8 md:max-w-md md:px-0 md:pb-0 md:pt-0">
               <h3 className="font-display text-xl md:text-3xl text-cream mb-2 md:mb-3">{activeSlide.title}</h3>
               <p className="text-cream/75 text-xs sm:text-sm md:text-base">{activeSlide.subtitle}</p>
             </div>
@@ -309,8 +319,6 @@ export default function Hero() {
     </>
   )
 }
-
-
 
 
 

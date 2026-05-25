@@ -33,15 +33,14 @@ export default function Navbar() {
   ]
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full px-3 md:px-0">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full max-w-full px-1 md:px-0">
       <header
-        className={`transition-all duration-500 ${
-          scrolled
-            ? 'bg-forest-deep/95 backdrop-blur-md border-b rounded-2xl md:rounded-full mt-2 border-white/10 max-w-7xl mx-auto'
-            : 'bg-transparent max-w-7xl mx-auto'
-        } relative`}
+        className={`transition-all duration-500 ${scrolled
+          ? 'bg-forest-deep/95 backdrop-blur-md border-b rounded-2xl md:rounded-full mt-2 border-white/10 max-w-7xl mx-auto'
+          : 'bg-transparent max-w-7xl mx-auto'
+          } relative`}
       >
-        <div className={`mx-auto px-2 md:px-6 py-3 md:py-4 flex justify-between ${scrolled ? 'gap-4 md:gap-6' : 'gap-3 md:gap-4'} items-center`}>
+        <div className={`mx-auto flex items-center justify-between px-4 py-3 sm:px-5 md:px-6 md:py-4 ${scrolled ? 'gap-4 md:gap-6' : 'gap-3 md:gap-4'}`}>
           <Link to="/" className="flex items-center gap-2 min-w-0">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-gold-accent/40 to-gold-accent/10 border border-gold-accent/30 shrink-0" />
             <span className="font-display text-sm md:text-lg tracking-wide text-cream truncate">Evergreen Cold Ceramics</span>
@@ -76,9 +75,8 @@ export default function Navbar() {
 
         <nav
           id="mobile-nav-menu"
-          className={`md:hidden absolute top-full left-0 right-0 mt-2 overflow-hidden transition-all duration-300 rounded-2xl border border-white/10 bg-forest-deep/95 backdrop-blur-md ${
-            mobileOpen ? 'max-h-96 opacity-100 p-3' : 'max-h-0 opacity-0 p-0 border-transparent'
-          }`}
+          className={`md:hidden absolute top-full left-0 right-0 mt-2 overflow-hidden transition-all duration-300 rounded-2xl border border-white/10 bg-forest-deep/95 backdrop-blur-md ${mobileOpen ? 'max-h-96 opacity-100 p-3' : 'max-h-0 opacity-0 p-0 border-transparent'
+            }`}
         >
           <div className="space-y-2">
             <div className="flex items-center justify-end gap-2 pb-1">
