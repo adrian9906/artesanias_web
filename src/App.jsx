@@ -11,6 +11,7 @@ import Encargos from './pages/Encargos'
 import Noticias from './pages/Noticias'
 import Blog from './pages/Blog'
 import Galeria from './pages/Galeria'
+import NotFound from './pages/NotFound'
 
 import { Sparkle } from 'lucide-react'
 import { Marquee } from './components/ui/marquee'
@@ -375,6 +376,7 @@ export default function App() {
         <Route path="/noticias" element={<Noticias />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/galeria" element={<Galeria />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>
   )
