@@ -1,16 +1,33 @@
-# React + Vite
+# Thay Art — Next.js
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend de Thay Art en Next.js con App Router. Conserva el diseño, las animaciones, el catálogo, el selector ES/EN y los recursos audiovisuales de la web original.
 
-Currently, two official plugins are available:
+## Desarrollo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+pnpm install
+pnpm dev
+```
 
-## React Compiler
+La aplicación estará disponible en `http://localhost:3000`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Comandos
 
-## Expanding the ESLint configuration
+- `pnpm dev`: servidor de desarrollo.
+- `pnpm build`: compilación optimizada de producción.
+- `pnpm start`: inicia la compilación de producción.
+- `pnpm lint`: comprueba el código fuente.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Estructura
+
+- `src/app`: rutas y layouts de Next.js.
+- `src/views`: pantallas visuales migradas de la aplicación original.
+- `src/components`: componentes compartidos y animaciones.
+- `src/data`: datos locales provisionales del catálogo y contenidos.
+- `public`: imágenes, vídeos y tipografías.
+
+## Integración futura del backend
+
+Los datos siguen aislados en `src/data` y en el proveedor de traducciones. Cuando exista el backend, se pueden sustituir por funciones de acceso a API sin cambiar las rutas ni los componentes visuales. Las rutas de artículos ya usan identificadores (`/blog/[id]`) para facilitar esa integración.
+
+Antes de hacer cambios editoriales o conectar un CMS, consulta `PROJECT_CONTEXT.md`. El índice importable de contenido está en `src/content/siteContext.js` y el inventario multimedia en `public/media-manifest.json`.

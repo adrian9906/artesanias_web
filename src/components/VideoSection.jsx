@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import Image from 'next/image'
+import Link from 'next/link'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Play, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Play, ExternalLink } from 'lucide-react'
 import { useI18n } from '../i18n'
+import { videoCatalog } from '../content/videoCatalog'
 
 function getEmbedUrl(video) {
   switch (video.platform) {
@@ -18,7 +21,6 @@ function getEmbedUrl(video) {
 }
 
 function VideoCard({ video, index }) {
-  const [loaded, setLoaded] = useState(false)
   const [active, setActive] = useState(false)
   const cardRef = useRef(null)
 
@@ -50,7 +52,7 @@ function VideoCard({ video, index }) {
   return (
     <div
       ref={cardRef}
-      className="group relative rounded-2xl overflow-hidden border border-gold-accent/15 bg-forest-mid/50 backdrop-blur-sm will-change-transform opacity-0"
+      className="group relative rounded-2xl overflow-hidden border border-gold-accent/15 bg-forest-mid/50 backdrop-blur-sm opacity-0"
     >
       <div className="relative aspect-video bg-forest-dark overflow-hidden">
         {active ? (
@@ -68,7 +70,8 @@ function VideoCard({ video, index }) {
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-4">
               <button
                 onClick={() => setActive(true)}
-                className="size-16 md:size-20 rounded-full bg-gold-accent/20 border-2 border-gold-accent/50 flex items-center justify-center transition-all duration-300 group-hover:bg-gold-accent/40 group-hover:scale-110 group-hover:border-gold-accent"
+                aria-label={`Reproducir ${video.title}`}
+                className="size-16 md:size-20 rounded-full bg-gold-accent/20 border-2 border-gold-accent/50 flex items-center justify-center transition-[background-color,border-color,transform] duration-300 group-hover:bg-gold-accent/40 group-hover:scale-110 group-hover:border-gold-accent"
               >
                 <Play className="text-gold-accent fill-gold-accent ml-1" size={28} />
               </button>
@@ -89,20 +92,11 @@ function VideoCard({ video, index }) {
       </div>
 
       {!active && (
-        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gold-accent/0 group-hover:ring-gold-accent/30 transition-all duration-500 pointer-events-none" />
+        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gold-accent/0 group-hover:ring-gold-accent/30 transition-shadow duration-500 pointer-events-none" />
       )}
     </div>
   )
 }
-
-const staticVideos = [
-  { platform: 'youtube', id: 'dDBAPJxat2Y', thumbnail: null },
-  { platform: 'youtube', id: 'NxRdTuRtYVM', thumbnail: null },
-  { platform: 'youtube', id: '7VnYBkXSNu8', thumbnail: null },
-  { platform: 'instagram', id: 'Cx9V3KzOj8M', thumbnail: null },
-  { platform: 'youtube', id: 'Hb3HgRWTSZc', thumbnail: null },
-  { platform: 'facebook', id: '1015938792278541', thumbnail: null },
-]
 
 export default function VideoSection() {
   const { t } = useI18n()
@@ -112,7 +106,7 @@ export default function VideoSection() {
   const [filter, setFilter] = useState('all')
 
   const videoData = t('videoData')
-  const videos = useMemo(() => staticVideos.map((v, i) => ({
+  const videos = useMemo(() => videoCatalog.map((v, i) => ({
     ...v,
     title: videoData[i]?.title ?? v.id,
     description: videoData[i]?.description ?? '',
@@ -167,10 +161,18 @@ export default function VideoSection() {
   ]
 
   return (
-    <section ref={sectionRef} className="py-24 bg-forest-deep relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-forest-deep py-24">
+      <Image
+        src="/images/porcelain-garden-bg.png"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover object-[70%_center] opacity-65"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,41,24,0.82)_0%,rgba(27,41,24,0.58)_46%,rgba(27,41,24,0.9)_100%)]" />
       <div className="absolute inset-0 noise-overlay" />
-      <div className="absolute top-20 right-0 w-96 h-96 bg-gold-accent/[0.03] rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-0 w-80 h-80 bg-gold-accent/[0.03] rounded-full blur-3xl" />
+      <div className="absolute top-20 right-0 w-96 h-96 bg-gold-accent/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-80 h-80 bg-secondary-fixed/[0.08] rounded-full blur-3xl" />
 
       <div className="relative z-10 container mx-auto px-6">
         <div ref={titleRef} className="text-center mb-6">
@@ -189,7 +191,7 @@ export default function VideoSection() {
             <button
               key={f.value}
               onClick={() => setFilter(f.value)}
-              className={`px-5 py-2 rounded-full text-xs uppercase tracking-[0.15em] border transition-all duration-300 ${filter === f.value
+              className={`px-5 py-2 rounded-full text-xs uppercase tracking-[0.15em] border transition-[background-color,border-color,color,transform] duration-300 ${filter === f.value
                 ? 'bg-gold-accent text-forest-dark border-gold-accent font-semibold'
                 : 'bg-transparent text-cream/50 border-gold-accent/20 hover:border-gold-accent/50 hover:text-cream/80'
                 }`}
@@ -206,13 +208,13 @@ export default function VideoSection() {
         </div>
 
         <div className="text-center mt-12">
-          <a
+          <Link
             href="/galeria"
             className="inline-flex items-center gap-2 text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]"
           >
             {t('videoSection.viewGallery')}
             <ExternalLink size={14} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>

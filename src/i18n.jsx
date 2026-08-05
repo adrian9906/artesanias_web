@@ -1,9 +1,10 @@
 ﻿import { createContext, useContext, useMemo, useState } from "react"
 
-const translations = {
+export const translations = {
   es: {
     nav: {
       home: "Inicio",
+      catalog: "Catálogo",
       about: "Sobre Nosotros",
       orderInfo: "Información de Encargo",
       gallery: "Galería",
@@ -29,7 +30,6 @@ const translations = {
       readMore: "Ver más",
       featured: "Destacado",
       featuredSection: "Sección destacada",
-      price: "Precio",
       createYourPiece: "Crear Tu Pieza",
     },
     hero: {
@@ -90,9 +90,9 @@ const translations = {
         sustainability: "Sostenibilidad",
         interviews: "Entrevistas",
         materials: "Materiales",
-      events: "Eventos",
+        events: "Eventos",
       },
-      author: "Equipo Evergreen",
+      author: "Equipo Thay Art",
       readTime: "6 min de lectura",
     },
     blog: {
@@ -208,16 +208,16 @@ const translations = {
     ],
     newsArticlesData: {
       articles: [
-        { id:1, category: "Destacado", date: "12 de octubre, 2024", title: "El despertar de las hadas de invierno", excerpt: "Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal. Cada pieza ha sido modelada a mano con porcelana fría y pigmentos minerales." },
-        { id:2, category: "Taller y proceso", date: "05 de octubre, 2024", title: "Secretos de la botánica prensada", excerpt: "La técnica de impresión botánica directa sobre arcilla polimérica para preservar la belleza de los helechos locales." },
-        { id:3, category: "Inspiración", date: "28 de septiembre, 2024", title: "Amuletos de la tierra firme", excerpt: "Las bellotas y piñas dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección." },
-        { id:4, category: "Detrás de escena", date: "20 de septiembre, 2024", title: "La paciencia de lo translúcido", excerpt: "El reto de trabajar con pastas cerámicas de alta transparencia y cómo logramos ese acabado de hielo eterno." },
-        { id:5, category: "Sostenibilidad", date: "10 de septiembre, 2024", title: "Compromiso con el bosque", excerpt: "Por cada pieza mística que viaja a un nuevo hogar, plantamos un brote de roble en las colinas que nos vieron nacer." },
+        { id: 1, category: "Destacado", date: "12 de octubre, 2024", title: "El despertar de las hadas de invierno", excerpt: "Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal. Cada pieza ha sido modelada a mano con porcelana fría y pigmentos minerales." },
+        { id: 2, category: "Taller y proceso", date: "05 de octubre, 2024", title: "Secretos de la botánica prensada", excerpt: "La técnica de impresión botánica directa sobre arcilla polimérica para preservar la belleza de los helechos locales." },
+        { id: 3, category: "Inspiración", date: "28 de septiembre, 2024", title: "Amuletos de la tierra firme", excerpt: "Las bellotas y piñas dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección." },
+        { id: 4, category: "Detrás de escena", date: "20 de septiembre, 2024", title: "La paciencia de lo translúcido", excerpt: "El reto de trabajar con pastas cerámicas de alta transparencia y cómo logramos ese acabado de hielo eterno." },
+        { id: 5, category: "Sostenibilidad", date: "10 de septiembre, 2024", title: "Compromiso con el bosque", excerpt: "Por cada pieza mística que viaja a un nuevo hogar, plantamos un brote de roble en las colinas que nos vieron nacer." },
       ],
       carouselArticles: [
-        { id:6, category: "Entrevistas", date: "15 de septiembre, 2024", title: "El arte de la paciencia", excerpt: "Conversamos con Elena sobre las horas de silencio que requiere cada pieza." },
-        { id:7, category: "Materiales", date: "8 de septiembre, 2024", title: "Arcillas del mundo", excerpt: "Un recorrido por las distintas tierras que usamos y su textura única." },
-        { id:8, category: "Eventos", date: "1 de septiembre, 2024", title: "Feria de artesanos 2024", excerpt: "Nos preparamos para la feria anual con piezas inéditas." },
+        { id: 6, category: "Entrevistas", date: "15 de septiembre, 2024", title: "El arte de la paciencia", excerpt: "Conversamos con Elena sobre las horas de silencio que requiere cada pieza." },
+        { id: 7, category: "Materiales", date: "8 de septiembre, 2024", title: "Arcillas del mundo", excerpt: "Un recorrido por las distintas tierras que usamos y su textura única." },
+        { id: 8, category: "Eventos", date: "1 de septiembre, 2024", title: "Feria de artesanos 2024", excerpt: "Nos preparamos para la feria anual con piezas inéditas." },
       ],
     },
     orderCategoriesData: [
@@ -230,6 +230,7 @@ const translations = {
   en: {
     nav: {
       home: "Home",
+      catalog: "Catalog",
       about: "About Us",
       orderInfo: "Order Info",
       gallery: "Gallery",
@@ -318,7 +319,7 @@ const translations = {
         materials: "Materials",
         events: "Events",
       },
-      author: "Evergreen Team",
+      author: "Thay Art Team",
       readTime: "6 min read",
     },
     blog: {
@@ -434,16 +435,16 @@ const translations = {
     ],
     newsArticlesData: {
       articles: [
-        { id:1, category: "Featured", date: "October 12, 2024", title: "The Awakening of the Winter Fairies", excerpt: "Discover our new collection of mystical figures inspired by winter folklore. Each piece is hand-modeled with cold porcelain and mineral pigments." },
-        { id:2, category: "Workshop and process", date: "October 5, 2024", title: "Secrets of Pressed Botany", excerpt: "The technique of direct botanical printing on polymer clay to preserve the beauty of local ferns." },
-        { id:3, category: "Inspiration", date: "September 28, 2024", title: "Amulets of the Firm Earth", excerpt: "Acorns and pine cones dominate our aesthetic this quarter. A journey through the symbolism of protection." },
-        { id:4, category: "Behind the scenes", date: "September 20, 2024", title: "The Patience of the Translucent", excerpt: "The challenge of working with high-transparency ceramic pastes and how we achieve that eternal ice finish." },
-        { id:5, category: "Sustainability", date: "September 10, 2024", title: "Commitment to the Forest", excerpt: "For every mystical piece that travels to a new home, we plant an oak sapling in the hills that saw us born." },
+        { id: 1, category: "Featured", date: "October 12, 2024", title: "The Awakening of the Winter Fairies", excerpt: "Discover our new collection of mystical figures inspired by winter folklore. Each piece is hand-modeled with cold porcelain and mineral pigments." },
+        { id: 2, category: "Workshop and process", date: "October 5, 2024", title: "Secrets of Pressed Botany", excerpt: "The technique of direct botanical printing on polymer clay to preserve the beauty of local ferns." },
+        { id: 3, category: "Inspiration", date: "September 28, 2024", title: "Amulets of the Firm Earth", excerpt: "Acorns and pine cones dominate our aesthetic this quarter. A journey through the symbolism of protection." },
+        { id: 4, category: "Behind the scenes", date: "September 20, 2024", title: "The Patience of the Translucent", excerpt: "The challenge of working with high-transparency ceramic pastes and how we achieve that eternal ice finish." },
+        { id: 5, category: "Sustainability", date: "September 10, 2024", title: "Commitment to the Forest", excerpt: "For every mystical piece that travels to a new home, we plant an oak sapling in the hills that saw us born." },
       ],
       carouselArticles: [
-        { id:6, category: "Interviews", date: "September 15, 2024", title: "The Art of Patience", excerpt: "We spoke with Elena about the hours of silence each piece requires." },
-        { id:7, category: "Materials", date: "September 8, 2024", title: "Clays of the World", excerpt: "A journey through the different earths we use and their unique textures." },
-        { id:8, category: "Events", date: "September 1, 2024", title: "Artisan Fair 2024", excerpt: "We are preparing for the annual fair with never-before-seen pieces." },
+        { id: 6, category: "Interviews", date: "September 15, 2024", title: "The Art of Patience", excerpt: "We spoke with Elena about the hours of silence each piece requires." },
+        { id: 7, category: "Materials", date: "September 8, 2024", title: "Clays of the World", excerpt: "A journey through the different earths we use and their unique textures." },
+        { id: 8, category: "Events", date: "September 1, 2024", title: "Artisan Fair 2024", excerpt: "We are preparing for the annual fair with never-before-seen pieces." },
       ],
     },
     orderCategoriesData: [

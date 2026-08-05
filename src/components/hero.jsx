@@ -1,5 +1,7 @@
 ﻿import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowDown } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
@@ -12,8 +14,8 @@ export default function Hero() {
     {
       title: t('hero.slides.jarsTitle'),
       subtitle: t('hero.slides.jarsSubtitle'),
-      background: 'radial-gradient(circle at 20% 20%, rgba(189,156,92,0.35), rgba(10,26,15,0.95) 60%)',
-      accent: '#d5b06b',
+      background: 'radial-gradient(circle at 20% 20%, rgba(249,172,162,0.38), rgba(27,41,24,0.96) 60%)',
+      accent: '#F9ACA2',
       images: [
         { src: productImages.jarras[0], alt: 'Jarra artesanal 1', className: 'left-[8%] top-[16%] h-44 w-36 md:h-60 md:w-48 rotate-[-8deg]' },
         { src: productImages.jarras[1], alt: 'Jarra artesanal 2', className: 'left-[35%] top-[34%] h-40 w-32 md:h-52 md:w-40 rotate-[5deg]' },
@@ -23,8 +25,8 @@ export default function Hero() {
     {
       title: t('hero.slides.funkosTitle'),
       subtitle: t('hero.slides.funkosSubtitle'),
-      background: 'radial-gradient(circle at 80% 30%, rgba(102,152,94,0.32), rgba(10,26,15,0.95) 58%)',
-      accent: '#7cb879',
+      background: 'radial-gradient(circle at 80% 30%, rgba(157,208,122,0.34), rgba(27,41,24,0.96) 58%)',
+      accent: '#9DD07A',
       images: [
         { src: productImages.funkos[0], alt: 'Funko personalizado 1', className: 'left-[10%] top-[26%] h-48 w-36 md:h-64 md:w-48 rotate-[6deg]' },
         { src: productImages.funkos[1], alt: 'Funko personalizado 2', className: 'left-[40%] top-[12%] h-40 w-34 md:h-52 md:w-44 rotate-[-10deg]' },
@@ -34,8 +36,8 @@ export default function Hero() {
     {
       title: t('hero.slides.earringsTitle'),
       subtitle: t('hero.slides.earringsSubtitle'),
-      background: 'radial-gradient(circle at 55% 80%, rgba(174,126,82,0.33), rgba(10,26,15,0.96) 62%)',
-      accent: '#d18d60',
+      background: 'radial-gradient(circle at 55% 80%, rgba(244,111,128,0.32), rgba(27,41,24,0.97) 62%)',
+      accent: '#F46F80',
       images: [
         { src: productImages.aretes[0], alt: 'Aretes artesanales 1', className: 'left-[12%] top-[14%] h-40 w-32 md:h-52 md:w-40 rotate-[-12deg]' },
         { src: productImages.aretes[1], alt: 'Aretes artesanales 2', className: 'left-[34%] top-[38%] h-44 w-38 md:h-60 md:w-48 rotate-[4deg]' },
@@ -45,8 +47,8 @@ export default function Hero() {
     {
       title: t('hero.slides.mixedFunkosTitle'),
       subtitle: t('hero.slides.mixedFunkosSubtitle'),
-      background: 'radial-gradient(circle at 25% 78%, rgba(197,160,89,0.3), rgba(10,26,15,0.95) 60%)',
-      accent: '#c5a059',
+      background: 'radial-gradient(circle at 25% 78%, rgba(200,228,157,0.32), rgba(27,41,24,0.96) 60%)',
+      accent: '#C8E49D',
       images: [
         { src: productImages.funkos[1], alt: 'Funko y estilo artesanal', className: 'left-[8%] top-[18%] h-42 w-34 md:h-56 md:w-44 rotate-[-8deg]' },
         { src: productImages.jarras[0], alt: 'Jarra en coleccion mixta', className: 'left-[36%] top-[34%] h-40 w-34 md:h-52 md:w-42 rotate-[6deg]' },
@@ -56,8 +58,8 @@ export default function Hero() {
     {
       title: t('hero.slides.mixedEarringsTitle'),
       subtitle: t('hero.slides.mixedEarringsSubtitle'),
-      background: 'radial-gradient(circle at 78% 20%, rgba(130,176,117,0.3), rgba(10,26,15,0.95) 58%)',
-      accent: '#91c285',
+      background: 'radial-gradient(circle at 78% 20%, rgba(71,104,54,0.48), rgba(27,41,24,0.96) 58%)',
+      accent: '#9DD07A',
       images: [
         { src: productImages.aretes[1], alt: 'Aretes en coleccion mixta', className: 'left-[9%] top-[22%] h-44 w-34 md:h-58 md:w-44 rotate-[7deg]' },
         { src: productImages.jarras[2], alt: 'Jarra floral en coleccion mixta', className: 'left-[38%] top-[12%] h-40 w-34 md:h-52 md:w-42 rotate-[-10deg]' },
@@ -66,7 +68,6 @@ export default function Hero() {
     },
   ], [t])
   const [activeIndex, setActiveIndex] = useState(0)
-  const [isHeroImageReady, setIsHeroImageReady] = useState(false)
   const intervalRef = useRef(null)
   const sectionRef = useRef(null)
   const bgRef = useRef(null)
@@ -74,7 +75,7 @@ export default function Hero() {
   const heroSectionRef = useRef(null)
   const titleRef = useRef(null)
 
-  const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex])
+  const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex, gallerySlides])
 
   useEffect(() => {
     const floatTweens = slideRefs.current.flatMap((slide) => {
@@ -95,11 +96,9 @@ export default function Hero() {
     return () => {
       floatTweens.forEach((tw) => tw.kill())
     }
-  }, [])
+  }, [gallerySlides.length])
 
   useEffect(() => {
-    if (!isHeroImageReady) return
-
     const ctx = gsap.context(() => {
       gsap.fromTo(
         titleRef.current,
@@ -136,7 +135,7 @@ export default function Hero() {
     }, heroSectionRef)
 
     return () => ctx.revert()
-  }, [isHeroImageReady])
+  }, [])
 
   useEffect(() => {
     slideRefs.current.forEach((slide, i) => {
@@ -176,7 +175,7 @@ export default function Hero() {
     }, 4600)
 
     return () => clearInterval(intervalRef.current)
-  }, [])
+  }, [gallerySlides.length])
 
   const goToSlide = (index) => {
     clearInterval(intervalRef.current)
@@ -198,12 +197,14 @@ export default function Hero() {
     <>
       <section ref={heroSectionRef} className="relative flex min-h-screen w-full items-center justify-center overflow-hidden md:h-screen">
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-[#0a1a0f]" />
-          <img
+          <div className="absolute inset-0 bg-forest-deep" />
+          <Image
             src="/fondo2.jpeg"
             alt=""
-            onLoad={() => setIsHeroImageReady(true)}
-            className="hero-main-image absolute inset-0 block h-full w-full object-cover object-center opacity-0"
+            fill
+            preload
+            sizes="100vw"
+            className="hero-main-image object-cover object-center opacity-0"
           />
           <div className="absolute inset-0 hero-overlay" />
           <div className="absolute inset-0 noise-overlay" />
@@ -218,9 +219,9 @@ export default function Hero() {
           <p className="hero-text-reveal text-cream/60 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
             {t('hero.subtitle')}
           </p>
-          <a className="hero-text-reveal inline-block border border-gold-accent/60 text-gold-light px-6 md:px-8 py-3 rounded-full hover:bg-gold-accent hover:text-forest-deep transition-all duration-300 font-medium opacity-0" href="/encargos">
+          <Link className="hero-text-reveal inline-flex min-h-11 items-center justify-center rounded-full border border-gold-accent bg-gold-accent px-7 py-3 font-semibold text-forest-deep shadow-glow-button opacity-0 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light" href="/encargos">
             {t('hero.cta')}
-          </a>
+          </Link>
         </div>
         <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
       </section>
@@ -240,11 +241,13 @@ export default function Hero() {
           >
             <div className="absolute inset-0">
               <div className="absolute inset-x-4 top-6 sm:inset-x-6 sm:top-8 md:hidden">
-                <div className="overflow-hidden rounded-[1.5rem] border border-white/20 shadow-[0_18px_40px_rgba(0,0,0,0.34)]">
-                  <img
+                <div className="relative h-56 overflow-hidden rounded-[1.5rem] border border-white/20 shadow-[0_18px_40px_rgba(0,0,0,0.34)] sm:h-64">
+                  <Image
                     src={activeSlide.images[0].src}
                     alt={activeSlide.images[0].alt}
-                    className="h-56 w-full object-cover sm:h-64"
+                    fill
+                    sizes="(max-width: 768px) calc(100vw - 3rem), 1px"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -258,7 +261,7 @@ export default function Hero() {
                 >
                   {slide.images.map((image) => (
                     <div key={`${slide.title}-${image.alt}`} className={`floating-item absolute hidden md:block rounded-2xl overflow-hidden border border-white/30 shadow-[0_18px_40px_rgba(0,0,0,0.34)] ${image.className}`}>
-                      <img src={image.src} alt={image.alt} className="h-full w-full object-cover" />
+                      <Image src={image.src} alt={image.alt} fill sizes="(max-width: 768px) 1px, 18vw" className="object-cover" />
                     </div>
                   ))}
                 </div>
@@ -271,7 +274,7 @@ export default function Hero() {
                   aria-label={`${t('hero.slideAriaLabel')} ${i + 1}`}
                   type="button"
                   onClick={() => goToSlide(i)}
-                  className="rounded-full transition-all duration-300"
+                  className="rounded-full transition-[width,background-color,box-shadow] duration-300"
                   style={{
                     width: i === activeIndex ? '2.6rem' : '0.8rem',
                     height: '0.8rem',
@@ -293,11 +296,12 @@ export default function Hero() {
           <button
             type="button"
             onClick={goPrevious}
-            className="absolute hidden md:block left-0 top-1/3 shadow-2xl rounded-2xl -translate-y-1/2 -translate-x-8 lg:-translate-x-12 p-3 transition-all duration-300 hover:scale-110 z-40"
+            aria-label="Mostrar colección anterior"
+            className="absolute hidden md:block left-0 top-1/3 shadow-2xl rounded-2xl -translate-y-1/2 -translate-x-8 lg:-translate-x-12 p-3 transition-[background-color,color,transform] duration-300 hover:scale-110 z-40"
             style={{
               color: activeSlide.accent,
               borderColor: activeSlide.accent,
-              backgroundColor: 'rgba(10,26,15,0.5)',
+              backgroundColor: 'rgba(27,41,24,0.74)',
             }}
           >
             <ArrowLeft />
@@ -305,11 +309,12 @@ export default function Hero() {
           <button
             type="button"
             onClick={goNext}
-            className="absolute hidden md:block right-0 top-1/3 -translate-y-1/2 translate-x-8 lg:translate-x-12 p-3 rounded-full transition-all duration-300 hover:scale-110 z-40"
+            aria-label="Mostrar colección siguiente"
+            className="absolute hidden md:block right-0 top-1/3 -translate-y-1/2 translate-x-8 lg:translate-x-12 p-3 rounded-full transition-[background-color,color,transform] duration-300 hover:scale-110 z-40"
             style={{
               color: activeSlide.accent,
               borderColor: activeSlide.accent,
-              backgroundColor: 'rgba(10,26,15,0.5)',
+              backgroundColor: 'rgba(27,41,24,0.74)',
             }}
           >
             <ArrowRight />
@@ -319,6 +324,3 @@ export default function Hero() {
     </>
   )
 }
-
-
-

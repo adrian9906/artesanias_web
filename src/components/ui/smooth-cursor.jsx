@@ -17,7 +17,7 @@ const DefaultCursorSVG = () => {
       fill="#1a3a22"
       style={{
         scale: 1.7,
-        filter: "drop-shadow(0 2px 8px rgba(10, 26, 15, 0.45))",
+        filter: "drop-shadow(0 2px 8px rgba(27, 41, 24, 0.45))",
       }}>
       <path
         d="M3.1,4.46l7.21,15.92A1.17,1.17,0,0,0,12.5,20l1.26-6.23L20,12.5a1.17,1.17,0,0,0,.39-2.19L4.46,3.1A1,1,0,0,0,3.1,4.46Z"
@@ -43,7 +43,7 @@ export function SmoothCursor({
 }) {
   const lastMousePos = useRef({ x: 0, y: 0 })
   const velocity = useRef({ x: 0, y: 0 })
-  const lastUpdateTime = useRef(Date.now())
+  const lastUpdateTime = useRef(0)
 
 
   const [isEnabled, setIsEnabled] = useState(false)
@@ -88,6 +88,7 @@ export function SmoothCursor({
     }
 
     let timeout = null
+    lastUpdateTime.current = Date.now()
 
     const updateVelocity = (currentPos) => {
       const currentTime = Date.now()
@@ -166,7 +167,6 @@ export function SmoothCursor({
         scale: scale,
         zIndex: 100,
         pointerEvents: "none",
-        willChange: "transform",
         opacity: isVisible ? 1 : 0,
       }}
       initial={false}

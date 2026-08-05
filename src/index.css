@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import 'tailwindcss';
 @import 'tailwind-animations';
 
 @font-face {
@@ -25,32 +24,60 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: 'Branding Aliskaje';
+  src: url('/fonts/branding_aliskaje/Branding Aliskaje.woff2') format('woff2'),
+       url('/fonts/branding_aliskaje/Branding Aliskaje.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Branding Aliskaje';
+  src: url('/fonts/branding_aliskaje/Branding Aliskaje Italic.woff2') format('woff2'),
+       url('/fonts/branding_aliskaje/Branding Aliskaje Italic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'The Artisan';
+  src: url('/fonts/the_artisan/the artisan.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
-* {
-  cursor: none !important;
-}
 @theme {
-  --color-forest-dark: #0a1a0f;
-  --color-forest-deep: #06130a;
-  --color-forest-mid: #0f2416;
-  --color-forest-light: #1a3a22;
-  --color-gold-accent: #c5a059;
-  --color-gold-light: #e5c07b;
-  --color-gold-pale: #eedbba;
-  --color-cream: #f5efe0;
-  --font-family-display: 'Playwrite GB', cursive;
-  --font-family-body: 'Playwrite GB', cursive;
-  --color-evergreen-gold: #E6C186;
-  --color-evergreen-gold-light: #F9DFA8;
-  --color-evergreen-dark: #0d0d0d;
-  --font-family-sans: 'Playwrite GB', cursive;
-  --font-family-serif: 'Playwrite GB', cursive;
+  /* Brand palette extracted from pagina info.pdf. Legacy names stay mapped so
+     every existing view inherits the new system without fragmenting styles. */
+  --color-forest-deep: #1b2918;
+  --color-forest-dark: #263b22;
+  --color-forest-mid: #476836;
+  --color-forest-light: #668855;
+  --color-gold-accent: #f9aca2;
+  --color-gold-light: #ffd5cf;
+  --color-gold-pale: #ffe9e5;
+  --color-cream: #fff9f4;
+  --font-family-display: 'Branding Aliskaje', cursive;
+  --font-family-body: 'Branding Aliskaje', cursive;
+  --color-evergreen-gold: #f9aca2;
+  --color-evergreen-gold-light: #ffd5cf;
+  --color-evergreen-dark: #1b2918;
+  --font-family-sans: 'Branding Aliskaje', cursive;
+  --font-family-serif: 'Branding Aliskaje', cursive;
   --font-family-bitcount: 'Bitcount Grid', sans-serif;
   --font-family-playwrite: 'Playwrite GB', cursive;
-  --color-secondary-fixed: #bfeec1;
-  --color-secondary: #3e6844;
-  --color-secondary-container: #bcebbf
+  --font-family-branding: 'Branding Aliskaje', cursive;
+  --font-family-artisan: 'The Artisan', cursive;
+  --color-secondary-fixed: #c8e49d;
+  --color-secondary: #9dd07a;
+  --color-secondary-container: #e6f1c3;
+  --color-coral: #f46f80;
 }
 
 @keyframes fade-up {
@@ -135,7 +162,7 @@
 }
 
 .gold-border-gradient {
-  border-image: linear-gradient(135deg, rgba(197, 160, 89, 0.1), rgba(197, 160, 89, 0.6), rgba(197, 160, 89, 0.1)) 1;
+  border-image: linear-gradient(135deg, rgba(249, 172, 162, 0.12), rgba(249, 172, 162, 0.78), rgba(200, 228, 157, 0.22)) 1;
 }
 
 .bg-gradient-radial {
@@ -143,25 +170,30 @@
 }
 
 .gold-glow {
-  box-shadow: 0 0 25px 5px rgba(197, 160, 89, 0.4);
+  box-shadow: 0 0 28px 4px rgba(249, 172, 162, 0.3);
 }
 
 .hero-overlay {
-  background: linear-gradient(to bottom, rgba(10, 26, 15, 0.4), rgba(10, 26, 15, 0.9));
+  background: linear-gradient(180deg, rgba(27, 41, 24, 0.38), rgba(27, 41, 24, 0.94));
 }
 
 .category-card {
-  border: 1px solid rgba(197, 160, 89, 0.3);
-  transition: all 0.3s ease;
+  border: 1px solid rgba(249, 172, 162, 0.32);
+  background: linear-gradient(145deg, rgba(71, 104, 54, 0.38), rgba(27, 41, 24, 0.78));
+  box-shadow: 0 18px 48px rgba(16, 28, 13, 0.2);
+  transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .category-card:hover {
-  border-color: rgba(197, 160, 89, 1);
-  background: rgba(197, 160, 89, 0.05);
+  border-color: rgba(249, 172, 162, 0.9);
+  background: linear-gradient(145deg, rgba(71, 104, 54, 0.54), rgba(27, 41, 24, 0.82));
 }
 
 html {
   scroll-behavior: smooth;
+  font-size: clamp(17px, 0.25vw + 16px, 18px);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
 }
 
 html,
@@ -174,20 +206,87 @@ body,
 
 body {
   margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  letter-spacing: 0.008em;
+  background:
+    radial-gradient(circle at 8% 4%, rgba(200, 228, 157, 0.12), transparent 24rem),
+    radial-gradient(circle at 92% 18%, rgba(249, 172, 162, 0.1), transparent 26rem),
+    #1b2918;
+  color: #fff9f4;
+}
+
+p,
+li {
+  text-wrap: pretty;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
 }
 
 .glass-card {
-  background: rgba(20, 20, 20, 0.6);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(230, 193, 134, 0.3);
+  background: rgba(38, 59, 34, 0.72);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(249, 172, 162, 0.28);
+  box-shadow: 0 20px 55px rgba(15, 29, 12, 0.22);
 }
 
 .glow-text-primary {
-  text-shadow: 0 0 15px rgba(255, 230, 180, 0.6), 0 0 30px rgba(255, 230, 180, 0.3);
+  text-shadow: 0 0 18px rgba(249, 172, 162, 0.4), 0 0 34px rgba(200, 228, 157, 0.18);
 }
 
 .shadow-glow-button {
-  box-shadow: 0 0 15px rgba(230, 193, 134, 0.5);
+  box-shadow: 0 10px 28px rgba(249, 172, 162, 0.28);
+}
+
+.brand-name {
+  gap: 0.16em;
+  line-height: 1;
+}
+
+.brand-thay {
+  font-family: 'The Artisan', cursive;
+  font-size: 1.18em;
+  letter-spacing: 0.015em;
+}
+
+.brand-art {
+  font-family: 'Branding Aliskaje', cursive;
+  letter-spacing: 0.035em;
+}
+
+::selection {
+  background: #f9aca2;
+  color: #1b2918;
+}
+
+:focus-visible {
+  outline: 3px solid #c8e49d;
+  outline-offset: 4px;
+}
+
+@media (any-hover: hover) and (any-pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 .bg-radial-gradient {
@@ -196,7 +295,7 @@ body {
 
 @theme inline {
   --font-heading: var(--font-playwrite);
-  --font-sans: 'Playwrite GB', cursive;
+  --font-sans: 'Branding Aliskaje', cursive;
   --font-bitcount: 'Bitcount Grid', sans-serif;
   --font-playwrite: 'Playwrite GB', cursive;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -257,38 +356,39 @@ body {
   }}
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  --background: #fff9f4;
+  --foreground: #1b2918;
+  --card: #fffdf9;
+  --card-foreground: #1b2918;
+  --popover: #fffdf9;
+  --popover-foreground: #1b2918;
+  --primary: #476836;
+  --primary-foreground: #fff9f4;
+  --secondary: #f9aca2;
+  --secondary-foreground: #1b2918;
+  --muted: #e6f1c3;
+  --muted-foreground: #476836;
+  --accent: #c8e49d;
+  --accent-foreground: #1b2918;
+  --destructive: #f46f80;
+  --border: rgba(71, 104, 54, 0.2);
+  --input: rgba(71, 104, 54, 0.24);
+  --ring: #9dd07a;
+  --chart-1: #476836;
+  --chart-2: #f9aca2;
+  --chart-3: #9dd07a;
+  --chart-4: #c8e49d;
+  --chart-5: #f46f80;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);}
+  --sidebar: #263b22;
+  --sidebar-foreground: #fff9f4;
+  --sidebar-primary: #f9aca2;
+  --sidebar-primary-foreground: #1b2918;
+  --sidebar-accent: #476836;
+  --sidebar-accent-foreground: #fff9f4;
+  --sidebar-border: rgba(249, 172, 162, 0.24);
+  --sidebar-ring: #c8e49d;
+}
 
 .dark {
   --background: oklch(0.145 0 0);

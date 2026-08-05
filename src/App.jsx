@@ -1,21 +1,13 @@
 ﻿import { useEffect, useMemo, useRef } from 'react'
-import { Routes, Route } from 'react-router-dom'
 import { gsap } from 'gsap'
+import Image from 'next/image'
+import Link from 'next/link'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Layout from './components/Layout'
 import Hero from './components/hero'
 import VideoSection from './components/VideoSection'
-import InformacionEncargo from './pages/InformacionEncargo'
-import SobreNosotros from './pages/SobreNosotros'
-import Encargos from './pages/Encargos'
-import Noticias from './pages/Noticias'
-import Blog from './pages/Blog'
-import Galeria from './pages/Galeria'
-import NotFound from './pages/NotFound'
 
 import { Sparkle } from 'lucide-react'
 import { Marquee } from './components/ui/marquee'
-import { ChevronUpCircle } from 'lucide-react'
 import { ChevronRight } from 'lucide-react'
 import { homeCategories } from './data/productCatalog'
 import { ArrowRight } from 'lucide-react'
@@ -108,8 +100,31 @@ function Categories() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-forest-deep overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
+    <section ref={sectionRef} className="relative overflow-hidden bg-forest-deep py-16 md:py-24">
+      <div className="absolute inset-x-0 top-0 h-[46rem] overflow-hidden md:h-[58rem]">
+        <Image
+          src="/images/artisan-worktable-bg.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[18%_center] opacity-80 md:object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(27,41,24,0.34)_0%,rgba(27,41,24,0.62)_55%,#1b2918_100%)]" />
+      </div>
+      <div className="absolute inset-x-0 bottom-0 h-[42rem] overflow-hidden md:h-[54rem]">
+        <Image
+          src="/images/artisan-worktable-bg.png"
+          alt=""
+          fill
+          sizes="100vw"
+          className="object-cover object-[82%_center] opacity-70 md:object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(27,41,24,0.4)_0%,rgba(27,41,24,0.68)_55%,#1b2918_100%)]" />
+      </div>
+      <div className="absolute inset-0 bg-forest-deep/20" />
+      <div className="absolute inset-0 noise-overlay" />
+
+      <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="categories-title text-center mb-12 md:mb-20">
           <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{t('home.categories')}</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
@@ -123,7 +138,7 @@ function Categories() {
               key={cat.title}
               className="category-story-row grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center"
             >
-              <div className="category-story will-change-transform">
+              <div className="category-story">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
                   {t('home.category')} {String(i + 1).padStart(2, '0')}
                 </p>
@@ -132,11 +147,13 @@ function Categories() {
                 <p className="text-cream/50 text-sm leading-relaxed">{catText.desc}</p>
               </div>
 
-              <div className="category-card-zoom category-card p-6 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm will-change-transform">
+              <div className="category-card-zoom category-card p-6 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm">
                 <div className="relative h-72 md:h-80 rounded-xl overflow-hidden border border-gold-accent/25">
-                  <img
+                  <Image
                     alt={cat.title}
-                    className="category-image w-full h-full object-cover will-change-transform"
+                    className="category-image object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     src={cat.img}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/80 via-transparent to-transparent" />
@@ -144,7 +161,7 @@ function Categories() {
                 <div className="pt-6">
                   <h4 className="font-display text-2xl text-cream mb-3">{catText.title}</h4>
                   <a
-                    className="inline-block px-6 py-2 bg-gold-accent text-forest-dark rounded-full text-xs font-bold hover:bg-gold-light transition-all duration-300"
+                    className="inline-block px-6 py-2 bg-gold-accent text-forest-dark rounded-full text-xs font-bold hover:bg-gold-light transition-colors duration-300"
                     href="#"
                   >
                     {catText.cta}
@@ -240,7 +257,7 @@ function CTABanner() {
     <section ref={sectionRef} className="max-w-6xl mx-auto px-4 md:px-6 mb-16 md:mb-[165px] mt-12 md:mt-20">
       <div
         ref={cardRef}
-        className="bg-forest-mid rounded-3xl p-8 md:p-32 text-center relative overflow-hidden mt-6 md:mt-8 transition-all"
+        className="bg-forest-mid rounded-3xl p-8 md:p-32 text-center relative overflow-hidden mt-6 md:mt-8 transition-[background-color,transform,box-shadow]"
       >
         {/* CÃ­rculos decorativos */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-gold-accent opacity-10 rounded-full"></div>
@@ -261,7 +278,7 @@ function CTABanner() {
 
           <button
             ref={buttonRef}
-            className="bg-gold-accent text-cloud-whisper px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-all duration-300 opacity-0"
+            className="bg-gold-accent text-forest-deep px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-[background-color,transform] duration-300 opacity-0"
           >
             <span className="truncate text-black font-extrabold">{t('home.ctaButton')}</span>
             <ChevronRight className="text-black" size={20} />
@@ -271,8 +288,6 @@ function CTABanner() {
     </section>
   )
 }
-
-const testimonials = []
 
 function Testimonials() {
   const titleRef = useRef(null)
@@ -303,10 +318,10 @@ function Testimonials() {
     return () => ctx.revert()
   }, [])
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-forest-dark relative overflow-hidden">
+    <section ref={sectionRef} className="relative overflow-hidden bg-forest-dark py-16 md:py-24">
       <div className="absolute inset-0 noise-overlay" />
-      <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gold-accent/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/[0.08] rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary-fixed/[0.06] rounded-full blur-3xl" />
 
       <div className="relative z-10 max-w-full mx-auto px-4 md:px-8">
         <div ref={titleRef} className="text-center mb-16">
@@ -317,12 +332,11 @@ function Testimonials() {
 
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
           <Marquee pauseOnHover className="[--duration:20s]">
-            {testimonialsData.map((item, i) => (
+            {testimonialsData.map((item) => (
 
               <div
-                key={i}
-                className="p-8 rounded-2xl border border-gold-accent/10 bg-forest-mid/50"
-                style={{ background: 'rgba(15, 36, 22, 0.5)' }}
+                key={`${item.name}-${item.location}`}
+                className="rounded-2xl border border-gold-accent/20 bg-forest-mid/70 p-8 shadow-[0_18px_48px_rgba(15,29,12,0.22)] backdrop-blur-md"
               >
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
@@ -344,16 +358,16 @@ function Testimonials() {
         <div className="from-forest-dark pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
 
         <div className="text-center mt-12">
-          <a href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
+          <Link href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
             {t('home.moreTestimonials')} <ArrowRight className="inline-block" size={16} />
-          </a>
+          </Link>
         </div>
       </div>
     </section>
   )
 }
 
-function HomePage() {
+export default function HomePage() {
   return (
     <>
       <Hero />
@@ -362,22 +376,5 @@ function HomePage() {
       <VideoSection />
       <CTABanner />
     </>
-  )
-}
-
-export default function App() {
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/informacion-de-encargo" element={<InformacionEncargo />} />
-        <Route path="/sobre-nosotros" element={<SobreNosotros />} />
-        <Route path="/encargos" element={<Encargos />} />
-        <Route path="/noticias" element={<Noticias />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/galeria" element={<Galeria />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </Layout>
   )
 }

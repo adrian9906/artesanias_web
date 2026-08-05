@@ -1,0 +1,26 @@
+{
+  "brand": ["/favicon.svg", "/icons.svg"],
+  "hero": ["/fondo2.jpeg", "/hero.png"],
+  "video": ["/promo.webm", "/promoMovil.webm"],
+  "legacy": ["/jarra.jpeg"],
+  "products": [
+    "/productos/funko.jpeg",
+    "/productos/funko2.jpeg",
+    "/productos/funko3_messi.jpeg",
+    "/productos/jarra1.jpeg",
+    "/productos/jarra2.jpeg",
+    "/productos/jarra3_flores.jpeg",
+    "/productos/jarra3_flores1.jpeg",
+    "/productos/aretes1.jpeg",
+    "/productos/aretes2.jpeg",
+    "/productos/aretes3.png",
+    "/productos/promocion1.jpeg",
+    "/productos/promocion2.jpeg",
+    "/productos/Generated_Image_May_19,_2026_202605201500.jpeg"
+  ],
+  "fonts": [
+    "/fonts/playwrite/PlaywriteGBS-VariableFont_wght.ttf",
+    "/fonts/playwrite/PlaywriteGBS-Italic-VariableFont_wght.ttf",
+    "/fonts/bitcount/BitcountGridDoubleInk-VariableFont_CRSV,ELSH,ELXP,SZP1,SZP2,XPN1,XPN2,YPN1,YPN2,slnt,wght.ttf"
+  ]
+}
