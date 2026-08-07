@@ -1,13 +1,37 @@
-﻿import { useMemo } from "react"
+﻿import { useMemo, useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { useI18n } from "../i18n"
 import { productImages } from "../data/productCatalog"
+import { api } from "@/lib/cms/client"
+import { formatDate } from "@/lib/cms/constants"
 
 const relatedImages = [productImages.jarras[1], productImages.aretes[1], productImages.funkos[0]]
 
 export default function Blog({ articleId }) {
   const router = useRouter()
   const { t } = useI18n()
+  const [cmsPost, setCmsPost] = useState(null)
+  const [ready, setReady] = useState(false)
+
+  useEffect(() => {
+    if (!articleId) return
+    let mounted = true
+    api(`/api/admin/posts/${articleId}`)
+      .then((data) => {
+        if (!mounted) return
+        setCmsPost(data?.post || null)
+      })
+      .catch(() => {
+        if (!mounted) return
+        setCmsPost(null)
+      })
+      .finally(() => {
+        if (mounted) setReady(true)
+      })
+    return () => {
+      mounted = false
+    }
+  }, [articleId])
 
   const fallbackArticle = useMemo(() => {
     const fb = t('blog.fallbackArticle')
@@ -20,7 +44,23 @@ export default function Blog({ articleId }) {
   }, [t])
 
   const article = useMemo(() => {
-    if (!articleId) return fallbackArticle
+    if (cmsPost) {
+      return {
+        id: cmsPost.id,
+        category: cmsPost.category,
+        date: formatDate(cmsPost.publishedAt || cmsPost.createdAt),
+        title: cmsPost.title,
+        excerpt: cmsPost.excerpt || "",
+        author: cmsPost.author || t('news.author'),
+        image: cmsPost.coverImage || productImages.funkos[0],
+        readTime: t('news.readTime'),
+        body: cmsPost.body || "",
+      }
+    }
+
+    if (!articleId) return { ...fallbackArticle, id: articleId }
+
+    if (!ready) return null
 
     const primary = t('newsArticlesData.articles')
     const secondary = t('newsArticlesData.carouselArticles')
@@ -32,7 +72,7 @@ export default function Blog({ articleId }) {
     ]
     const selected = allArticles.find((item) => String(item.id) === String(articleId))
     return selected ? { ...selected, author: t('news.author'), readTime: t('news.readTime') } : fallbackArticle
-  }, [articleId, fallbackArticle, t])
+  }, [articleId, ready, cmsPost, fallbackArticle, t])
 
   return (
     <div className="relative min-h-screen antialiased bg-forest-dark animate-blurred-fade-in">
@@ -50,6 +90,23 @@ export default function Blog({ articleId }) {
           </button>
         </section>
 
+        {!article && (
+          <section className="container mx-auto max-w-4xl px-6">
+            <div className="space-y-4">
+              <div className="h-10 w-2/3 animate-pulse rounded-xl bg-white/10" />
+              <div className="h-6 w-1/3 animate-pulse rounded-xl bg-white/5" />
+            </div>
+            <div className="mt-10 aspect-[16/9] animate-pulse rounded-2xl border border-white/10 bg-white/5" />
+            <div className="mt-8 space-y-3">
+              <div className="h-4 w-full animate-pulse rounded-lg bg-white/5" />
+              <div className="h-4 w-5/6 animate-pulse rounded-lg bg-white/5" />
+              <div className="h-4 w-2/3 animate-pulse rounded-lg bg-white/5" />
+            </div>
+          </section>
+        )}
+
+        {article && (
+        <>
         <section className="container mx-auto px-6 text-center pt-6 pb-14">
           <h1 className="text-5xl md:text-7xl font-bold text-cream leading-tight drop-shadow-lg max-w-5xl mx-auto font-display">
             {article.title}
@@ -89,12 +146,18 @@ export default function Blog({ articleId }) {
 
             <article className="text-cream/70 font-light leading-relaxed">
               <p className="text-xl mb-6 italic">{article.excerpt}</p>
-              <p className="mb-6">
-                {t('blog.creativeJournal')}
-              </p>
-              <p className="mb-6">
-                {t('blog.customNote')}
-              </p>
+              {article.body ? (
+                <div className="cms-body space-y-4" dangerouslySetInnerHTML={{ __html: article.body }} />
+              ) : (
+                <>
+                  <p className="mb-6">
+                    {t('blog.creativeJournal')}
+                  </p>
+                  <p className="mb-6">
+                    {t('blog.customNote')}
+                  </p>
+                </>
+              )}
             </article>
 
             <div className="flex flex-wrap gap-3 mt-12 pt-8 border-t border-cream/20">
@@ -143,6 +206,8 @@ export default function Blog({ articleId }) {
             ))}
           </div>
         </section>
+        </>
+        )}
       </div>
     </div>
   )

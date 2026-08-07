@@ -32,7 +32,7 @@ export default function Navbar() {
   ]
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 w-full max-w-full px-1 md:px-0">
+    <div className="fixed top-0 left-0 right-0 z-50 w-full max-w-full px-1 md:px-0 font-branding">
       <header
         className={`transition-[background-color,border-color,border-radius,box-shadow,backdrop-filter,margin] duration-500 ${scrolled
           ? 'bg-forest-mid/92 backdrop-blur-xl border rounded-2xl md:rounded-full mt-2 border-gold-accent/25 shadow-[0_14px_45px_rgba(15,29,12,0.24)] max-w-7xl mx-auto'
@@ -41,7 +41,6 @@ export default function Navbar() {
       >
         <div className={`mx-auto flex items-center justify-between px-4 py-3 sm:px-5 md:px-6 md:py-4 ${scrolled ? 'gap-4 md:gap-6' : 'gap-3 md:gap-4'}`}>
           <Link href="/" className="flex items-center gap-2 min-w-0">
-            <div className="relative h-9 w-9 shrink-0 rounded-[45%_55%_45%_55%] border border-gold-light/60 bg-gold-accent shadow-[0_0_22px_rgba(249,172,162,0.28)] after:absolute after:inset-[9px] after:rounded-full after:bg-forest-mid" />
             <BrandName className="text-lg md:text-2xl" />
           </Link>
 
@@ -52,12 +51,14 @@ export default function Navbar() {
             <Link className={`${isActive('/informacion-de-encargo') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/informacion-de-encargo">{t('nav.orderInfo')}</Link>
             <Link className={`${isActive('/galeria') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/galeria">{t('nav.gallery')}</Link>
             <Link className={`${isActive('/noticias') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/noticias">{t('nav.news')}</Link>
+          </nav>
+          <div className="flex items-center gap-3 md:gap-4">
             <Link className="inline-flex min-h-10 items-center rounded-full border border-gold-accent bg-gold-accent px-5 py-2 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light" href="/encargos">{t('nav.order')}</Link>
             <div className="inline-flex rounded-full border border-white/15 overflow-hidden">
               <button type="button" onClick={() => setLang('es')} className={`px-2 py-1 text-xs ${lang === 'es' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>ES</button>
               <button type="button" onClick={() => setLang('en')} className={`px-2 py-1 text-xs ${lang === 'en' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>EN</button>
             </div>
-          </nav>
+          </div>
 
           <button
             type="button"

@@ -14,15 +14,15 @@ const DefaultCursorSVG = () => {
       width={20}
       height={20}
       viewBox="0 0 24 24"
-      fill="#1a3a22"
+      fill="#F9ACA2"
       style={{
         scale: 1.7,
-        filter: "drop-shadow(0 2px 8px rgba(27, 41, 24, 0.45))",
+        filter: "drop-shadow(0 2px 8px rgba(249, 172, 162, 0.45))",
       }}>
       <path
         d="M3.1,4.46l7.21,15.92A1.17,1.17,0,0,0,12.5,20l1.26-6.23L20,12.5a1.17,1.17,0,0,0,.39-2.19L4.46,3.1A1,1,0,0,0,3.1,4.46Z"
-        fill="#1a3a22"
-        stroke="#1a3a22"
+        fill="#F9ACA2"
+        stroke="#F9ACA2"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}
@@ -165,7 +165,7 @@ export function SmoothCursor({
         translateY: "-50%",
         rotate: rotation,
         scale: scale,
-        zIndex: 100,
+        zIndex: 9999,
         pointerEvents: "none",
         opacity: isVisible ? 1 : 0,
       }}

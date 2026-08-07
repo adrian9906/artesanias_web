@@ -1,0 +1,143 @@
+{
+  "sections": [
+    {
+      "id": "jarras-de-autor",
+      "name": "Jarras de autor",
+      "description": "Jarras modeladas y decoradas a mano, inspiradas en flores, cortezas y pequeños rituales cotidianos.",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2024-10-01T12:00:00.000Z"
+    },
+    {
+      "id": "figuras-personalizadas",
+      "name": "Figuras personalizadas",
+      "description": "Personajes creados a partir de fotografías, profesiones, aficiones y detalles importantes.",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2024-10-01T12:00:00.000Z"
+    },
+    {
+      "id": "aretes-botanicos",
+      "name": "Aretes botánicos",
+      "description": "Flores y formas orgánicas ligeras, elaboradas una a una y pensadas para acompañar el día a día.",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2024-10-01T12:00:00.000Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "jarra-organica",
+      "name": "Jarra orgánica",
+      "description": "Jarra modelada a mano con acabados que imitan piedra, corteza y musgo. Ideal para rituales de mesa.",
+      "price": 15,
+      "currency": "USD",
+      "elaborationTime": "10–14 días",
+      "photo": "/productos/jarra1.jpeg",
+      "sectionId": "jarras-de-autor",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2026-08-06T20:57:14.509Z",
+      "photos": [
+        "/productos/jarra1.jpeg"
+      ],
+      "inStock": false,
+      "stockQty": 0,
+      "variants": []
+    },
+    {
+      "id": "funko-personalizado",
+      "name": "Funko personalizado",
+      "description": "Figura personalizada a partir de referencias y detalles que marcan la identidad del personaje.",
+      "price": 30,
+      "currency": "USD",
+      "elaborationTime": "14–20 días",
+      "photo": "/productos/funko.jpeg",
+      "sectionId": "figuras-personalizadas",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2026-08-06T20:56:36.590Z",
+      "photos": [
+        "/productos/funko.jpeg"
+      ],
+      "inStock": false,
+      "stockQty": 0,
+      "variants": []
+    },
+    {
+      "id": "aretes-florales",
+      "name": "Aretes florales",
+      "description": "Aretes ligeros con formas botánicas, resistentes y pensados para el uso diario.",
+      "price": 5,
+      "currency": "USD",
+      "elaborationTime": "8–12 días",
+      "photo": "/productos/aretes1.jpeg",
+      "sectionId": "aretes-botanicos",
+      "createdAt": "2024-10-01T12:00:00.000Z",
+      "updatedAt": "2026-08-06T20:44:32.539Z",
+      "photos": [
+        "/productos/aretes1.jpeg",
+        "/uploads/3-1786049017098.png"
+      ],
+      "inStock": true,
+      "stockQty": 12,
+      "variants": [
+        {
+          "id": "variante-1786049072539-0",
+          "name": "Naranja",
+          "price": 39,
+          "photo": "/uploads/3-1786049017098.png"
+        }
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": "asdasdasd",
+      "title": "asdasdasd",
+      "category": "taller",
+      "excerpt": "asdasdasdas",
+      "coverImage": "",
+      "body": "<font face=\"Arial, sans-serif\"><strike>fdsdfsdfsdfsdfsdf</strike></font>",
+      "author": "Equipo Thay Art asdasdas",
+      "status": "published",
+      "publishedAt": "2026-08-06T17:20:17.320Z",
+      "createdAt": "2026-08-06T17:20:17.320Z",
+      "updatedAt": "2026-08-06T17:20:17.320Z"
+    },
+    {
+      "id": "el-despertar-de-las-hadas",
+      "title": "El despertar de las hadas de invierno",
+      "category": "noticia",
+      "excerpt": "Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal.",
+      "coverImage": "/productos/funko3_messi.jpeg",
+      "body": "<p>Descubre nuestra nueva colección de figuras místicas inspiradas en el folclore invernal. Cada pieza ha sido modelada a mano con porcelana fría y pigmentos minerales.</p><p>En este diario compartimos el proceso creativo, las referencias naturales y los detalles que hacen única cada pieza.</p>",
+      "author": "Equipo Thay Art",
+      "status": "published",
+      "publishedAt": "2024-10-12T12:00:00.000Z",
+      "createdAt": "2024-10-12T12:00:00.000Z",
+      "updatedAt": "2024-10-12T12:00:00.000Z"
+    },
+    {
+      "id": "secretos-botanica",
+      "title": "Secretos de la botánica prensada",
+      "category": "taller",
+      "excerpt": "La técnica de impresión botánica directa sobre arcilla para preservar la belleza de los helechos locales.",
+      "coverImage": "/productos/aretes2.jpeg",
+      "body": "<h2>Taller de impresión botánica</h2><p>En este taller exploramos cómo transferir texturas de hojas y helechos a la porcelana fría, conservando el detalle natural de cada nervadura.</p><ul><li>Preparación de la pasta</li><li>Prensado de material vegetal</li><li>Acabados y sellado</li></ul>",
+      "author": "Equipo Thay Art",
+      "status": "published",
+      "publishedAt": "2024-10-05T12:00:00.000Z",
+      "createdAt": "2024-10-05T12:00:00.000Z",
+      "updatedAt": "2024-10-05T12:00:00.000Z"
+    },
+    {
+      "id": "amuletos-tierra",
+      "title": "Amuletos de la tierra firme",
+      "category": "blog",
+      "excerpt": "Las bellotas y piñas dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección.",
+      "coverImage": "/productos/jarra2.jpeg",
+      "body": "<p><strong>Las bellotas y piñas</strong> dominan nuestra estética este trimestre. Un viaje por el simbolismo de la protección y la conexión con el bosque.</p><p>Cada amuleto nace de una observación paciente de la naturaleza cercana al taller.</p>",
+      "author": "Equipo Thay Art",
+      "status": "published",
+      "publishedAt": "2024-09-28T12:00:00.000Z",
+      "createdAt": "2024-09-28T12:00:00.000Z",
+      "updatedAt": "2024-09-28T12:00:00.000Z"
+    }
+  ]
+}

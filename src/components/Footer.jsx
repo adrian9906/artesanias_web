@@ -41,9 +41,33 @@ export default function Footer() {
               <div className="max-w-xs">
                 <h4 className="text-cream/70 font-bold mb-6 text-xs uppercase tracking-[0.15em]">{t("footer.social")}</h4>
                 <ul className="space-y-4 text-sm text-cream/40">
-                  {["Instagram", "Pinterest", "Facebook"].map((social) => (
-                    <li key={social}><a className="hover:text-gold-accent transition-colors duration-300" href="#">{social}</a></li>
-                  ))}
+                  <li>
+                    <a
+                      className="hover:text-gold-accent transition-colors duration-300 inline-flex items-center gap-3"
+                      href="https://www.instagram.com/thay_artesanias?igsh=MTFkczZpM3J1cjZtdQ=="
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                      </svg>
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="hover:text-gold-accent transition-colors duration-300 inline-flex items-center gap-3"
+                      href="mailto:leonthaymi@gmail.com"
+                    >
+                      <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="2" y="4" width="20" height="16" rx="2" />
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                      </svg>
+                      leonthaymi@gmail.com
+                    </a>
+                  </li>
                 </ul>
               </div>
             </div>

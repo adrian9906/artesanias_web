@@ -295,7 +295,10 @@ h3 {
 
 @theme inline {
   --font-heading: var(--font-playwrite);
-  --font-sans: 'Branding Aliskaje', cursive;
+  --font-sans: 'Playwrite GB', cursive;
+  --font-body: 'Playwrite GB', cursive;
+  --font-display: 'Branding Aliskaje', cursive;
+  --font-branding: 'Branding Aliskaje', cursive;
   --font-bitcount: 'Bitcount Grid', sans-serif;
   --font-playwrite: 'Playwrite GB', cursive;
   --color-sidebar-ring: var(--sidebar-ring);

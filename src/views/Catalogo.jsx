@@ -8,14 +8,14 @@ import { useI18n } from '../i18n'
 
 const pageCopy = {
   es: {
-    badge: 'Catálogo de atelier',
     title: 'Piezas creadas para acompañar historias',
     intro: 'Explora cada colección, descubre sus detalles y escríbenos directamente para reservar o personalizar una pieza.',
     collection: 'Colección',
-    available: 'Disponible por encargo',
-    madeToOrder: 'Diseño personalizado',
+    available: 'Disponible para comprar',
+    madeToOrder: 'Disponible por encargo',
     from: 'Desde',
-    order: 'Pedir por WhatsApp',
+    order: 'Comprar ahora',
+    orderEncargo: 'Encargar ahora',
     previous: 'Ver imagen anterior de',
     next: 'Ver imagen siguiente de',
     image: 'Imagen',
@@ -36,14 +36,14 @@ const pageCopy = {
     timingNote: 'El tiempo comienza después de confirmar contigo el diseño y los detalles del pedido.',
   },
   en: {
-    badge: 'Atelier catalog',
+
     title: 'Pieces made to accompany stories',
     intro: 'Explore every collection, discover its details, and message us directly to reserve or personalize a piece.',
     collection: 'Collection',
     available: 'Available to order',
     madeToOrder: 'Custom design',
     from: 'From',
-    order: 'Order on WhatsApp',
+    order: 'Buy now',
     previous: 'View previous image of',
     next: 'View next image of',
     image: 'Image',
@@ -526,10 +526,6 @@ export default function Catalogo() {
             transition={{ duration: reduceMotion ? 0 : 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mx-auto mb-16 max-w-4xl text-center md:mb-24"
           >
-            <span className="inline-flex items-center gap-2 rounded-full border border-gold-accent/25 bg-forest-mid/70 px-4 py-2 text-sm uppercase tracking-[0.18em] text-gold-light backdrop-blur-md">
-              <Sparkles aria-hidden="true" size={16} />
-              {copy.badge}
-            </span>
             <h1 className="mt-7 font-display text-5xl leading-[1.08] text-cream md:text-7xl">{copy.title}</h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-cream/75 md:text-xl">{copy.intro}</p>
           </m.header>
