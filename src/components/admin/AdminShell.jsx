@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   Boxes,
+  ChartColumn,
   FolderTree,
   GalleryVerticalEnd,
   LayoutDashboard,
@@ -21,6 +22,7 @@ import { cn } from "@/lib/utils"
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
+  { href: "/admin/estadisticas", label: "Estadisticas", icon: ChartColumn },
   { href: "/admin/secciones", label: "Secciones", icon: FolderTree },
   { href: "/admin/productos", label: "Productos", icon: Boxes },
   { href: "/admin/promocion", label: "Promocion", icon: RectangleEllipsis },

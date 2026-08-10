@@ -118,3 +118,18 @@ model Promotion {
   @@index([productId])
   @@map("promotions")
 }
+
+model AnalyticsEvent {
+  id         String   @id @default(cuid())
+  kind       String
+  path       String
+  productId  String?
+  product    String?
+  referrer   String
+  sessionId  String?
+  createdAt  DateTime @default(now())
+
+  @@index([kind, createdAt])
+  @@index([sessionId])
+  @@map("analytics_events")
+}

@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Clock3, Leaf, MessageCircle, X, ZoomIn } from 'l
 import { catalogContact, catalogSections } from '../content/catalog'
 import { useI18n } from '../i18n'
 import { api } from '@/lib/cms/client'
+import { trackWhatsApp } from '@/lib/analytics/tracker'
 
 const pageCopy = {
   es: {
@@ -656,6 +657,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
           href={whatsappHref}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackWhatsApp({ productId: section.id, product: title })}
           className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-gold-accent px-6 py-3 font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98] sm:w-fit"
         >
           <MessageCircle aria-hidden="true" size={20} />

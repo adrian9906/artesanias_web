@@ -4,8 +4,21 @@ import { getAdminSessionFromRequest } from "./src/lib/auth/core"
 const PUBLIC_ADMIN_PATHS = new Set(["/admin/login"])
 const PUBLIC_ADMIN_API_PATHS = new Set(["/api/admin/auth/login", "/api/admin/auth/logout"])
 
+function isAdminPagePath(pathname) {
+  return pathname === "/admin" || pathname.startsWith("/admin/")
+}
+
+function isAdminApiPath(pathname) {
+  return pathname === "/api/admin" || pathname.startsWith("/api/admin/")
+}
+
 export async function proxy(request) {
   const { pathname } = request.nextUrl
+
+  if (!isAdminPagePath(pathname) && !isAdminApiPath(pathname)) {
+    return NextResponse.next()
+  }
+
   const session = await getAdminSessionFromRequest(request)
   const isAuthenticated = Boolean(session)
 
@@ -21,8 +34,11 @@ export async function proxy(request) {
   }
 
   if (!isAuthenticated) {
-    if (pathname.startsWith("/api/admin")) {
-      return NextResponse.json({ error: "Debes iniciar sesion para continuar." }, { status: 401 })
+    if (isAdminApiPath(pathname)) {
+      return NextResponse.json(
+        { error: "Debes iniciar sesion para continuar." },
+        { status: 401 },
+      )
     }
 
     const loginUrl = new URL("/admin/login", request.url)
@@ -34,5 +50,6 @@ export async function proxy(request) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  // Include bare /admin and /api/admin; :path* alone can miss the root segment.
+  matcher: ["/admin", "/admin/:path*", "/api/admin", "/api/admin/:path*"],
 }
