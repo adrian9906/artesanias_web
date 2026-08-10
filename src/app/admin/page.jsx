@@ -1,10 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { Boxes, FolderTree, Newspaper, Plus } from "lucide-react"
+import { Boxes, FolderTree, MessagesSquare, Newspaper, Plus, RectangleEllipsis } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Card, PrimaryButton, SecondaryButton, StatusBadge } from "@/components/admin/ui"
-import { categoryLabel, formatDate, formatPrice } from "@/lib/cms/constants"
+import { categoryLabel, feedbackTypeLabel, formatDate, formatPrice } from "@/lib/cms/constants"
 import { api } from "@/lib/cms/client"
 
 export default function AdminDashboardPage() {
@@ -24,6 +24,7 @@ export default function AdminDashboardPage() {
       .finally(() => {
         if (alive) setLoading(false)
       })
+
     return () => {
       alive = false
     }
@@ -43,14 +44,23 @@ export default function AdminDashboardPage() {
       value: stats.sections,
       href: "/admin/secciones",
       icon: FolderTree,
-      hint: "Agrupan los productos del catálogo",
+      hint: "Agrupan los productos del catalogo",
     },
     {
       label: "Productos",
       value: stats.products,
       href: "/admin/productos",
       icon: Boxes,
-      hint: "Nombre, precio, foto y tiempo de elaboración",
+      hint: "Fotos, materiales, variantes y tiempos de elaboracion",
+    },
+    {
+      label: "Promociones",
+      value: stats.promotions,
+      href: "/admin/promocion",
+      icon: RectangleEllipsis,
+      hint: stats.promotionEnabled
+        ? stats.promotionTitle || "Lista para mostrar producto nuevo"
+        : "Gestiona varias promociones y activa la que quieras mostrar",
     },
     {
       label: "Publicaciones",
@@ -58,6 +68,13 @@ export default function AdminDashboardPage() {
       href: "/admin/noticias",
       icon: Newspaper,
       hint: `${stats.publishedPosts} publicadas · ${stats.draftPosts} borradores`,
+    },
+    {
+      label: "Voces",
+      value: stats.feedback,
+      href: "/admin/voces",
+      icon: MessagesSquare,
+      hint: `${stats.publishedFeedback} visibles en el sitio`,
     },
   ]
 
@@ -67,8 +84,7 @@ export default function AdminDashboardPage() {
         <div>
           <h2 className="text-2xl font-medium text-cream">Bienvenida al CMS</h2>
           <p className="mt-1 max-w-2xl text-sm text-cream/55">
-            Crea y edita secciones, productos y contenidos de noticias (blog, noticias y talleres) con un editor
-            enriquecido.
+            Administra el catalogo publico, la galeria, noticias y las voces recibidas desde el sitio en un solo panel.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -81,13 +97,25 @@ export default function AdminDashboardPage() {
           <Link href="/admin/noticias">
             <SecondaryButton>
               <Plus className="size-4" />
-              Nueva publicación
+              Nueva publicacion
+            </SecondaryButton>
+          </Link>
+          <Link href="/admin/promocion/nueva">
+            <SecondaryButton>
+              <RectangleEllipsis className="size-4" />
+              Nueva promocion
+            </SecondaryButton>
+          </Link>
+          <Link href="/admin/voces">
+            <SecondaryButton>
+              <Plus className="size-4" />
+              Nueva voz
             </SecondaryButton>
           </Link>
         </div>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => {
           const Icon = card.icon
           return (
@@ -109,7 +137,7 @@ export default function AdminDashboardPage() {
         })}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-3">
         <Card>
           <div className="mb-4 flex items-center justify-between">
             <h3 className="text-base font-medium text-cream">Productos recientes</h3>
@@ -119,7 +147,7 @@ export default function AdminDashboardPage() {
           </div>
           <ul className="space-y-3">
             {(stats.recentProducts || []).length === 0 && (
-              <li className="text-sm text-cream/45">Aún no hay productos.</li>
+              <li className="text-sm text-cream/45">Aun no hay productos.</li>
             )}
             {(stats.recentProducts || []).map((product) => (
               <li
@@ -147,7 +175,7 @@ export default function AdminDashboardPage() {
           </div>
           <ul className="space-y-3">
             {(stats.recentPosts || []).length === 0 && (
-              <li className="text-sm text-cream/45">Aún no hay publicaciones.</li>
+              <li className="text-sm text-cream/45">Aun no hay publicaciones.</li>
             )}
             {(stats.recentPosts || []).map((post) => (
               <li
@@ -163,6 +191,34 @@ export default function AdminDashboardPage() {
                   <StatusBadge tone={post.status === "published" ? "success" : "warn"}>
                     {post.status === "published" ? "Publicado" : "Borrador"}
                   </StatusBadge>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+
+        <Card>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-base font-medium text-cream">Voces recientes</h3>
+            <Link href="/admin/voces" className="text-xs text-gold-light hover:underline">
+              Ver todas
+            </Link>
+          </div>
+          <ul className="space-y-3">
+            {(stats.recentFeedback || []).length === 0 && (
+              <li className="text-sm text-cream/45">Aun no hay opiniones o testimonios.</li>
+            )}
+            {(stats.recentFeedback || []).map((item) => (
+              <li key={item.id} className="rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm text-cream">{item.name}</p>
+                    <p className="mt-1 line-clamp-2 text-xs text-cream/40">{item.text}</p>
+                  </div>
+                  <div className="flex shrink-0 flex-col items-end gap-1">
+                    <StatusBadge tone="accent">{feedbackTypeLabel(item.type)}</StatusBadge>
+                    <span className="text-[11px] text-cream/40">{formatDate(item.createdAt)}</span>
+                  </div>
                 </div>
               </li>
             ))}

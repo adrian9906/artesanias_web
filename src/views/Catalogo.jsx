@@ -2,9 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { AnimatePresence, LazyMotion, domAnimation, m, useReducedMotion } from 'framer-motion'
-import { ArrowLeft, ArrowRight, Clock3, Leaf, MessageCircle, Sparkles, X, ZoomIn } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Clock3, Leaf, MessageCircle, X, ZoomIn } from 'lucide-react'
 import { catalogContact, catalogSections } from '../content/catalog'
 import { useI18n } from '../i18n'
+import { api } from '@/lib/cms/client'
 
 const pageCopy = {
   es: {
@@ -66,6 +67,7 @@ const pageCopy = {
 }
 
 const tabNames = ['description', 'materials', 'timing']
+const PROMOTION_STORAGE_KEY = 'thay-art-promotion-dismissed'
 
 const revealVariants = {
   hidden: { opacity: 0, y: 44, scale: 0.985 },
@@ -120,7 +122,171 @@ const lightboxImageVariants = {
 }
 
 function localized(value, lang) {
-  return value?.[lang] ?? value?.es ?? ''
+  if (Array.isArray(value)) return value
+  if (value && typeof value === 'object') return value?.[lang] ?? value?.es ?? value?.en ?? ''
+  return value ?? ''
+}
+
+function productToCatalogSection(product) {
+  const photos = Array.isArray(product.photos) && product.photos.length
+    ? product.photos
+    : product.photo
+      ? [product.photo]
+      : []
+
+  return {
+    id: product.id,
+    status: product.inStock === false ? 'made-to-order' : 'available',
+    title: { es: product.name, en: product.name },
+    eyebrow: {
+      es: product.eyebrow || product.sectionName || 'Coleccion artesanal',
+      en: product.eyebrow || product.sectionName || 'Artisan collection',
+    },
+    description: {
+      es: product.description || product.sectionDescription || '',
+      en: product.description || product.sectionDescription || '',
+    },
+    materials: {
+      es: Array.isArray(product.materials) && product.materials.length
+        ? product.materials
+        : ['Consulta los materiales al solicitar esta pieza.'],
+      en: Array.isArray(product.materials) && product.materials.length
+        ? product.materials
+        : ['Ask us about the materials used in this piece.'],
+    },
+    turnaround: {
+      es: product.elaborationTime || 'A coordinar',
+      en: product.elaborationTime || 'To be arranged',
+    },
+    price: {
+      amount: Number(product.price) || 0,
+      currency: product.currency || 'USD',
+    },
+    images: photos.map((src, index) => ({
+      src,
+      previewSrc: src,
+      alt: {
+        es: `${product.name}, vista ${index + 1}`,
+        en: `${product.name}, view ${index + 1}`,
+      },
+    })),
+  }
+}
+
+function PromotionModal({ promotion, onClose, onVisit }) {
+  const closeButtonRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+
+  useEffect(() => {
+    if (!promotion) return undefined
+
+    const previousActiveElement = document.activeElement
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose()
+      if (event.key === 'Tab') {
+        event.preventDefault()
+        closeButtonRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      document.body.style.overflow = previousOverflow
+      previousActiveElement?.focus?.()
+    }
+  }, [promotion, onClose])
+
+  if (!promotion || typeof document === 'undefined') return null
+
+  return createPortal(
+    <AnimatePresence>
+      {promotion ? (
+        <m.div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="promotion-modal-title"
+          variants={reduceMotion ? undefined : lightboxVariants}
+          initial={reduceMotion ? false : 'hidden'}
+          animate={reduceMotion ? undefined : 'visible'}
+          exit={reduceMotion ? undefined : 'exit'}
+          className="fixed inset-0 z-[110] flex items-center justify-center bg-[#071007]/92 p-3 backdrop-blur-xl md:p-8"
+        >
+          <m.div
+            variants={reduceMotion ? undefined : lightboxImageVariants}
+            initial={reduceMotion ? false : 'hidden'}
+            animate={reduceMotion ? undefined : 'visible'}
+            exit={reduceMotion ? undefined : 'exit'}
+            className="relative h-[88dvh] w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-forest-dark shadow-[0_40px_120px_rgba(0,0,0,0.58)]"
+          >
+            <Image
+              src={promotion.image}
+              alt={promotion.title}
+              fill
+              sizes="100vw"
+              unoptimized
+              className="scale-110 object-cover opacity-25 blur-2xl"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,12,7,0.22)_0%,rgba(7,12,7,0.34)_28%,rgba(7,12,7,0.72)_65%,rgba(7,12,7,0.94)_100%)]" />
+            <div className="absolute inset-5 rounded-[1.7rem] border border-white/10 bg-black/15 backdrop-blur-[2px] md:inset-7">
+              <Image
+                src={promotion.image}
+                alt={promotion.title}
+                fill
+                sizes="100vw"
+                unoptimized
+                className="object-contain p-4 md:p-6"
+              />
+            </div>
+
+            <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 md:p-8">
+              <div className="flex items-start justify-between gap-4">
+                <div className="rounded-full border border-white/15 bg-black/25 px-4 py-2 text-[11px] uppercase tracking-[0.24em] text-cream/90 backdrop-blur-md">
+                  Nuevo producto
+                </div>
+                <button
+                  ref={closeButtonRef}
+                  type="button"
+                  onClick={onClose}
+                  className="inline-flex min-h-11 items-center rounded-full border border-white/15 bg-black/30 px-4 py-2 text-sm font-medium text-cream/90 backdrop-blur-md transition hover:bg-black/45"
+                >
+                  <X aria-hidden="true" size={18} />
+                  <span className="ml-2">Cerrar</span>
+                </button>
+              </div>
+
+              <div className="max-w-2xl">
+                <p className="text-sm uppercase tracking-[0.22em] text-gold-light/85">
+                  {promotion.product?.name || 'Pieza destacada'}
+                </p>
+                <h2 id="promotion-modal-title" className="mt-3 font-display text-4xl leading-tight text-white md:text-6xl">
+                  {promotion.title}
+                </h2>
+                <p className="mt-4 max-w-xl text-base leading-8 text-cream/85 md:text-lg">
+                  {promotion.message}
+                </p>
+                <div className="mt-7">
+                  <button
+                    type="button"
+                    onClick={onVisit}
+                    className="inline-flex min-h-12 items-center justify-center rounded-full bg-gold-accent px-7 py-3 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98]"
+                  >
+                    {promotion.ctaLabel || 'Visitar'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </m.div>
+        </m.div>
+      ) : null}
+    </AnimatePresence>,
+    document.body,
+  )
 }
 
 function ImageLightbox({ image, copy, onClose }) {
@@ -394,9 +560,9 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
                   transformStyle: 'preserve-3d',
                   pointerEvents: isVisible ? 'auto' : 'none',
                 }}
-                className={`group absolute aspect-[3/4] w-[68%] max-w-[21rem] overflow-hidden rounded-[1.35rem] border bg-forest-dark text-left shadow-[0_22px_55px_rgba(0,0,0,0.36)] outline-none sm:w-[58%] ${isActive ? 'border-gold-accent/70' : 'border-white/10'}`}
+                className={`group absolute aspect-[16/10] w-[82%] max-w-[28rem] overflow-hidden rounded-[1.35rem] border bg-forest-dark text-left shadow-[0_22px_55px_rgba(0,0,0,0.36)] outline-none sm:w-[74%] ${isActive ? 'border-gold-accent/70' : 'border-white/10'}`}
               >
-                <span className="absolute inset-0 transition-transform duration-200 group-active:scale-[0.98]">
+                <span className="absolute inset-0 bg-forest-dark transition-transform duration-200 group-active:scale-[0.98]">
                   <Image
                     src={image.previewSrc ?? image.src}
                     alt={localized(image.alt, lang)}
@@ -404,15 +570,15 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
                     height={933}
                     unoptimized
                     loading={index === 0 ? 'eager' : 'lazy'}
-                    sizes="(max-width: 640px) 68vw, (max-width: 1024px) 58vw, 34vw"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    sizes="(max-width: 640px) 82vw, (max-width: 1024px) 74vw, 40vw"
+                    className="absolute inset-0 h-full w-full object-contain"
                   />
                   <span className={`pointer-events-none absolute inset-0 transition-colors duration-200 ${isActive ? 'bg-gradient-to-t from-forest-deep/55 via-transparent to-transparent' : 'bg-forest-deep/20 group-hover:bg-transparent'}`} />
                   <m.span
                     aria-hidden="true"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -5 }}
                     transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-x-3 bottom-4 flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/15 bg-forest-deep/78 px-4 py-2 text-center text-sm font-semibold text-cream backdrop-blur-md"
+                    className="absolute right-3 top-3 flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/15 bg-forest-deep/82 px-3 py-2 text-center text-xs font-semibold text-cream backdrop-blur-md sm:text-sm"
                   >
                     <ZoomIn aria-hidden="true" size={18} />
                     {copy.expandImage}
@@ -507,8 +673,67 @@ export default function Catalogo() {
   const reduceMotion = useReducedMotion()
   const copy = pageCopy[lang] ?? pageCopy.es
   const [lightboxImage, setLightboxImage] = useState(null)
+  const [catalogItems, setCatalogItems] = useState(catalogSections)
+  const [promotion, setPromotion] = useState(null)
+  const [promotionVisible, setPromotionVisible] = useState(false)
   const openLightbox = useCallback((image) => setLightboxImage(image), [])
   const closeLightbox = useCallback(() => setLightboxImage(null), [])
+  const closePromotion = useCallback(() => {
+    setPromotionVisible(false)
+    if (typeof window !== 'undefined' && promotion?.id && promotion?.updatedAt) {
+      window.localStorage.setItem(PROMOTION_STORAGE_KEY, `${promotion.id}:${promotion.updatedAt}`)
+    }
+  }, [promotion])
+
+  const visitPromotion = useCallback(() => {
+    if (promotion?.productId) {
+      document.getElementById(promotion.productId)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+    closePromotion()
+  }, [closePromotion, promotion])
+
+  useEffect(() => {
+    let mounted = true
+
+    Promise.all([
+      api('/api/admin/products').catch(() => null),
+      api('/api/promotion').catch(() => null),
+    ])
+      .then(([productsData, promotionData]) => {
+        if (!mounted) return
+
+        const products = (productsData?.products || []).map(productToCatalogSection).filter((item) => item.images.length > 0)
+        if (products.length > 0) {
+          setCatalogItems(products)
+        } else {
+          setCatalogItems(catalogSections)
+        }
+
+        const nextPromotion = promotionData?.promotion
+        if (nextPromotion?.enabled && nextPromotion?.image && nextPromotion?.productId) {
+          setPromotion(nextPromotion)
+          const dismissedAt = typeof window !== 'undefined'
+            ? window.localStorage.getItem(PROMOTION_STORAGE_KEY)
+            : null
+          setPromotionVisible(dismissedAt !== `${nextPromotion.id}:${nextPromotion.updatedAt}`)
+        } else {
+          setPromotion(null)
+          setPromotionVisible(false)
+        }
+      })
+      .catch(() => {
+        if (!mounted) {
+          return
+        }
+        setCatalogItems(catalogSections)
+        setPromotion(null)
+        setPromotionVisible(false)
+      })
+
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   return (
     <LazyMotion features={domAnimation}>
@@ -531,7 +756,7 @@ export default function Catalogo() {
           </m.header>
 
           <div className="space-y-10 md:space-y-16">
-            {catalogSections.map((section, index) => (
+            {catalogItems.map((section, index) => (
               <CatalogSection
                 key={section.id}
                 section={section}
@@ -545,6 +770,7 @@ export default function Catalogo() {
         </div>
       </main>
       <ImageLightbox image={lightboxImage} copy={copy} onClose={closeLightbox} />
+      <PromotionModal promotion={promotionVisible ? promotion : null} onClose={closePromotion} onVisit={visitPromotion} />
     </LazyMotion>
   )
 }

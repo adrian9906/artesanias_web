@@ -1,4 +1,4 @@
-import AdminShell from "@/components/admin/AdminShell"
+import AdminLayoutShell from "@/components/admin/AdminLayoutShell"
 
 export const metadata = {
   title: "Admin CMS · Thay Art",
@@ -7,5 +7,5 @@ export const metadata = {
 }
 
 export default function AdminLayout({ children }) {
-  return <AdminShell>{children}</AdminShell>
+  return <AdminLayoutShell>{children}</AdminLayoutShell>
 }

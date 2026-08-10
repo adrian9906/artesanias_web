@@ -13,6 +13,7 @@ export default function Footer() {
     { label: t("nav.orderInfo"), href: "/informacion-de-encargo" },
     { label: t("nav.gallery"), href: "/galeria" },
     { label: t("nav.news"), href: "/noticias" },
+    { label: t("nav.opinions"), href: "/opiniones" },
   ]
 
   return (

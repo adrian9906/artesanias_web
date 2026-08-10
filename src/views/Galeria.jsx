@@ -1,221 +1,56 @@
-﻿import { useEffect, useRef, useMemo } from "react"
-import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { galleryCatalog } from "../data/productCatalog"
+﻿import { useEffect, useMemo, useState } from "react"
+import { ImageGallery } from "@/components/ImageGallery"
 import { useI18n } from "../i18n"
-
-function PolaroidStack({ fotos, titulo, t }) {
-  return (
-    <div className="relative md:h-[520px] h-auto w-full max-w-3xl mx-auto overflow-visible" data-photo-stage>
-      {fotos.map((foto, index) => (
-        <figure
-          key={foto}
-          data-photo-card
-          className="md:absolute md:left-1/2 relative mx-auto w-[78%] sm:w-[60%] md:w-[42%] bg-cream p-3 pb-10 shadow-2xl md:mt-0 mt-6"
-          style={{ zIndex: 10 - index }}
-        >
-          <img src={foto} alt={`${titulo} ${t('gallery.successCase')} ${index + 1}`} className="h-44 w-full object-cover" />
-          <figcaption className="mt-3 text-center text-xs uppercase tracking-[0.2em] text-forest-dark/75">
-            {t('gallery.successCase')} #{index + 1}
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-  )
-}
+import { api } from "@/lib/cms/client"
 
 export default function Galeria() {
   const { t } = useI18n()
-  const sectionRefs = useRef([])
-
-  const catalogo = useMemo(() => {
-    const data = t('galleryCatalogData')
-    return galleryCatalog.map((item, i) => ({
-      ...item,
-      nombre: data[i]?.nombre ?? item.nombre,
-      precio: data[i]?.precio ?? item.precio,
-      historia: data[i]?.historia ?? item.historia,
-    }))
-  }, [t])
+  const [photos, setPhotos] = useState([])
+  const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger)
-    const sections = sectionRefs.current.filter(Boolean)
-    if (!sections.length) return
-
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia()
-      mm.add("(min-width: 768px)", () => {
-        const firstSection = sections[0]
-        if (firstSection) {
-          gsap.set(firstSection, { autoAlpha: 1, yPercent: 0 })
-          const firstContent = firstSection.querySelector("[data-catalog-content]")
-          const firstPhotos = firstSection.querySelector("[data-catalog-photos]")
-          gsap.set([firstContent, firstPhotos], { autoAlpha: 1, yPercent: 0 })
-        }
-
-        sections.forEach((section, index) => {
-          const content = section.querySelector("[data-catalog-content]")
-          const photos = section.querySelector("[data-catalog-photos]")
-          const cards = photos?.querySelectorAll("[data-photo-card]")
-          const previous = sections[index - 1]
-          if (!content || !photos || !cards?.length) return
-
-          const cardArray = Array.from(cards)
-
-          // Visible stack at the top of the card
-          gsap.set(cardArray, {
-            xPercent: -50,
-            y: (i) => i * 34,
-            rotate: (i) => (i - 1) * 7,
-            scale: 1,
-          })
-
-          // Content fades in for sections after the first
-          if (index > 0) {
-            gsap.fromTo(
-              [content, photos],
-              { yPercent: 14, autoAlpha: 0 },
-              {
-                yPercent: 0,
-                autoAlpha: 1,
-                duration: 0.9,
-                ease: "power3.out",
-                scrollTrigger: {
-                  trigger: section,
-                  start: "top 78%",
-                  end: "top 46%",
-                  scrub: 1,
-                },
-              }
-            )
-          }
-
-          const startPos = index === 0 ? "top top" : "top 50%"
-          const dropY = Math.min(Math.max(section.offsetHeight * 0.68, 280), 420)
-          const spreadY = dropY + 200
-          const spreadX = [-260, 0, 260]
-          const carouselStep1 = [-520, -140, 240]
-          const carouselStep2 = [-760, -380, 0]
-          const tl = gsap.timeline({
-            scrollTrigger: {
-              trigger: section,
-              start: startPos,
-              end: "bottom 12%",
-              scrub: 1,
-            },
-            defaults: { ease: "power3.out" },
-          })
-
-          // Phase 1: Stack breathes a bit to mark the start of the transition.
-          tl.to(cardArray, {
-            y: (i) => i * 40,
-            rotate: (i) => (i - 1) * 5,
-            duration: 0.16,
-            stagger: 0.02,
-          }, 0)
-            // Phase 2: Stack drops below the section card.
-            .to(cardArray, {
-              y: dropY,
-              rotate: 0,
-              scale: 0.95,
-              duration: 0.2,
-              stagger: 0.03,
-            }, 0.16)
-            // Phase 3: Spread into a horizontal carousel below the card.
-            .to(cardArray, {
-              x: (i) => spreadX[i] ?? 0,
-              y: spreadY,
-              scale: 1,
-              duration: 0.22,
-            }, 0.36)
-            // Phase 4: Carousel shifts with scroll.
-            .to(cardArray, {
-              x: (i) => carouselStep1[i] ?? 0,
-              duration: 0.28,
-            }, 0.58)
-            .to(cardArray, {
-              x: (i) => carouselStep2[i] ?? 0,
-              duration: 0.28,
-            }, 0.82)
-
-          if (previous) {
-            tl.to(previous, {
-              autoAlpha: 0.4,
-              yPercent: -5,
-              duration: 0.4,
-            }, 0.04)
-          }
-        })
+    let mounted = true
+    api("/api/admin/gallery")
+      .then((data) => {
+        const gallery = (data.gallery || [])
+          .slice()
+          .sort((a, b) => (b.createdAt || "").localeCompare(a.createdAt || ""))
+          .map((img) => ({
+            id: img.id,
+            image: img.image,
+            portrait: img.portrait,
+            alt: img.alt || "",
+          }))
+        if (mounted) setPhotos(gallery)
       })
-      return () => mm.revert()
-    })
-
-    return () => ctx.revert()
+      .catch(() => {
+        if (mounted) setPhotos([])
+      })
+      .finally(() => {
+        if (mounted) setLoaded(true)
+      })
+    return () => {
+      mounted = false
+    }
   }, [])
+
+  const galleryTitle = useMemo(() => t("gallery.title"), [t])
+  const gallerySubtitle = useMemo(() => t("gallery.subtitle"), [t])
 
   return (
     <div className="min-h-screen bg-forest-dark relative animate-blurred-fade-in">
       <div className="absolute inset-0 noise-overlay" />
 
-      <div className="relative z-10 pt-24 md:pt-32 pb-16 md:pb-20 px-4 md:px-6 max-w-6xl mx-auto">
-        <section className="text-center mb-16">
-          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">{t('gallery.title')}</h1>
-          <p className="text-cream/60 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            {t('gallery.subtitle')}
-          </p>
+      <div className="relative z-10 pt-24 md:pt-32 pb-20 px-4 md:px-6">
+        <section className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
+          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">{galleryTitle}</h1>
+          <p className="text-cream/60 text-lg font-light leading-relaxed">{gallerySubtitle}</p>
         </section>
 
-        <section>
-          {catalogo.map((item, idx) => (
-            <article
-              key={item.id}
-              ref={(node) => {
-                sectionRefs.current[idx] = node
-              }}
-              className="rounded-3xl p-6 md:p-10 mb-24 md:mb-96 border border-gold-accent/30 bg-[linear-gradient(145deg,rgba(14,21,16,0.82),rgba(28,35,30,0.9))] overflow-visible"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-                <div data-catalog-content className={idx % 2 === 1 ? "lg:order-2" : ""}>
-                  <p className="text-gold-accent uppercase tracking-[0.26em] text-xs mb-3">{t('gallery.sectionHighlight')}</p>
-                  <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{item.nombre}</h2>
-                  <p className="text-cream/70 leading-relaxed mb-6">{item.historia}</p>
-                  <p className="text-cream/50 text-sm">{t('gallery.photoCaption')}</p>
-                </div>
-
-                <div data-catalog-photos className={idx % 2 === 1 ? "lg:order-1" : ""}>
-                  <PolaroidStack fotos={item.casosExito} titulo={item.nombre} t={t} />
-                </div>
-              </div>
-            </article>
-          ))}
-        </section>
-
-        <section className="mt-24 text-center">
-          <div
-            className="glass-card rounded-3xl p-12 max-w-3xl mx-auto"
-            style={{
-              background: "linear-gradient(135deg, rgba(249, 172, 162, 0.12) 0%, rgba(38, 59, 34, 0.86) 100%)",
-              border: "1px solid rgba(249, 172, 162, 0.3)",
-            }}
-          >
-            <h2 className="font-display text-3xl text-cream mb-4">{t('gallery.customTitle')}</h2>
-            <p className="text-cream/60 mb-8 max-w-xl mx-auto">
-              {t('gallery.customText')}
-            </p>
-            <a
-              href="/encargos"
-              className="inline-block bg-gold-accent text-forest-dark px-8 py-3 rounded-full font-semibold hover:bg-gold-light transition-colors duration-300"
-            >
-              {t('common.createYourPiece')}
-            </a>
-          </div>
-        </section>
+        <div className="mx-auto max-w-6xl">
+          {loaded && <ImageGallery photos={photos} />}
+        </div>
       </div>
     </div>
   )
 }
-
-
-
-

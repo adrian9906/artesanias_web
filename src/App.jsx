@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +12,7 @@ import { ChevronRight } from 'lucide-react'
 import { homeCategories } from './data/productCatalog'
 import { ArrowRight } from 'lucide-react'
 import { useI18n } from './i18n'
+import { api } from '@/lib/cms/client'
 
 const categories = homeCategories
 
@@ -188,40 +189,35 @@ function CTABanner() {
 
     if (!cardRef.current || !buttonRef.current) return
 
-    // 1. ESTADO INICIAL - Tarjeta GRANDE
     gsap.set(cardRef.current, {
-      scale: 1.3,              // Tarjeta un 30% mÃ¡s grande
+      scale: 1.3,
       transformOrigin: 'center center',
       borderRadius: '2.5rem',
     })
 
-    // BotÃ³n invisible al inicio
     gsap.set(buttonRef.current, {
       opacity: 0,
       y: 30,
       scale: 0.8,
     })
 
-    // Contenido ligeramente opaco
     gsap.set(contentRef.current, {
       opacity: 0.7,
     })
 
-    // 2. CREAR SCROLLTRIGGER PARA LA TARJETA
     ScrollTrigger.create({
       trigger: sectionRef.current,
-      start: 'top 80%',        // Empieza cuando la secciÃ³n estÃ¡ al 80%
-      end: 'top 20%',          // Termina cuando estÃ¡ al 20%
-      scrub: 1,                // Suavizado
+      start: 'top 80%',
+      end: 'top 20%',
+      scrub: 1,
       animation: gsap.to(cardRef.current, {
-        scale: 1,               // TamaÃ±o NORMAL
+        scale: 1,
         borderRadius: '1.5rem',
         duration: 1,
         ease: 'power2.out',
       }),
     })
 
-    // 3. SCROLLTRIGGER PARA EL BOTÃ“N
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top 60%',
@@ -236,7 +232,6 @@ function CTABanner() {
       }),
     })
 
-    // 4. SCROLLTRIGGER PARA EL CONTENIDO
     ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top 70%',
@@ -248,9 +243,8 @@ function CTABanner() {
       }),
     })
 
-    // Limpieza
     return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill())
+      ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [])
   return (
@@ -259,7 +253,6 @@ function CTABanner() {
         ref={cardRef}
         className="bg-forest-mid rounded-3xl p-8 md:p-32 text-center relative overflow-hidden mt-6 md:mt-8 transition-[background-color,transform,box-shadow]"
       >
-        {/* CÃ­rculos decorativos */}
         <div className="absolute -top-20 -right-20 w-64 h-64 bg-gold-accent opacity-10 rounded-full"></div>
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gold-accent opacity-10 rounded-full"></div>
 
@@ -292,9 +285,9 @@ function CTABanner() {
 function Testimonials() {
   const titleRef = useRef(null)
   const sectionRef = useRef(null)
-  const { t } = useI18n()
-
-  const testimonialsData = useMemo(() => t('testimonialsData'), [t])
+  const { t, lang } = useI18n()
+  const fallbackTestimonials = useMemo(() => t('testimonialsData'), [t])
+  const [testimonialsData, setTestimonialsData] = useState([])
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger)
@@ -317,6 +310,42 @@ function Testimonials() {
     }, sectionRef)
     return () => ctx.revert()
   }, [])
+
+  useEffect(() => {
+    let mounted = true
+
+    api('/api/feedback')
+      .then((data) => {
+        if (!mounted) return
+        const mapped = (data.testimonials || []).map((item) => ({
+          name: item.name,
+          location: lang === 'en'
+            ? item.origin === 'public'
+              ? 'Shared by the community'
+              : 'Featured testimonial'
+            : item.origin === 'public'
+              ? 'Compartido por la comunidad'
+              : 'Testimonio destacado',
+          text: item.text,
+        }))
+
+        if (mapped.length > 0) {
+          setTestimonialsData(mapped)
+        } else {
+          setTestimonialsData([])
+        }
+      })
+      .catch(() => {
+        if (mounted) setTestimonialsData([])
+      })
+
+    return () => {
+      mounted = false
+    }
+  }, [fallbackTestimonials, lang])
+
+  const visibleTestimonials = testimonialsData.length > 0 ? testimonialsData : fallbackTestimonials
+
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-forest-dark py-16 md:py-24">
       <div className="absolute inset-0 noise-overlay" />
@@ -332,7 +361,7 @@ function Testimonials() {
 
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
           <Marquee pauseOnHover className="[--duration:20s]">
-            {testimonialsData.map((item) => (
+            {visibleTestimonials.map((item) => (
 
               <div
                 key={`${item.name}-${item.location}`}
@@ -358,7 +387,7 @@ function Testimonials() {
         <div className="from-forest-dark pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l"></div>
 
         <div className="text-center mt-12">
-          <Link href="/galeria" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
+          <Link href="/opiniones" className="text-gold-accent hover:text-gold-light transition-colors text-sm uppercase tracking-[0.2em]">
             {t('home.moreTestimonials')} <ArrowRight className="inline-block" size={16} />
           </Link>
         </div>

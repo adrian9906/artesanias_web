@@ -7,9 +7,31 @@ import { ArrowRight } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
 import { productImages } from '../data/productCatalog'
 import { useI18n } from '../i18n'
+import { HandsWritting } from './handsWritting'
 
 export default function Hero() {
   const { t } = useI18n()
+  const renderAnimatedWords = (text, className = '') =>
+    String(text || '')
+      .split(/\s+/)
+      .filter(Boolean)
+      .map((word, wordIndex) => (
+        <span
+          key={`${word}-${wordIndex}`}
+          className={`inline-block whitespace-nowrap ${wordIndex > 0 ? 'ml-[0.25em] sm:ml-[0.3em]' : ''} ${className}`.trim()}
+        >
+          {Array.from(word).map((ch, charIndex) => (
+            <span
+              key={`${word}-${wordIndex}-${charIndex}`}
+              className="l inline-block"
+              style={{ opacity: 0 }}
+            >
+              {ch}
+            </span>
+          ))}
+        </span>
+      ))
+
   const gallerySlides = useMemo(() => [
     {
       title: t('hero.slides.jarsTitle'),
@@ -74,6 +96,10 @@ export default function Hero() {
   const slideRefs = useRef([])
   const heroSectionRef = useRef(null)
   const titleRef = useRef(null)
+  const heroTitleRef = useRef(null)
+  const heroSubRef = useRef(null)
+  const heroCtaRef = useRef(null)
+  const [handDone, setHandDone] = useState(false)
 
   const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex, gallerySlides])
 
@@ -119,23 +145,47 @@ export default function Hero() {
         { autoAlpha: 0, scale: 1.08, filter: 'blur(10px)' },
         { autoAlpha: 1, scale: 1, filter: 'blur(0px)', duration: 2, ease: 'power3.out' },
       )
-
-      gsap.fromTo(
-        '.hero-text-reveal',
-        { autoAlpha: 0, y: 32 },
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.9,
-          ease: 'power3.out',
-          delay: 0.2,
-          stagger: 0.12,
-        },
-      )
     }, heroSectionRef)
 
     return () => ctx.revert()
   }, [])
+
+  // Effecto de tipeo: las letras del título, subtítulo y CTA se escriben
+  // en cascada DESPUÉS de que termina la marca escrita a mano.
+  useEffect(() => {
+    if (!handDone) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      heroTitleRef.current?.querySelectorAll('span').forEach((s) => { s.opacity = 1; s.style.opacity = '1' })
+      return
+    }
+
+    const ctx = gsap.context(() => {
+      const title = heroTitleRef.current
+      if (title) {
+        gsap.fromTo(
+          title.querySelectorAll('.l'),
+          { autoAlpha: 0, y: 18, rotate: 4 },
+          { autoAlpha: 1, y: 0, rotate: 0, duration: 0.35, ease: 'back.out(2.4)', stagger: 0.035 }
+        )
+      }
+      if (heroSubRef.current) {
+        gsap.fromTo(
+          heroSubRef.current,
+          { autoAlpha: 0, y: 16 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.3 }
+        )
+      }
+      if (heroCtaRef.current) {
+        gsap.fromTo(
+          heroCtaRef.current,
+          { autoAlpha: 0, y: 14 },
+          { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', delay: 0.55 }
+        )
+      }
+    }, heroSectionRef)
+
+    return () => ctx.revert()
+  }, [handDone])
 
   useEffect(() => {
     slideRefs.current.forEach((slide, i) => {
@@ -195,7 +245,7 @@ export default function Hero() {
 
   return (
     <>
-      <section ref={heroSectionRef} className="relative flex min-h-screen w-full items-center justify-center overflow-hidden md:h-screen">
+      <section ref={heroSectionRef} className="relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden lg:min-h-screen">
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-forest-deep" />
           <Image
@@ -212,18 +262,36 @@ export default function Hero() {
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-radial from-gold-accent/3 to-transparent rounded-full blur-3xl translate-y-1/3 -translate-x-1/4" />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center max-w-4xl pt-20 md:pt-24">
-          <h1 className="hero-text-reveal font-display text-3xl sm:text-4xl md:text-7xl mb-5 md:mb-6 text-cream leading-tight opacity-0">
-            {t('hero.titleBefore')} <span className="text-gold-light italic">{t('hero.titleHighlight')}</span>
-          </h1>
-          <p className="hero-text-reveal text-cream/60 text-base md:text-lg mb-8 md:mb-10 max-w-2xl mx-auto font-light leading-relaxed opacity-0">
+        <div className="relative z-10 container mx-auto max-w-7xl px-4 pb-10 pt-24 text-center sm:px-6 sm:pb-12 sm:pt-28 md:pt-28 lg:pb-16 lg:pt-36">
+          <HandsWritting onComplete={() => setHandDone(true)} />
+
+          <div ref={heroTitleRef} className="mx-auto mt-6 max-w-[17rem] sm:mt-8 sm:max-w-[28rem] md:mt-6 md:max-w-4xl lg:mt-8 lg:max-w-7xl">
+            <h1 className="font-display text-[clamp(2.9rem,11vw,4.8rem)] leading-[0.9] text-cream sm:text-[clamp(3.7rem,9vw,5.8rem)] md:text-[clamp(4.4rem,7vw,6.4rem)] md:leading-[0.93] lg:text-[clamp(5rem,7.4vw,8rem)] lg:leading-[0.95]">
+              <span className="text-gold-light italic">
+                {renderAnimatedWords(t('hero.titleBefore'))}
+              </span>
+              <span className="ml-[0.25em] inline-block sm:ml-[0.3em]">
+                {renderAnimatedWords(t('hero.titleHighlight'))}
+              </span>
+            </h1>
+          </div>
+          <p
+            ref={heroSubRef}
+            style={{ opacity: 0 }}
+            className="mx-auto mt-5 max-w-[18rem] text-base leading-8 text-cream/70 sm:mt-6 sm:max-w-[33rem] sm:text-lg md:max-w-[42rem] md:text-xl md:leading-9"
+          >
             {t('hero.subtitle')}
           </p>
-          <Link className="hero-text-reveal inline-flex min-h-11 items-center justify-center rounded-full border border-gold-accent bg-gold-accent px-7 py-3 font-semibold text-forest-deep shadow-glow-button opacity-0 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light" href="/encargos">
+          <Link
+            ref={heroCtaRef}
+            style={{ opacity: 0 }}
+            className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full border border-gold-accent bg-gold-accent px-6 py-3 text-base font-semibold text-forest-deep shadow-glow-button opacity-0 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light sm:mt-10 sm:px-8 sm:text-lg"
+            href="/encargos"
+          >
             {t('hero.cta')}
           </Link>
         </div>
-        <ArrowDown className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-cream animate-bounce" />
+        <ArrowDown className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-cream/80 animate-bounce md:block" />
       </section>
 
       <section ref={sectionRef} className="py-14 md:py-24 bg-forest-dark relative">

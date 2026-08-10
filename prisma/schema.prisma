@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PostCategory {
+  blog
+  noticia
+  taller
+}
+
+enum PostStatus {
+  draft
+  published
+}
+
+enum FeedbackType {
+  opinion
+  experience
+  testimonial
+}
+
+enum FeedbackStatus {
+  published
+  hidden
+}
+
+model Section {
+  id          String    @id
+  name        String
+  description String
+  createdAt   DateTime
+  updatedAt   DateTime
+  products    Product[]
+
+  @@map("sections")
+}
+
+model Product {
+  id              String       @id
+  name            String
+  eyebrow         String
+  description     String
+  materials       String[]
+  price           Float
+  currency        String
+  elaborationTime String
+  photo           String
+  photos          String[]
+  sectionId       String
+  inStock         Boolean
+  stockQty        Int
+  variants        Json
+  createdAt       DateTime
+  updatedAt       DateTime
+  section         Section      @relation(fields: [sectionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  promotions      Promotion[]
+
+  @@index([sectionId])
+  @@map("products")
+}
+
+model Post {
+  id         String       @id
+  title      String
+  category   PostCategory
+  excerpt    String
+  coverImage String
+  body       String
+  author     String
+  status     PostStatus
+  publishedAt DateTime?
+  createdAt  DateTime
+  updatedAt  DateTime
+
+  @@map("posts")
+}
+
+model GalleryImage {
+  id        String   @id
+  image     String
+  portrait  Boolean
+  alt       String
+  createdAt DateTime
+  updatedAt DateTime
+
+  @@map("gallery_images")
+}
+
+model Feedback {
+  id        String         @id
+  type      FeedbackType
+  name      String
+  text      String
+  status    FeedbackStatus
+  origin    String
+  createdAt DateTime
+  updatedAt DateTime
+
+  @@map("feedback")
+}
+
+model Promotion {
+  id        String   @id
+  enabled   Boolean
+  productId String?
+  title     String
+  message   String
+  image     String
+  ctaLabel  String
+  createdAt DateTime
+  updatedAt DateTime
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull, onUpdate: Cascade)
+
+  @@index([productId])
+  @@map("promotions")
+}

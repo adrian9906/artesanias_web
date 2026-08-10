@@ -9,6 +9,17 @@ export const POST_STATUSES = [
   { id: "published", label: "Publicado" },
 ]
 
+export const FEEDBACK_TYPES = [
+  { id: "opinion", label: "Opinion" },
+  { id: "experience", label: "Experiencia" },
+  { id: "testimonial", label: "Testimonio" },
+]
+
+export const FEEDBACK_STATUSES = [
+  { id: "published", label: "Visible" },
+  { id: "hidden", label: "Oculto" },
+]
+
 export const EDITOR_FONTS = [
   { id: "Branding Aliskaje, cursive", label: "Branding Aliskaje" },
   { id: "Playwrite GB, cursive", label: "Playwrite GB" },
@@ -33,6 +44,14 @@ export function categoryLabel(id) {
 
 export function statusLabel(id) {
   return POST_STATUSES.find((item) => item.id === id)?.label || id
+}
+
+export function feedbackTypeLabel(id) {
+  return FEEDBACK_TYPES.find((item) => item.id === id)?.label || id
+}
+
+export function feedbackStatusLabel(id) {
+  return FEEDBACK_STATUSES.find((item) => item.id === id)?.label || id
 }
 
 export function formatPrice(amount, currency = "USD") {

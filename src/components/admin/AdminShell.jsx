@@ -5,21 +5,28 @@ import { usePathname } from "next/navigation"
 import {
   Boxes,
   FolderTree,
+  GalleryVerticalEnd,
   LayoutDashboard,
+  MessagesSquare,
   Newspaper,
   PanelLeftClose,
   PanelLeftOpen,
+  RectangleEllipsis,
   Sparkles,
 } from "lucide-react"
 import { useState } from "react"
-import { cn } from "@/lib/utils"
+import AdminLogoutButton from "@/components/admin/AdminLogoutButton"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
+import { cn } from "@/lib/utils"
 
 const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/admin/secciones", label: "Secciones", icon: FolderTree },
   { href: "/admin/productos", label: "Productos", icon: Boxes },
+  { href: "/admin/promocion", label: "Promocion", icon: RectangleEllipsis },
   { href: "/admin/noticias", label: "Noticias", icon: Newspaper },
+  { href: "/admin/voces", label: "Voces", icon: MessagesSquare },
+  { href: "/admin/galeria", label: "Galeria", icon: GalleryVerticalEnd },
 ]
 
 export default function AdminShell({ children }) {
@@ -27,7 +34,7 @@ export default function AdminShell({ children }) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#0f1a0d] text-cream font-branding antialiased">
+    <div className="min-h-screen bg-[#0f1a0d] font-branding text-cream antialiased">
       <SmoothCursor />
       <div className="flex min-h-screen">
         <aside
@@ -54,6 +61,7 @@ export default function AdminShell({ children }) {
                 ? pathname === item.href
                 : pathname === item.href || pathname.startsWith(`${item.href}/`)
               const Icon = item.icon
+
               return (
                 <Link
                   key={item.href}
@@ -76,7 +84,7 @@ export default function AdminShell({ children }) {
           <div className="border-t border-white/10 p-3">
             <button
               type="button"
-              onClick={() => setCollapsed((v) => !v)}
+              onClick={() => setCollapsed((value) => !value)}
               className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-cream/55 transition-colors hover:bg-white/5 hover:text-cream"
             >
               {collapsed ? <PanelLeftOpen className="size-4" /> : <PanelLeftClose className="size-4" />}
@@ -87,7 +95,7 @@ export default function AdminShell({ children }) {
                 href="/"
                 className="mt-1 block rounded-xl px-3 py-2 text-xs text-cream/40 transition-colors hover:bg-white/5 hover:text-cream/70"
               >
-                ← Volver al sitio
+                Volver al sitio
               </Link>
             )}
           </div>
@@ -97,7 +105,7 @@ export default function AdminShell({ children }) {
           <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0f1a0d]/90 px-6 py-4 backdrop-blur-md">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-gold-accent/80">Administración</p>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-gold-accent/80">Administracion</p>
                 <h1 className="mt-1 text-lg font-medium text-cream">
                   {NAV.find((item) =>
                     item.exact
@@ -106,8 +114,12 @@ export default function AdminShell({ children }) {
                   )?.label || "CMS"}
                 </h1>
               </div>
-              <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-cream/55">
-                Contenido local · data/cms.json
+
+              <div className="flex items-center gap-3">
+                <div className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-cream/55 md:block">
+                  Sesion protegida · Prisma + Neon
+                </div>
+                <AdminLogoutButton />
               </div>
             </div>
           </header>

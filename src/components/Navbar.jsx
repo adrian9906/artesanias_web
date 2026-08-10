@@ -28,6 +28,7 @@ export default function Navbar() {
     { label: t('nav.orderInfo'), to: '/informacion-de-encargo' },
     { label: t('nav.gallery'), to: '/galeria' },
     { label: t('nav.news'), to: '/noticias' },
+    { label: t('nav.opinions'), to: '/opiniones' },
     { label: t('nav.order'), to: '/encargos' },
   ]
 
@@ -39,9 +40,9 @@ export default function Navbar() {
           : 'bg-transparent max-w-7xl mx-auto'
           } relative`}
       >
-        <div className={`mx-auto flex items-center justify-between px-4 py-3 sm:px-5 md:px-6 md:py-4 ${scrolled ? 'gap-4 md:gap-6' : 'gap-3 md:gap-4'}`}>
-          <Link href="/" className="flex items-center gap-2 min-w-0">
-            <BrandName className="text-lg md:text-2xl" />
+        <div className={`mx-auto flex items-center justify-between px-3 py-3 sm:px-5 md:px-6 md:py-4 ${scrolled ? 'gap-3 md:gap-6' : 'gap-3 md:gap-4'}`}>
+          <Link href="/" className="flex min-w-0 flex-1 items-center gap-2 lg:flex-none">
+            <BrandName className="text-base sm:text-lg md:text-2xl" />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-4 text-sm font-medium xl:gap-5">
@@ -51,18 +52,19 @@ export default function Navbar() {
             <Link className={`${isActive('/informacion-de-encargo') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/informacion-de-encargo">{t('nav.orderInfo')}</Link>
             <Link className={`${isActive('/galeria') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/galeria">{t('nav.gallery')}</Link>
             <Link className={`${isActive('/noticias') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/noticias">{t('nav.news')}</Link>
+            <Link className={`${isActive('/opiniones') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/opiniones">{t('nav.opinions')}</Link>
           </nav>
-          <div className="flex items-center gap-3 md:gap-4">
-            <Link className="inline-flex min-h-10 items-center rounded-full border border-gold-accent bg-gold-accent px-5 py-2 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light" href="/encargos">{t('nav.order')}</Link>
-            <div className="inline-flex rounded-full border border-white/15 overflow-hidden">
-              <button type="button" onClick={() => setLang('es')} className={`px-2 py-1 text-xs ${lang === 'es' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>ES</button>
-              <button type="button" onClick={() => setLang('en')} className={`px-2 py-1 text-xs ${lang === 'en' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>EN</button>
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+            <Link className="hidden min-h-10 items-center rounded-full border border-gold-accent bg-gold-accent px-4 py-2 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light sm:inline-flex md:px-5" href="/encargos">{t('nav.order')}</Link>
+            <div className="inline-flex overflow-hidden rounded-full border border-white/15 bg-black/10 backdrop-blur-sm">
+              <button type="button" onClick={() => setLang('es')} className={`px-2.5 py-1 text-xs sm:px-3 ${lang === 'es' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>ES</button>
+              <button type="button" onClick={() => setLang('en')} className={`px-2.5 py-1 text-xs sm:px-3 ${lang === 'en' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>EN</button>
             </div>
           </div>
 
           <button
             type="button"
-            className="lg:hidden flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-gold-accent/30 text-cream"
+            className="lg:hidden flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-2xl border border-gold-accent/30 bg-black/10 text-cream backdrop-blur-sm"
             aria-label={t('nav.menu')}
             aria-expanded={mobileOpen}
             aria-controls="mobile-nav-menu"
