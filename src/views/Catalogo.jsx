@@ -140,7 +140,7 @@ function productToCatalogSection(product) {
     status: product.inStock === false ? 'made-to-order' : 'available',
     title: { es: product.name, en: product.name },
     eyebrow: {
-      es: product.eyebrow || product.sectionName || 'Coleccion artesanal',
+      es: product.eyebrow || product.sectionName || 'Colección artesanal',
       en: product.eyebrow || product.sectionName || 'Artisan collection',
     },
     description: {
@@ -399,7 +399,7 @@ function ProductDetails({ section, lang, copy, activeTab, onTabChange }) {
       <div
         role="tablist"
         aria-label={`${title}: ${copy.tabs.description}, ${copy.tabs.materials}, ${copy.tabs.timing}`}
-        className="grid grid-cols-1 gap-1 rounded-[1rem] bg-forest-deep/45 p-1 sm:grid-cols-3"
+        className="grid grid-cols-3 gap-1 rounded-[1rem] bg-forest-deep/45 p-1"
       >
         {tabNames.map((tabName, tabIndex) => {
           const selected = activeTab === tabName
@@ -414,7 +414,7 @@ function ProductDetails({ section, lang, copy, activeTab, onTabChange }) {
               tabIndex={selected ? 0 : -1}
               onClick={() => onTabChange(tabName)}
               onKeyDown={(event) => handleTabKeyDown(event, tabIndex)}
-              className={`min-h-11 rounded-xl px-2 py-2.5 text-sm font-semibold transition-[background-color,color,transform] duration-200 active:scale-[0.98] md:px-4 ${selected ? 'bg-gold-accent text-forest-deep shadow-[0_8px_24px_rgba(249,172,162,0.18)]' : 'text-cream/65 hover:bg-white/5 hover:text-cream'}`}
+              className={`min-h-11 rounded-xl px-2 py-2 text-[0.78rem] font-semibold leading-tight transition-[background-color,color,transform] duration-200 active:scale-[0.98] sm:px-3 sm:text-sm md:px-4 ${selected ? 'bg-gold-accent text-forest-deep shadow-[0_8px_24px_rgba(249,172,162,0.18)]' : 'text-cream/65 hover:bg-white/5 hover:text-cream'}`}
             >
               {copy.tabs[tabName]}
             </button>
@@ -500,7 +500,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
       initial={reduceMotion ? false : 'hidden'}
       whileInView={reduceMotion ? undefined : 'visible'}
       viewport={{ once: true, amount: 0.16 }}
-      className="grid scroll-mt-28 gap-8 rounded-[2rem] border border-gold-accent/20 bg-forest-mid/55 p-4 backdrop-blur-md md:p-7 lg:grid-cols-[1.08fr_.92fr] lg:gap-12"
+      className="grid scroll-mt-28 gap-6 rounded-[2rem] border border-gold-accent/20 bg-forest-mid/55 p-4 backdrop-blur-md sm:p-5 md:p-7 lg:grid-cols-[1.08fr_.92fr] lg:gap-12"
     >
       <div
         role="region"
@@ -512,7 +512,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
         onBlurCapture={(event) => {
           if (!event.currentTarget.contains(event.relatedTarget)) setIsCarouselHovered(false)
         }}
-        className={`relative flex min-h-[25rem] select-none items-center justify-center overflow-hidden rounded-[1.5rem] border border-white/10 bg-forest-deep shadow-[0_24px_60px_rgba(15,29,12,0.28)] md:min-h-[38rem] ${index % 2 ? 'lg:order-2' : ''}`}
+        className={`relative flex min-h-[19.5rem] select-none items-center justify-center overflow-hidden rounded-[1.5rem] border border-white/10 bg-forest-deep shadow-[0_24px_60px_rgba(15,29,12,0.28)] sm:min-h-[22rem] md:min-h-[38rem] ${index % 2 ? 'lg:order-2' : ''}`}
         style={{ perspective: '1100px' }}
       >
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(249,172,162,0.15),transparent_48%)]" />
@@ -561,7 +561,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
                   transformStyle: 'preserve-3d',
                   pointerEvents: isVisible ? 'auto' : 'none',
                 }}
-                className={`group absolute aspect-[16/10] w-[82%] max-w-[28rem] overflow-hidden rounded-[1.35rem] border bg-forest-dark text-left shadow-[0_22px_55px_rgba(0,0,0,0.36)] outline-none sm:w-[74%] ${isActive ? 'border-gold-accent/70' : 'border-white/10'}`}
+                className={`group absolute aspect-[16/9] w-[88%] max-w-[28rem] overflow-hidden rounded-[1.35rem] border bg-forest-dark text-left shadow-[0_22px_55px_rgba(0,0,0,0.36)] outline-none sm:w-[78%] ${isActive ? 'border-gold-accent/70' : 'border-white/10'}`}
               >
                 <span className="absolute inset-0 bg-forest-dark transition-transform duration-200 group-active:scale-[0.98]">
                   <Image
@@ -571,7 +571,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
                     height={933}
                     unoptimized
                     loading={index === 0 ? 'eager' : 'lazy'}
-                    sizes="(max-width: 640px) 82vw, (max-width: 1024px) 74vw, 40vw"
+                    sizes="(max-width: 640px) 88vw, (max-width: 1024px) 78vw, 40vw"
                     className="absolute inset-0 h-full w-full object-contain"
                   />
                   <span className={`pointer-events-none absolute inset-0 transition-colors duration-200 ${isActive ? 'bg-gradient-to-t from-forest-deep/55 via-transparent to-transparent' : 'bg-forest-deep/20 group-hover:bg-transparent'}`} />
@@ -579,7 +579,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
                     aria-hidden="true"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : -5 }}
                     transition={{ duration: reduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute right-3 top-3 flex min-h-10 items-center justify-center gap-2 rounded-full border border-white/15 bg-forest-deep/82 px-3 py-2 text-center text-xs font-semibold text-cream backdrop-blur-md sm:text-sm"
+                    className="absolute right-2 top-2 flex min-h-9 items-center justify-center gap-2 rounded-full border border-white/15 bg-forest-deep/82 px-3 py-2 text-center text-[0.7rem] font-semibold text-cream backdrop-blur-md sm:right-3 sm:top-3 sm:min-h-10 sm:text-sm"
                   >
                     <ZoomIn aria-hidden="true" size={18} />
                     {copy.expandImage}
@@ -590,7 +590,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
           })}
         </div>
 
-        <div className="absolute bottom-4 z-[70] flex min-h-12 items-center gap-2 rounded-full border border-white/12 bg-forest-deep/82 p-1.5 text-cream shadow-[0_12px_32px_rgba(0,0,0,0.24)] backdrop-blur-md">
+        <div className="absolute bottom-3 z-[70] flex min-h-11 items-center gap-1.5 rounded-full border border-white/12 bg-forest-deep/82 p-1.5 text-cream shadow-[0_12px_32px_rgba(0,0,0,0.24)] backdrop-blur-md sm:bottom-4 sm:min-h-12 sm:gap-2">
           <button
             type="button"
             onClick={previous}
@@ -625,19 +625,19 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
         </div>
       </div>
 
-      <div className={`flex flex-col justify-center px-2 py-5 md:px-4 lg:py-10 ${index % 2 ? 'lg:order-1' : ''}`}>
-        <div className="mb-7 flex items-center justify-between gap-4 border-b border-white/10 pb-5">
-          <span className="text-sm uppercase tracking-[0.2em] text-gold-light/85">
+        <div className={`flex flex-col justify-center px-1 py-3 sm:px-2 md:px-4 lg:py-10 ${index % 2 ? 'lg:order-1' : ''}`}>
+        <div className="mb-6 flex flex-col gap-3 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+          <span className="text-xs uppercase tracking-[0.2em] text-gold-light/85 sm:text-sm">
             {copy.collection} {String(index + 1).padStart(2, '0')}
           </span>
-          <span className="inline-flex items-center gap-2 rounded-full border border-secondary-fixed/20 bg-secondary-fixed/10 px-3 py-1.5 text-sm text-secondary-fixed">
+          <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-secondary-fixed/20 bg-secondary-fixed/10 px-3 py-2 text-xs text-secondary-fixed sm:w-auto sm:text-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-secondary-fixed" />
             {section.status === 'made-to-order' ? copy.madeToOrder : copy.available}
           </span>
         </div>
 
-        <p className="mb-3 text-sm uppercase tracking-[0.18em] text-gold-accent/85">{localized(section.eyebrow, lang)}</p>
-        <h2 className="font-display text-4xl leading-tight text-cream md:text-5xl">{title}</h2>
+        <p className="mb-3 text-xs uppercase tracking-[0.18em] text-gold-accent/85 sm:text-sm">{localized(section.eyebrow, lang)}</p>
+        <h2 className="font-display text-[clamp(2.2rem,7vw,3.5rem)] leading-[1.02] text-cream md:text-5xl">{title}</h2>
 
         <ProductDetails
           section={section}
@@ -647,23 +647,27 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
           onTabChange={setActiveTab}
         />
 
-        <div className="my-7 flex items-end gap-3">
-          <span className="pb-1 text-sm uppercase tracking-[0.16em] text-cream/55">{copy.from}</span>
-          <span className="font-display text-4xl tabular-nums text-gold-light">{section.price.amount}</span>
-          <span className="pb-1 text-base font-semibold text-gold-light/80">{section.price.currency}</span>
+        <div className="my-6 rounded-[1.35rem] border border-white/10 bg-forest-deep/30 px-4 py-4">
+          <div className="flex flex-wrap items-end gap-x-3 gap-y-1">
+            <span className="pb-1 text-xs uppercase tracking-[0.16em] text-cream/55 sm:text-sm">{copy.from}</span>
+            <span className="font-display text-[2.35rem] leading-none tabular-nums text-gold-light sm:text-4xl">{section.price.amount}</span>
+            <span className="pb-1 text-sm font-semibold text-gold-light/80 sm:text-base">{section.price.currency}</span>
+          </div>
         </div>
 
-        <a
-          href={whatsappHref}
-          target="_blank"
-          rel="noreferrer"
-          onClick={() => trackWhatsApp({ productId: section.id, product: title })}
-          className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-gold-accent px-6 py-3 font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98] sm:w-fit"
-        >
-          <MessageCircle aria-hidden="true" size={20} />
-          {copy.order}
-        </a>
-        <p className="mt-4 max-w-md text-base leading-7 text-cream/55">{copy.contactNote}</p>
+        <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap">
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackWhatsApp({ productId: section.id, product: title })}
+            className="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-full bg-gold-accent px-6 py-3 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-gold-light active:scale-[0.98] sm:w-fit sm:text-base"
+          >
+            <MessageCircle aria-hidden="true" size={20} />
+            {section.status === 'made-to-order' ? copy.orderEncargo : copy.order}
+          </a>
+        </div>
+        <p className="mt-4 max-w-md text-sm leading-7 text-cream/55 sm:text-base">{copy.contactNote}</p>
 
       </div>
     </m.article>
@@ -746,7 +750,7 @@ export default function Catalogo() {
         </div>
         <div className="absolute inset-0 noise-overlay" />
 
-        <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-5 md:px-6">
           <m.header
             initial={reduceMotion ? false : { opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
@@ -764,8 +768,8 @@ export default function Catalogo() {
                 section={section}
                 index={index}
                 lang={lang}
-                copy={copy}
-                onOpenImage={openLightbox}
+                 copy={copy}
+                 onOpenImage={openLightbox}
               />
             ))}
           </div>

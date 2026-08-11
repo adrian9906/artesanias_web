@@ -12,10 +12,10 @@ function readIp(request) {
 
 export async function POST(request) {
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const kind = EVENT_KINDS.includes(body.kind) ? body.kind : ""
-  if (!kind) return jsonError("Tipo de evento invalido.", 400)
+  if (!kind) return jsonError("Tipo de evento inválido.", 400)
 
   const cookieStore = await cookies()
   const ip = readIp(request)

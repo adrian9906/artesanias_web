@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
+  Palette,
   Boxes,
   ChartColumn,
   FolderTree,
@@ -12,23 +13,26 @@ import {
   Newspaper,
   PanelLeftClose,
   PanelLeftOpen,
+  ShieldCheck,
   RectangleEllipsis,
-  Sparkles,
 } from "lucide-react"
 import { useState } from "react"
+import AdminBrandIcon from "@/components/admin/AdminBrandIcon"
 import AdminLogoutButton from "@/components/admin/AdminLogoutButton"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
 import { cn } from "@/lib/utils"
 
 const NAV = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard, exact: true },
-  { href: "/admin/estadisticas", label: "Estadisticas", icon: ChartColumn },
+  { href: "/admin", label: "Inicio", icon: LayoutDashboard, exact: true },
+  { href: "/admin/estadisticas", label: "Estadísticas", icon: ChartColumn },
   { href: "/admin/secciones", label: "Secciones", icon: FolderTree },
   { href: "/admin/productos", label: "Productos", icon: Boxes },
-  { href: "/admin/promocion", label: "Promocion", icon: RectangleEllipsis },
+  { href: "/admin/seguridad", label: "Cambiar contraseña", icon: ShieldCheck },
+  { href: "/admin/apariencia", label: "Apariencia", icon: Palette },
+  { href: "/admin/promocion", label: "Promoción", icon: RectangleEllipsis },
   { href: "/admin/noticias", label: "Noticias", icon: Newspaper },
   { href: "/admin/voces", label: "Voces", icon: MessagesSquare },
-  { href: "/admin/galeria", label: "Galeria", icon: GalleryVerticalEnd },
+  { href: "/admin/galeria", label: "Galería", icon: GalleryVerticalEnd },
 ]
 
 export default function AdminShell({ children }) {
@@ -36,23 +40,23 @@ export default function AdminShell({ children }) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="min-h-screen bg-[#0f1a0d] font-branding text-cream antialiased">
+    <div className="min-h-screen bg-[var(--theme-forest-deep)] font-branding text-cream antialiased">
       <SmoothCursor />
       <div className="flex min-h-screen">
         <aside
           className={cn(
-            "sticky top-0 flex h-screen flex-col border-r border-white/10 bg-[#152314] transition-all duration-300",
+            "sticky top-0 flex h-screen flex-col border-r border-white/10 bg-[var(--theme-forest-dark)] transition-all duration-300",
             collapsed ? "w-[72px]" : "w-64",
           )}
         >
           <div className="flex items-center gap-3 border-b border-white/10 px-4 py-5">
-            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gold-accent/20 text-gold-light">
-              <Sparkles className="size-4" />
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-gold-accent/10">
+              <AdminBrandIcon className="size-8" />
             </div>
             {!collapsed && (
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold tracking-wide text-cream">Thay Art CMS</p>
-                <p className="truncate text-[11px] text-cream/45">Panel de contenido</p>
+                <p className="truncate text-sm font-semibold tracking-wide text-cream">Thay Art</p>
+                <p className="truncate text-[11px] text-cream/45">Administración</p>
               </div>
             )}
           </div>
@@ -104,22 +108,25 @@ export default function AdminShell({ children }) {
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <header className="sticky top-0 z-20 border-b border-white/10 bg-[#0f1a0d]/90 px-6 py-4 backdrop-blur-md">
+          <header
+            className="sticky top-0 z-20 border-b border-white/10 px-6 py-4 backdrop-blur-md"
+            style={{ backgroundColor: "color-mix(in srgb, var(--theme-forest-deep) 90%, transparent)" }}
+          >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.22em] text-gold-accent/80">Administracion</p>
+                <p className="text-[11px] uppercase tracking-[0.22em] text-gold-accent/80">Administración</p>
                 <h1 className="mt-1 text-lg font-medium text-cream">
                   {NAV.find((item) =>
                     item.exact
                       ? pathname === item.href
                       : pathname === item.href || pathname.startsWith(`${item.href}/`),
-                  )?.label || "CMS"}
+                  )?.label || "Administración"}
                 </h1>
               </div>
 
               <div className="flex items-center gap-3">
                 <div className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-cream/55 md:block">
-                  Sesion protegida · Prisma + Neon
+                  Acceso privado
                 </div>
                 <AdminLogoutButton />
               </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Boxes, FolderTree, MessagesSquare, Newspaper, Plus, RectangleEllipsis } from "lucide-react"
+import { Boxes, FolderTree, MessagesSquare, Newspaper, Palette, Plus, RectangleEllipsis, ShieldCheck } from "lucide-react"
 import { useEffect, useState } from "react"
 import { Card, PrimaryButton, SecondaryButton, StatusBadge } from "@/components/admin/ui"
 import { categoryLabel, feedbackTypeLabel, formatDate, formatPrice } from "@/lib/cms/constants"
@@ -31,7 +31,7 @@ export default function AdminDashboardPage() {
   }, [])
 
   if (loading) {
-    return <p className="text-sm text-cream/50">Cargando dashboard…</p>
+    return <p className="text-sm text-cream/50">Preparando el inicio…</p>
   }
 
   if (error) {
@@ -44,14 +44,14 @@ export default function AdminDashboardPage() {
       value: stats.sections,
       href: "/admin/secciones",
       icon: FolderTree,
-      hint: "Agrupan los productos del catalogo",
+      hint: "Agrupan los productos del catálogo",
     },
     {
       label: "Productos",
       value: stats.products,
       href: "/admin/productos",
       icon: Boxes,
-      hint: "Fotos, materiales, variantes y tiempos de elaboracion",
+      hint: "Fotos, materiales, variantes y tiempos de elaboración",
     },
     {
       label: "Promociones",
@@ -82,9 +82,9 @@ export default function AdminDashboardPage() {
     <div className="space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-2xl font-medium text-cream">Bienvenida al CMS</h2>
+          <h2 className="text-2xl font-medium text-cream">Bienvenida a Thay Art</h2>
           <p className="mt-1 max-w-2xl text-sm text-cream/55">
-            Administra el catalogo publico, la galeria, noticias y las voces recibidas desde el sitio en un solo panel.
+            Administra el catálogo público, la galería, las noticias y las voces recibidas desde el sitio en un solo panel.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
@@ -97,13 +97,25 @@ export default function AdminDashboardPage() {
           <Link href="/admin/noticias">
             <SecondaryButton>
               <Plus className="size-4" />
-              Nueva publicacion
+              Nueva publicación
             </SecondaryButton>
           </Link>
           <Link href="/admin/promocion/nueva">
             <SecondaryButton>
               <RectangleEllipsis className="size-4" />
-              Nueva promocion
+              Nueva promoción
+            </SecondaryButton>
+          </Link>
+          <Link href="/admin/seguridad">
+            <SecondaryButton>
+              <ShieldCheck className="size-4" />
+              Cambiar contraseña
+            </SecondaryButton>
+          </Link>
+          <Link href="/admin/apariencia">
+            <SecondaryButton>
+              <Palette className="size-4" />
+              Apariencia
             </SecondaryButton>
           </Link>
           <Link href="/admin/voces">
@@ -147,7 +159,7 @@ export default function AdminDashboardPage() {
           </div>
           <ul className="space-y-3">
             {(stats.recentProducts || []).length === 0 && (
-              <li className="text-sm text-cream/45">Aun no hay productos.</li>
+              <li className="text-sm text-cream/45">Aún no hay productos.</li>
             )}
             {(stats.recentProducts || []).map((product) => (
               <li
@@ -175,7 +187,7 @@ export default function AdminDashboardPage() {
           </div>
           <ul className="space-y-3">
             {(stats.recentPosts || []).length === 0 && (
-              <li className="text-sm text-cream/45">Aun no hay publicaciones.</li>
+              <li className="text-sm text-cream/45">Aún no hay publicaciones.</li>
             )}
             {(stats.recentPosts || []).map((post) => (
               <li
@@ -206,7 +218,7 @@ export default function AdminDashboardPage() {
           </div>
           <ul className="space-y-3">
             {(stats.recentFeedback || []).length === 0 && (
-              <li className="text-sm text-cream/45">Aun no hay opiniones o testimonios.</li>
+              <li className="text-sm text-cream/45">Aún no hay opiniones o testimonios.</li>
             )}
             {(stats.recentFeedback || []).map((item) => (
               <li key={item.id} className="rounded-xl border border-white/5 bg-white/[0.02] px-3 py-2.5">
@@ -223,6 +235,46 @@ export default function AdminDashboardPage() {
               </li>
             ))}
           </ul>
+        </Card>
+
+        <Card>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-base font-medium text-cream">Contraseña de acceso</h3>
+            <Link href="/admin/seguridad" className="text-xs text-gold-light hover:underline">
+              Abrir
+            </Link>
+          </div>
+          <div className="space-y-3">
+            <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+              <p className="text-sm text-cream">Cambia la contraseña que utilizas para entrar.</p>
+              <p className="mt-1 text-xs text-cream/45">
+                Recuerda elegir una contraseña segura y que puedas recordar.
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-xs text-cream/45">
+              Solo las personas con la contraseña correcta pueden entrar.
+            </div>
+          </div>
+        </Card>
+
+        <Card>
+          <div className="mb-4 flex items-center justify-between">
+            <h3 className="text-base font-medium text-cream">Apariencia de la marca</h3>
+            <Link href="/admin/apariencia" className="text-xs text-gold-light hover:underline">
+              Abrir
+            </Link>
+          </div>
+          <div className="space-y-3">
+            <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+              <p className="text-sm text-cream">Elige una combinación de colores o crea la tuya.</p>
+              <p className="mt-1 text-xs text-cream/45">
+                Cambia los colores del sitio y de esta área de administración.
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 text-xs text-cream/45">
+              Los cambios de apariencia no afectan tus productos ni publicaciones.
+            </div>
+          </div>
         </Card>
       </div>
     </div>

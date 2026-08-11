@@ -23,7 +23,7 @@ export function normalizePromotion(body, products = [], existingIds = [], previo
   }
 
   if (enabled && !hasRenderableFields({ productId, title, message, image })) {
-    return { error: "Para activar una promocion debes completar producto, foto, titular y mensaje." }
+    return { error: "Para activar una promoción debes completar el producto, la foto, el titular y el mensaje." }
   }
 
   const now = new Date().toISOString()

@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(request) {
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const store = await readStore()
   const result = normalizePromotion(body, store.products, store.promotions.map((promotion) => promotion.id))

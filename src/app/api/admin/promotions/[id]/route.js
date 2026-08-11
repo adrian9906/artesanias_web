@@ -8,7 +8,7 @@ export async function GET(_request, { params }) {
   const { id } = await params
   const store = await readStore()
   const promotion = store.promotions.find((item) => item.id === id)
-  if (!promotion) return jsonError("Promocion no encontrada.", 404)
+  if (!promotion) return jsonError("Promoción no encontrada.", 404)
 
   const products = store.products.map((product) => enrichProduct(product, store.sections))
   return jsonOk({ promotion: enrichPromotions([promotion], products)[0], products })
@@ -17,11 +17,11 @@ export async function GET(_request, { params }) {
 export async function PUT(request, { params }) {
   const { id } = await params
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const store = await readStore()
   const index = store.promotions.findIndex((item) => item.id === id)
-  if (index === -1) return jsonError("Promocion no encontrada.", 404)
+  if (index === -1) return jsonError("Promoción no encontrada.", 404)
 
   const result = normalizePromotion(
     body,
@@ -42,7 +42,7 @@ export async function DELETE(_request, { params }) {
   const { id } = await params
   const store = await readStore()
   const exists = store.promotions.some((item) => item.id === id)
-  if (!exists) return jsonError("Promocion no encontrada.", 404)
+  if (!exists) return jsonError("Promoción no encontrada.", 404)
 
   store.promotions = store.promotions.filter((item) => item.id !== id)
   await writeStore(store)

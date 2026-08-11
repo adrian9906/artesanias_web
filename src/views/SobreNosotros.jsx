@@ -20,6 +20,8 @@ export default function SobreNosotros() {
   const trunkRef = useRef(null)
   const branchLineRefs = useRef([])
   const branchCardRefs = useRef([])
+  const mobileVineRefs = useRef([])
+  const mobileCardRefs = useRef([])
   const finalRef = useRef(null)
 
   useLayoutEffect(() => {
@@ -79,6 +81,56 @@ export default function SobreNosotros() {
     }
   }, [])
 
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger)
+    if (window.innerWidth >= 768) return
+
+    const ctx = gsap.context(() => {
+      mobileVineRefs.current.forEach((vine) => {
+        if (!vine) return
+        gsap.set(vine, { scaleY: 0, transformOrigin: 'top center' })
+      })
+
+      mobileCardRefs.current.forEach((card, index) => {
+        if (!card) return
+        gsap.set(card, {
+          autoAlpha: 0,
+          y: -34 - index * 6,
+          rotate: index % 2 === 0 ? -4 : 4,
+        })
+      })
+
+      mobileCardRefs.current.forEach((card, index) => {
+        const vine = mobileVineRefs.current[index]
+        if (!card || !vine) return
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 86%',
+            end: 'top 44%',
+            scrub: 0.7,
+          },
+        })
+
+        tl.to(vine, { scaleY: 1, duration: 0.45, ease: 'none' })
+          .to(
+            card,
+            {
+              autoAlpha: 1,
+              y: 0,
+              rotate: 0,
+              duration: 0.55,
+              ease: 'power2.out',
+            },
+            '<0.04',
+          )
+      })
+    }, sectionRef)
+
+    return () => ctx.revert()
+  }, [])
+
   return (
     <section
       ref={sectionRef}
@@ -100,19 +152,33 @@ export default function SobreNosotros() {
           </p>
         </header>
 
-        <div className="md:hidden space-y-6">
-          {branches.map((branch) => (
-            <article
+        <div className="space-y-6 md:hidden">
+          {branches.map((branch, index) => (
+            <div
               key={`mobile-${branch.title}`}
-              className="rounded-2xl border border-gold-accent/35 bg-forest-mid/70 p-4 backdrop-blur-sm"
-              style={{ boxShadow: '0 10px 30px rgba(0,0,0,0.25)' }}
+              className={`relative flex ${index % 2 === 0 ? 'justify-start' : 'justify-end'}`}
             >
-              <div className="rounded-xl overflow-hidden mb-4 border border-gold-accent/25">
-                <img src={branch.image} alt={branch.title} className="w-full h-48 object-cover" />
-              </div>
-              <h2 className="font-display text-xl text-cream mb-2">{branch.title}</h2>
-              <p className="text-cream/70 text-sm">{branch.text}</p>
-            </article>
+              <div
+                ref={(el) => {
+                  mobileVineRefs.current[index] = el
+                }}
+                className={`absolute top-3 h-20 w-[3px] rounded-full bg-[linear-gradient(180deg,rgba(200,228,157,0.92),rgba(249,172,162,0.72))] shadow-[0_0_18px_rgba(200,228,157,0.24)] ${index % 2 === 0 ? 'left-[1.1rem]' : 'right-[1.1rem]'}`}
+              />
+              <article
+                ref={(el) => {
+                  mobileCardRefs.current[index] = el
+                }}
+                className={`relative w-[calc(100%-2.75rem)] max-w-[18rem] overflow-hidden border border-gold-accent/35 bg-[linear-gradient(180deg,rgba(71,104,54,0.82),rgba(32,52,28,0.92))] p-4 backdrop-blur-sm ${index % 2 === 0 ? 'ml-8 rounded-[1.7rem_1.7rem_1.1rem_1.7rem]' : 'mr-8 rounded-[1.7rem_1.7rem_1.7rem_1.1rem]'}`}
+                style={{ boxShadow: '0 18px 40px rgba(0,0,0,0.26)' }}
+              >
+                <div className="absolute inset-x-6 top-0 h-6 rounded-b-full bg-gold-accent/12 blur-xl" />
+                <div className="mb-4 overflow-hidden rounded-[1.25rem] border border-gold-accent/25">
+                  <img src={branch.image} alt={branch.title} className="h-40 w-full object-cover" />
+                </div>
+                <h2 className="mb-2 font-display text-[1.55rem] text-cream">{branch.title}</h2>
+                <p className="text-sm leading-7 text-cream/72">{branch.text}</p>
+              </article>
+            </div>
           ))}
         </div>
 

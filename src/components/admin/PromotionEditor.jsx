@@ -2,9 +2,10 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, Sparkles } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
+import AdminBrandIcon from "@/components/admin/AdminBrandIcon"
 import GalleryUpload from "@/components/admin/GalleryUpload"
 import { Card, Field, PrimaryButton, SecondaryButton, TextInput, TextTextarea } from "@/components/admin/ui"
 import { Switch } from "@/components/ui/switch"
@@ -100,7 +101,7 @@ export default function PromotionEditor({ promotionId = null }) {
   }
 
   if (loading) {
-    return <p className="text-sm text-cream/50">Cargando editor de promocion…</p>
+    return <p className="text-sm text-cream/50">Cargando editor de promoción…</p>
   }
 
   return (
@@ -113,7 +114,7 @@ export default function PromotionEditor({ promotionId = null }) {
           </Link>
           <p className="mt-4 text-[11px] uppercase tracking-[0.24em] text-gold-accent/70">Escena promocional</p>
           <h2 className="mt-2 text-3xl font-medium text-cream">
-            {promotionId ? "Editar promocion" : "Nueva promocion"}
+            {promotionId ? "Editar promoción" : "Nueva promoción"}
           </h2>
           <p className="mt-2 text-sm leading-7 text-cream/55">
             Diseña una pieza visual inmersiva con la foto completa, el mensaje sobre la imagen y el boton que lleva al producto.
@@ -121,8 +122,8 @@ export default function PromotionEditor({ promotionId = null }) {
         </div>
         <label className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
           <div>
-            <p className="text-sm text-cream">{promotion.enabled ? "Promocion activa" : "Promocion en borrador"}</p>
-            <p className="text-xs text-cream/45">Solo las activas pueden salir en el catalogo.</p>
+            <p className="text-sm text-cream">{promotion.enabled ? "Promoción activa" : "Promoción en borrador"}</p>
+            <p className="text-xs text-cream/45">Solo las promociones activas pueden aparecer en el catálogo.</p>
           </div>
           <Switch
             checked={promotion.enabled}
@@ -140,7 +141,7 @@ export default function PromotionEditor({ promotionId = null }) {
               <>
                 <Image
                   src={promotion.image}
-                  alt={promotion.title || "Promocion"}
+                  alt={promotion.title || "Promoción"}
                   fill
                   unoptimized
                   sizes="(max-width: 1280px) 100vw, 48vw"
@@ -150,7 +151,7 @@ export default function PromotionEditor({ promotionId = null }) {
                 <div className="absolute inset-6 rounded-[1.8rem] border border-white/10 bg-black/18 backdrop-blur-[2px]">
                   <Image
                     src={promotion.image}
-                    alt={promotion.title || "Promocion"}
+                    alt={promotion.title || "Promoción"}
                     fill
                     unoptimized
                     sizes="(max-width: 1280px) 100vw, 48vw"
@@ -165,7 +166,7 @@ export default function PromotionEditor({ promotionId = null }) {
             <div className="relative flex min-h-[34rem] flex-col justify-between p-5 sm:p-7">
               <div className="flex items-start justify-between gap-4">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-3 py-1.5 text-[11px] uppercase tracking-[0.24em] text-cream/85 backdrop-blur-md">
-                  <Sparkles className="size-3.5" />
+                  <AdminBrandIcon className="size-4" />
                   Nuevo producto
                 </span>
                 <span className="rounded-full border border-white/15 bg-black/25 px-3 py-1.5 text-xs text-cream/80 backdrop-blur-md">
@@ -178,10 +179,10 @@ export default function PromotionEditor({ promotionId = null }) {
                   {selectedProduct?.name || "Selecciona un producto"}
                 </p>
                 <h3 className="mt-3 max-w-lg text-3xl font-semibold leading-tight text-white sm:text-5xl">
-                  {promotion.title || "Presenta aqui tu nueva pieza artesanal"}
+                  {promotion.title || "Presenta aquí tu nueva pieza artesanal"}
                 </h3>
                 <p className="mt-4 max-w-md text-sm leading-7 text-cream/85 sm:text-base">
-                  {promotion.message || "Escribe un mensaje corto, emocional y directo para invitar al catalogo."}
+                  {promotion.message || "Escribe un mensaje corto, emocional y directo para invitar al catálogo."}
                 </p>
                 <div className="mt-6">
                   <span className="inline-flex min-h-12 items-center rounded-full bg-gold-accent px-6 py-3 text-sm font-semibold text-forest-deep shadow-glow-button">
@@ -226,7 +227,7 @@ export default function PromotionEditor({ promotionId = null }) {
                 rows={4}
                 value={promotion.message}
                 onChange={(event) => setPromotion((current) => ({ ...current, message: event.target.value }))}
-                placeholder="Una pieza nueva acaba de florecer en el taller y ya esta lista para enamorar."
+                placeholder="Una pieza nueva acaba de florecer en el taller y ya está lista para enamorar."
               />
             </Field>
 
@@ -251,7 +252,7 @@ export default function PromotionEditor({ promotionId = null }) {
                 Cancelar
               </SecondaryButton>
               <PrimaryButton type="submit" disabled={saving}>
-                {saving ? "Guardando…" : promotionId ? "Guardar cambios" : "Crear promocion"}
+                {saving ? "Guardando…" : promotionId ? "Guardar cambios" : "Crear promoción"}
               </PrimaryButton>
             </div>
           </form>

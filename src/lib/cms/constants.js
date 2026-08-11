@@ -10,7 +10,7 @@ export const POST_STATUSES = [
 ]
 
 export const FEEDBACK_TYPES = [
-  { id: "opinion", label: "Opinion" },
+  { id: "opinion", label: "Opinión" },
   { id: "experience", label: "Experiencia" },
   { id: "testimonial", label: "Testimonio" },
 ]

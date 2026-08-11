@@ -30,7 +30,7 @@ export default function ImageUpload({ value, onChange, label = "Foto", className
 
   return (
     <div className={cn("space-y-2", className)}>
-      <label className="block text-sm text-cream/70">{label}</label>
+      <p className="text-sm text-cream/70">{label}</p>
       <div className="flex flex-col gap-3 sm:flex-row">
         <div className="relative flex h-36 w-full items-center justify-center overflow-hidden rounded-2xl border border-dashed border-white/15 bg-white/5 sm:w-48">
           {value ? (
@@ -68,15 +68,9 @@ export default function ImageUpload({ value, onChange, label = "Foto", className
             className="inline-flex h-10 items-center justify-center gap-2 rounded-xl border border-gold-accent/30 bg-gold-accent/10 px-4 text-sm text-gold-light transition hover:bg-gold-accent/20 disabled:opacity-50"
           >
             {uploading ? <Loader2 className="size-4 animate-spin" /> : <ImagePlus className="size-4" />}
-            {uploading ? "Subiendo…" : "Subir imagen"}
+            {uploading ? "Guardando…" : value ? "Cambiar imagen" : "Elegir imagen"}
           </button>
-          <input
-            type="url"
-            value={value || ""}
-            onChange={(e) => onChange(e.target.value)}
-            placeholder="O pega una URL /ruta/imagen.jpg"
-            className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-cream outline-none placeholder:text-cream/30 focus:border-gold-accent/40"
-          />
+          <p className="text-xs leading-5 text-cream/40">Elige una foto guardada en tu equipo.</p>
           {error && <p className="text-xs text-red-300">{error}</p>}
         </div>
       </div>

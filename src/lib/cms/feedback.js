@@ -11,7 +11,7 @@ export function sortByNewest(left, right) {
 export function normalizeFeedback(body, existingIds, previous = null, overrides = {}) {
   const type = String(body.type || overrides.type || "opinion").trim()
   if (!feedbackTypeIds.includes(type)) {
-    return { error: "Selecciona un tipo valido: opinion, experiencia o testimonio." }
+    return { error: "Selecciona un tipo válido: opinión, experiencia o testimonio." }
   }
 
   const text = String(body.text || body.message || "").trim()
@@ -19,12 +19,12 @@ export function normalizeFeedback(body, existingIds, previous = null, overrides 
 
   const rawName = String(body.name || "").trim()
   const allowAnonymous = body.allowAnonymous !== false
-  const name = rawName || (allowAnonymous ? "Anonimo" : "")
-  if (!name) return { error: "Indica el nombre de la persona o permite anonimo." }
+  const name = rawName || (allowAnonymous ? "Anónimo" : "")
+  if (!name) return { error: "Indica el nombre de la persona o permite anónimo." }
 
   const status = String(body.status || overrides.status || "published").trim()
   if (!feedbackStatusIds.includes(status)) {
-    return { error: "Estado invalido." }
+    return { error: "Estado inválido." }
   }
 
   const origin = String(body.origin || overrides.origin || "admin").trim() || "admin"

@@ -1,5 +1,10 @@
 {
-  "brand": ["/favicon.svg", "/icons.svg"],
+  "brand": [
+    "/favicon.ico",
+    "/apple-touch-icon.png",
+    "/android-chrome-192x192.png",
+    "/android-chrome-512x512.png"
+  ],
   "hero": ["/fondo2.jpeg", "/hero.png"],
   "video": ["/promo.webm", "/promoMovil.webm"],
   "legacy": ["/jarra.jpeg"],

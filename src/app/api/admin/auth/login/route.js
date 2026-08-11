@@ -9,10 +9,10 @@ export async function POST(request) {
   const password = String(body?.password || "")
 
   if (!username || !password) {
-    return jsonError("Escribe tu usuario y contrasena.")
+    return jsonError("Escribe tu usuario y contraseña.")
   }
 
-  const result = validateAdminCredentials(username, password)
+  const result = await validateAdminCredentials(username, password)
   if (!result.ok) {
     return jsonError(result.error, result.error.startsWith("Faltan") ? 500 : 401)
   }

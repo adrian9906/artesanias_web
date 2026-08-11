@@ -131,8 +131,7 @@ export default function AdminNewsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <p className="max-w-2xl text-sm text-cream/55">
-          Crea blogs, noticias y talleres con un editor CMS: negrita, cursiva, tipografías, títulos, listas y
-          más.
+          Crea blogs, noticias y talleres. Puedes dar formato al texto con negrita, cursiva, títulos y listas.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Select value={filter} onValueChange={setFilter}>
@@ -283,7 +282,7 @@ export default function AdminNewsPage() {
           />
 
           <div className="space-y-1.5">
-            <span className="block text-sm text-cream/70">Contenido (editor CMS)</span>
+            <span className="block text-sm text-cream/70">Contenido de la publicación</span>
             <RichTextEditor
               value={form.body}
               onChange={(body) => setForm((f) => ({ ...f, body }))}

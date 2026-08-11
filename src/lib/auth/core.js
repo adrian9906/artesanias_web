@@ -80,12 +80,15 @@ export function getAuthConfigStatus() {
 
   if (!getAuthSecret()) missing.push("AUTH_SECRET")
   if (!getAdminUsername()) missing.push("ADMIN_USERNAME")
-  if (!getAdminPassword() && !getAdminPasswordHash()) missing.push("ADMIN_PASSWORD o ADMIN_PASSWORD_HASH")
 
   return {
     ok: missing.length === 0,
     missing,
   }
+}
+
+export function hasEnvPasswordFallback() {
+  return Boolean(getAdminPassword() || getAdminPasswordHash())
 }
 
 export async function createAdminSessionToken() {

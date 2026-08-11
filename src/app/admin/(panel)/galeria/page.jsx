@@ -3,11 +3,11 @@
 import { Plus, Trash2 } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 import Modal from "@/components/admin/Modal"
+import ImageUpload from "@/components/admin/ImageUpload"
 import {
   Card,
   DangerButton,
   EmptyState,
-  Field,
   PrimaryButton,
   SecondaryButton,
   TextInput,
@@ -105,7 +105,7 @@ export default function AdminGalleryPage() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-cream/55">
-            Sube o pega las imágenes que se muestran en la galería pública. Añade una por cada entrada.
+            Elige las imágenes que se muestran en la galería pública. Añade una por cada entrada.
           </p>
         </div>
         <PrimaryButton onClick={openCreate}>
@@ -163,46 +163,11 @@ export default function AdminGalleryPage() {
         title={editing ? "Editar imagen" : "Añadir imagen a la galería"}
       >
         <form onSubmit={handleSave} className="space-y-4">
-          <Field label="Imagen" hint="Sube un archivo o pega una URL /uploads/... o https://">
-            <input
-              type="url"
-              required
-              value={form.image}
-              onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
-              placeholder="Pega aquí la URL de la imagen"
-              className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-cream outline-none placeholder:text-cream/30 focus:border-gold-accent/40"
-            />
-          </Field>
-
-          <Field label="Subir desde el equipo">
-            <div>
-              <SecondaryButton
-                type="button"
-                onClick={() => document.getElementById("gal-uploader")?.click()}
-              >
-                Elegir archivo
-              </SecondaryButton>
-              <input
-                id="gal-uploader"
-                className="hidden"
-                type="file"
-                accept="image/jpeg,image/png,image/webp,image/gif"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0]
-                  if (!file) return
-                  const fd = new FormData()
-                  fd.append("file", file)
-                  try {
-                    const data = await fetch("/api/admin/upload", { method: "POST", body: fd }).then((r) => r.json())
-                    if (data.url) setForm((f) => ({ ...f, image: data.url }))
-                  } catch {
-                    /* silencioso */
-                  }
-                  e.currentTarget.value = ""
-                }}
-              />
-            </div>
-          </Field>
+          <ImageUpload
+            label="Foto"
+            value={form.image}
+            onChange={(image) => setForm((f) => ({ ...f, image }))}
+          />
 
           <div className="flex flex-col gap-2">
             <span className="text-sm text-cream/70">Orientación</span>
@@ -217,7 +182,7 @@ export default function AdminGalleryPage() {
                     : "border-white/15 bg-white/5 text-cream/70",
                 )}
               >
-                Vertical (9:16)
+                Vertical
               </button>
               <button
                 type="button"
@@ -229,18 +194,19 @@ export default function AdminGalleryPage() {
                     : "border-white/15 bg-white/5 text-cream/70",
                 )}
               >
-                Horizontal (16:9)
+                Horizontal
               </button>
             </div>
           </div>
 
-          <Field label="Texto alternativo (opcional)">
+          <label className="block space-y-2 text-sm text-cream/70">
+            <span>Descripción breve de la foto (opcional)</span>
             <TextInput
               value={form.alt}
               onChange={(e) => setForm((f) => ({ ...f, alt: e.target.value }))}
-              placeholder="Descripción breve de la foto"
+              placeholder="Ejemplo: Jarron artesanal con flores"
             />
-          </Field>
+          </label>
 
           {formError && <p className="text-sm text-red-300">{formError}</p>}
           <div className="flex justify-end gap-2 pt-2">

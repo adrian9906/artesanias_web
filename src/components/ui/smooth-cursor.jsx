@@ -14,15 +14,15 @@ const DefaultCursorSVG = () => {
       width={20}
       height={20}
       viewBox="0 0 24 24"
-      fill="#F9ACA2"
+      fill="var(--theme-cursor, var(--theme-gold-accent))"
       style={{
         scale: 1.7,
-        filter: "drop-shadow(0 2px 8px rgba(249, 172, 162, 0.45))",
+        filter: "drop-shadow(0 2px 8px color-mix(in srgb, var(--theme-cursor, var(--theme-gold-accent)) 45%, transparent))",
       }}>
       <path
         d="M3.1,4.46l7.21,15.92A1.17,1.17,0,0,0,12.5,20l1.26-6.23L20,12.5a1.17,1.17,0,0,0,.39-2.19L4.46,3.1A1,1,0,0,0,3.1,4.46Z"
-        fill="#F9ACA2"
-        stroke="#F9ACA2"
+        fill="var(--theme-cursor, var(--theme-gold-accent))"
+        stroke="var(--theme-cursor, var(--theme-gold-accent))"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={1.5}

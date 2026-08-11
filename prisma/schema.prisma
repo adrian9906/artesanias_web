@@ -133,3 +133,12 @@ model AnalyticsEvent {
   @@index([sessionId])
   @@map("analytics_events")
 }
+
+model AdminCredential {
+  id           String   @id
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("admin_credentials")
+}

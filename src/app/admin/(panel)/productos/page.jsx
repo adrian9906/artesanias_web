@@ -192,7 +192,7 @@ export default function AdminProductsPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="max-w-3xl text-sm text-cream/55">
-          Gestiona el catalogo publico con nombre, descripcion, materiales, tiempo de elaboracion, fotos, stock y
+          Gestiona el catálogo público con nombre, descripción, materiales, tiempo de elaboración, fotos, disponibilidad y
           variantes para cada producto.
         </p>
         <PrimaryButton onClick={openCreate} disabled={sections.length === 0}>
@@ -206,7 +206,7 @@ export default function AdminProductsPage() {
           <p className="text-sm text-cream/70">
             Primero crea al menos una{" "}
             <a href="/admin/secciones" className="text-gold-light underline">
-              seccion
+              sección
             </a>{" "}
             para poder asignar productos.
           </p>
@@ -219,7 +219,7 @@ export default function AdminProductsPage() {
       {!loading && !error && products.length === 0 && sections.length > 0 && (
         <EmptyState
           title="Sin productos"
-          description="Crea el primer producto del catalogo y asignalo a una seccion."
+          description="Crea el primer producto del catálogo y asígnalo a una sección."
           action={
             <PrimaryButton onClick={openCreate}>
               <Plus className="size-4" />
@@ -301,7 +301,7 @@ export default function AdminProductsPage() {
                     <AlertDialogHeader>
                       <AlertDialogTitle>Eliminar producto</AlertDialogTitle>
                       <AlertDialogDescription>
-                        {`Vas a eliminar "${product.name}" del catalogo. Esta accion no se puede deshacer.`}
+                        {`Vas a eliminar "${product.name}" del catálogo. Esta acción no se puede deshacer.`}
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -341,13 +341,13 @@ export default function AdminProductsPage() {
               />
             </Field>
 
-            <Field label="Seccion">
+            <Field label="Sección">
               <Select
                 value={form.sectionId}
                 onValueChange={(value) => setForm((current) => ({ ...current, sectionId: value }))}
               >
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Selecciona una seccion" />
+                  <SelectValue placeholder="Selecciona una sección" />
                 </SelectTrigger>
                 <SelectContent>
                   {sections.map((section) => (
@@ -360,28 +360,28 @@ export default function AdminProductsPage() {
             </Field>
           </div>
 
-          <Field label="Eyebrow o subtitulo" hint="Texto corto que aparece como antetitulo en el catalogo publico.">
+          <Field label="Texto breve" hint="Aparece sobre el nombre del producto en el catálogo público.">
             <TextInput
               value={form.eyebrow}
               onChange={(e) => setForm((current) => ({ ...current, eyebrow: e.target.value }))}
-              placeholder="Coleccion botánica, pieza ritual, etc."
+              placeholder="Colección botánica, pieza ritual, etc."
             />
           </Field>
 
-          <Field label="Descripcion">
+          <Field label="Descripción">
             <TextTextarea
               value={form.description}
               onChange={(e) => setForm((current) => ({ ...current, description: e.target.value }))}
-              placeholder="Descripcion del producto"
+              placeholder="Descripción del producto"
               rows={3}
             />
           </Field>
 
-          <Field label="Materiales" hint="Escribe un material por linea para mostrarlo en la pestaña de materiales.">
+          <Field label="Materiales" hint="Escribe un material por línea para mostrarlo en la pestaña de materiales.">
             <TextTextarea
               value={form.materialsText}
               onChange={(e) => setForm((current) => ({ ...current, materialsText: e.target.value }))}
-              placeholder={"Porcelana fria\nPigmentos minerales\nSellador mate"}
+              placeholder={"Porcelana fría\nPigmentos minerales\nSellador mate"}
               rows={4}
             />
           </Field>
@@ -415,17 +415,17 @@ export default function AdminProductsPage() {
               </Select>
             </Field>
 
-            <Field label="Tiempo de elaboracion">
+            <Field label="Tiempo de elaboración">
               <TextInput
                 value={form.elaborationTime}
                 onChange={(e) => setForm((current) => ({ ...current, elaborationTime: e.target.value }))}
-                placeholder="10-14 dias"
+                placeholder="10-14 días"
               />
             </Field>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <Field label="Estado de stock">
+            <Field label="Disponibilidad">
               <div className="flex gap-2">
                 <button
                   type="button"

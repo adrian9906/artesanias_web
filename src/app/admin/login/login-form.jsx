@@ -1,9 +1,11 @@
 "use client"
 
-import { LockKeyhole, ShieldCheck, Sparkles } from "lucide-react"
+import { Eye, EyeOff, LockKeyhole } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
+import AdminBrandIcon from "@/components/admin/AdminBrandIcon"
 import BrandName from "@/components/BrandName"
 import { SmoothCursor } from "@/components/ui/smooth-cursor"
 
@@ -18,6 +20,7 @@ export default function AdminLoginForm() {
   const searchParams = useSearchParams()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordVisible, setPasswordVisible] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -35,9 +38,9 @@ export default function AdminLoginForm() {
         body: JSON.stringify({ username, password }),
       })
 
-      const data = await response.json().catch(() => ({}))
       if (!response.ok) {
-        throw new Error(data.error || "No fue posible iniciar sesion.")
+        const data = await response.json().catch(() => ({}))
+        throw new Error(data.error || "No fue posible iniciar sesión.")
       }
 
       const nextPath = getSafeNextPath(searchParams.get("next"))
@@ -51,41 +54,45 @@ export default function AdminLoginForm() {
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#0c160b] text-cream">
+    <main className="relative isolate min-h-screen overflow-hidden bg-[#071007] text-cream">
       <SmoothCursor />
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(249,172,162,0.18),transparent_34%),radial-gradient(circle_at_82%_18%,rgba(200,228,157,0.16),transparent_28%),linear-gradient(180deg,rgba(12,22,11,0.84),rgba(12,22,11,0.98))]" />
-        <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:32px_32px]" />
+        <Image
+          src="/images/admin-login-botanical-bg.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-[38%_center] opacity-80 sm:object-center"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,14,7,0.68)_0%,rgba(5,14,7,0.48)_42%,rgba(5,14,7,0.86)_100%)] lg:bg-[linear-gradient(90deg,rgba(5,14,7,0.78)_0%,rgba(5,14,7,0.52)_48%,rgba(5,14,7,0.76)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_50%,transparent_0%,rgba(3,10,5,0.2)_50%,rgba(3,10,5,0.62)_100%)]" />
+        <div className="noise-overlay absolute inset-0 opacity-20" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-7xl flex-col justify-center px-4 py-10 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20 xl:gap-28">
           <section className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold-accent/25 bg-gold-accent/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-gold-light">
-              <ShieldCheck className="size-4" />
-              Acceso protegido
-            </div>
 
-            <div className="mt-6">
-              <BrandName className="text-2xl sm:text-3xl" />
-              <h1 className="mt-6 max-w-3xl font-display text-[clamp(3.2rem,7vw,6.2rem)] leading-[0.92] text-cream">
-                Entra al taller privado del admin.
+            <div className="mt-10 sm:mt-12">
+              <BrandName className="text-3xl sm:text-4xl" />
+              <h1 className="mt-10 max-w-3xl font-display text-[clamp(3.2rem,7vw,6.2rem)] leading-[0.96] text-cream sm:mt-12">
+                Entra al espacio de administración.
               </h1>
-              <p className="mt-5 max-w-xl text-base leading-8 text-cream/68 sm:text-lg">
-                Gestiona catalogo, promociones, noticias y galeria desde una sesion protegida con cookie `httpOnly`,
-                firma del servidor y bloqueo automatico de rutas privadas.
+              <p className="mt-7 max-w-xl text-base leading-8 text-cream/68 sm:text-lg">
+                Gestiona el catálogo, las promociones, las noticias y la galería de Thay Art desde un solo lugar.
               </p>
             </div>
 
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            <div className="mt-10 grid gap-3 sm:grid-cols-3">
               {[
-                "Cookie segura y no accesible desde JS",
-                "Proteccion de /admin y /api/admin",
-                "Sesion con expiracion controlada",
+                "Todo organizado en un solo lugar",
+                "Acceso solo para personas autorizadas",
+                "Tu información se mantiene privada",
               ].map((item) => (
                 <div
                   key={item}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-4 text-sm text-cream/70 backdrop-blur-sm"
+                  className="rounded-2xl border border-white/12 bg-[#0b1b0d]/50 px-4 py-4 text-sm text-cream/75 shadow-[0_12px_32px_rgba(0,0,0,0.12)] backdrop-blur-md"
                 >
                   {item}
                 </div>
@@ -93,20 +100,23 @@ export default function AdminLoginForm() {
             </div>
           </section>
 
-          <section className="relative">
+          <section className="relative lg:pl-2 xl:pl-4">
             <div className="absolute -inset-4 rounded-[2rem] bg-gold-accent/10 blur-3xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-gold-accent/20 bg-[#132012]/92 p-6 shadow-[0_30px_90px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:p-8">
+            <div
+              className="relative overflow-hidden rounded-[2rem] border border-gold-accent/20 p-6 shadow-[0_30px_90px_rgba(0,0,0,0.34)] backdrop-blur-xl sm:p-8"
+              style={{ backgroundColor: "color-mix(in srgb, var(--theme-forest-dark) 86%, transparent)" }}
+            >
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.24em] text-gold-accent/75">Inicio de sesion</p>
-                  <h2 className="mt-3 text-2xl text-cream">Panel de administracion</h2>
+                  <p className="font-artisan text-lg tracking-[0.08em] text-gold-accent/75">Bienvenida</p>
+                  <h2 className="font-artisan mt-3 text-3xl leading-tight text-cream">Administración de Thay Art</h2>
                 </div>
-                <div className="flex size-12 items-center justify-center rounded-2xl border border-gold-accent/20 bg-gold-accent/10 text-gold-light">
-                  <Sparkles className="size-5" />
+                <div className="flex size-12 items-center justify-center bg-transparent">
+                  <AdminBrandIcon className="size-11" />
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
+              <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-5">
                 <label className="flex flex-col gap-2">
                   <span className="text-sm text-cream/65">Usuario</span>
                   <input
@@ -119,21 +129,30 @@ export default function AdminLoginForm() {
                   />
                 </label>
 
-                <label className="flex flex-col gap-2">
-                  <span className="text-sm text-cream/65">Contrasena</span>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="admin-password" className="text-sm text-cream/65">Contraseña</label>
                   <div className="relative">
                     <LockKeyhole className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-cream/35" />
                     <input
-                      type="password"
+                      id="admin-password"
+                      type={passwordVisible ? "text" : "password"}
                       autoComplete="current-password"
                       value={password}
                       onChange={(event) => setPassword(event.target.value)}
-                      className="min-h-12 w-full rounded-2xl border border-white/10 bg-black/15 pl-11 pr-4 text-base text-cream outline-none transition focus:border-gold-accent/45 focus:bg-black/25"
+                      className="min-h-12 w-full rounded-2xl border border-white/10 bg-black/15 pl-11 pr-12 text-base text-cream outline-none transition focus:border-gold-accent/45 focus:bg-black/25"
                       placeholder="Tu clave segura"
                       required
                     />
+                    <button
+                      type="button"
+                      onClick={() => setPasswordVisible((current) => !current)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/45 transition hover:text-gold-light"
+                      aria-label={passwordVisible ? "Ocultar contraseña" : "Mostrar contraseña"}
+                    >
+                      {passwordVisible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                    </button>
                   </div>
-                </label>
+                </div>
 
                 {error && (
                   <div className="rounded-2xl border border-red-400/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
@@ -146,12 +165,12 @@ export default function AdminLoginForm() {
                   disabled={loading}
                   className="mt-2 inline-flex min-h-12 items-center justify-center rounded-full border border-gold-accent bg-gold-accent px-6 text-base font-semibold text-forest-deep shadow-glow-button transition hover:-translate-y-0.5 hover:bg-gold-light disabled:translate-y-0 disabled:opacity-60"
                 >
-                  {loading ? "Entrando..." : "Entrar al admin"}
+                  {loading ? "Entrando..." : "Entrar"}
                 </button>
               </form>
 
               <div className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6 text-sm text-cream/48 sm:flex-row sm:items-center sm:justify-between">
-                <span>Acceso interno de Thay Art</span>
+                <span>Área privada de Thay Art</span>
                 <Link href="/" className="text-gold-light transition hover:text-gold-pale">
                   Volver al sitio
                 </Link>

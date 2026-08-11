@@ -1,0 +1,15 @@
+{
+  "mode": "preset",
+  "presetId": "bosque-rosa",
+  "colors": {
+    "primary": "#476836",
+    "primarySoft": "#668855",
+    "secondary": "#f9aca2",
+    "secondarySoft": "#ffd5cf",
+    "accentSoft": "#c8e49d",
+    "background": "#1b2918",
+    "surface": "#263b22",
+    "text": "#fff9f4",
+    "cursor": "#f9aca2"
+  }
+}

@@ -29,7 +29,6 @@ export default function Navbar() {
     { label: t('nav.gallery'), to: '/galeria' },
     { label: t('nav.news'), to: '/noticias' },
     { label: t('nav.opinions'), to: '/opiniones' },
-    { label: t('nav.order'), to: '/encargos' },
   ]
 
   return (
@@ -55,7 +54,6 @@ export default function Navbar() {
             <Link className={`${isActive('/opiniones') ? 'text-gold-accent' : 'text-cream/70'} hover:text-gold-accent transition-colors duration-300`} href="/opiniones">{t('nav.opinions')}</Link>
           </nav>
           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
-            <Link className="hidden min-h-10 items-center rounded-full border border-gold-accent bg-gold-accent px-4 py-2 text-sm font-semibold text-forest-deep shadow-glow-button transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light sm:inline-flex md:px-5" href="/encargos">{t('nav.order')}</Link>
             <div className="inline-flex overflow-hidden rounded-full border border-white/15 bg-black/10 backdrop-blur-sm">
               <button type="button" onClick={() => setLang('es')} className={`px-2.5 py-1 text-xs sm:px-3 ${lang === 'es' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>ES</button>
               <button type="button" onClick={() => setLang('en')} className={`px-2.5 py-1 text-xs sm:px-3 ${lang === 'en' ? 'bg-gold-accent text-forest-dark' : 'text-cream/70'}`}>EN</button>

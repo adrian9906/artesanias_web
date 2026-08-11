@@ -136,7 +136,7 @@ export default function AdminFeedbackPage() {
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <p className="max-w-3xl text-sm text-cream/55">
           Revisa opiniones, experiencias y testimonios enviados desde la web, y agrega testimonios manuales para
-          destacarlos en la home o en la pagina de opiniones.
+          destacarlos en el inicio o en la página de opiniones.
         </p>
         <div className="flex flex-wrap items-center gap-2">
           <Select value={typeFilter} onValueChange={setTypeFilter}>
@@ -178,7 +178,7 @@ export default function AdminFeedbackPage() {
       {!loading && !error && filtered.length === 0 && (
         <EmptyState
           title="Sin voces en este filtro"
-          description="Los mensajes que lleguen desde la pagina de opiniones apareceran aqui para revisarlos."
+          description="Los mensajes que lleguen desde la página de opiniones aparecerán aquí para revisarlos."
           action={
             <PrimaryButton onClick={openCreate}>
               <Plus className="size-4" />
@@ -258,7 +258,7 @@ export default function AdminFeedbackPage() {
             <TextInput
               value={form.name}
               onChange={(e) => setForm((current) => ({ ...current, name: e.target.value }))}
-              placeholder="Nombre visible o Anonimo"
+              placeholder="Nombre visible o Anónimo"
             />
           </Field>
 
@@ -268,7 +268,7 @@ export default function AdminFeedbackPage() {
               rows={6}
               value={form.text}
               onChange={(e) => setForm((current) => ({ ...current, text: e.target.value }))}
-              placeholder="Escribe la opinion, experiencia o testimonio"
+              placeholder="Escribe la opinión, experiencia o testimonio"
             />
           </Field>
 

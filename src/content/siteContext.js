@@ -28,7 +28,6 @@ export const siteRoutes = [
   { path: '/catalogo', content: 'Catálogo editable de productos, precios, carruseles y contacto por WhatsApp' },
   { path: '/sobre-nosotros', content: 'Historia y proceso creativo de la marca' },
   { path: '/informacion-de-encargo', content: 'Explicación del proceso de encargos personalizados' },
-  { path: '/encargos', content: 'Formulario y categorías de encargos' },
   { path: '/galeria', content: 'Catálogo, precios, historias y casos de éxito' },
   { path: '/noticias', content: 'Noticias destacadas y carrusel editorial' },
   { path: '/blog', content: 'Artículo editorial de respaldo' },
@@ -36,7 +35,12 @@ export const siteRoutes = [
 ]
 
 export const mediaManifest = {
-  brand: ['/favicon.svg', '/icons.svg'],
+  brand: [
+    '/favicon.ico',
+    '/apple-touch-icon.png',
+    '/android-chrome-192x192.png',
+    '/android-chrome-512x512.png',
+  ],
   hero: ['/fondo2.jpeg', '/hero.png'],
   video: ['/promo.webm', '/promoMovil.webm'],
   legacy: ['/jarra.jpeg'],

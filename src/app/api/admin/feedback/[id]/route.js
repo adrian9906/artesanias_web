@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic"
 export async function PUT(request, { params }) {
   const { id } = await params
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const store = await readStore()
   const index = (store.feedback || []).findIndex((item) => item.id === id)

@@ -2,8 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Eye, Pencil, Plus, Sparkles } from "lucide-react"
+import { Eye, Pencil, Plus } from "lucide-react"
 import { useCallback, useEffect, useMemo, useState } from "react"
+import AdminBrandIcon from "@/components/admin/AdminBrandIcon"
 import { Card, EmptyState, PrimaryButton, SecondaryButton, StatusBadge } from "@/components/admin/ui"
 import { Switch } from "@/components/ui/switch"
 import { api } from "@/lib/cms/client"
@@ -76,16 +77,16 @@ export default function PromotionsIndexPage() {
     <div className="space-y-6">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
         <div className="max-w-3xl">
-          <p className="text-[11px] uppercase tracking-[0.24em] text-gold-accent/70">Lanzamientos del catalogo</p>
+          <p className="text-[11px] uppercase tracking-[0.24em] text-gold-accent/70">Lanzamientos del catálogo</p>
           <h2 className="mt-2 text-3xl font-medium text-cream">Promociones visuales</h2>
           <p className="mt-2 text-sm leading-7 text-cream/55">
-            Selecciona una promocion para verla en grande, activala con el switch y entra al editor cuando quieras cambiar foto, texto o producto.
+            Selecciona una promoción para verla en grande, actívala con el interruptor y entra al editor cuando quieras cambiar la foto, el texto o el producto.
           </p>
         </div>
         <Link href="/admin/promocion/nueva">
           <PrimaryButton>
             <Plus className="size-4" />
-            Nueva promocion
+            Nueva promoción
           </PrimaryButton>
         </Link>
       </div>
@@ -96,12 +97,12 @@ export default function PromotionsIndexPage() {
       {!loading && !error && promotions.length === 0 && (
         <EmptyState
           title="Sin promociones"
-          description="Crea la primera promocion para anunciar un producto nuevo en el catalogo."
+          description="Crea la primera promoción para anunciar un producto nuevo en el catálogo."
           action={
             <Link href="/admin/promocion/nueva">
               <PrimaryButton>
                 <Plus className="size-4" />
-                Crear promocion
+                Crear promoción
               </PrimaryButton>
             </Link>
           }
@@ -145,7 +146,7 @@ export default function PromotionsIndexPage() {
                           <>
                             <Image
                               src={promotion.image}
-                              alt={promotion.title || "Promocion"}
+                              alt={promotion.title || "Promoción"}
                               fill
                               unoptimized
                               sizes="80px"
@@ -153,7 +154,7 @@ export default function PromotionsIndexPage() {
                             />
                             <Image
                               src={promotion.image}
-                              alt={promotion.title || "Promocion"}
+                              alt={promotion.title || "Promoción"}
                               fill
                               unoptimized
                               sizes="80px"
@@ -162,7 +163,7 @@ export default function PromotionsIndexPage() {
                           </>
                         ) : (
                           <div className="flex h-full items-center justify-center text-cream/25">
-                            <Sparkles className="size-5" />
+                            <AdminBrandIcon className="size-10" />
                           </div>
                         )}
                       </div>
@@ -174,7 +175,7 @@ export default function PromotionsIndexPage() {
                               {promotion.product?.name || "Sin producto"}
                             </p>
                             <h3 className="mt-1 truncate text-base font-medium text-cream">
-                              {promotion.title || "Promocion sin titular"}
+                              {promotion.title || "Promoción sin titular"}
                             </h3>
                           </div>
                           <div
@@ -212,7 +213,7 @@ export default function PromotionsIndexPage() {
                           </Link>
                           <span className="inline-flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.02] px-3 text-xs text-cream/45">
                             <Eye className="size-3.5" />
-                            Seleccionada al hacer click
+                            Seleccionada al hacer clic
                           </span>
                         </div>
                       </div>
@@ -230,7 +231,7 @@ export default function PromotionsIndexPage() {
                   <>
                     <Image
                       src={selectedPromotion.image}
-                      alt={selectedPromotion.title || "Promocion"}
+                      alt={selectedPromotion.title || "Promoción"}
                       fill
                       unoptimized
                       sizes="(max-width: 1280px) 100vw, 55vw"
@@ -240,7 +241,7 @@ export default function PromotionsIndexPage() {
                     <div className="absolute inset-6 rounded-[1.8rem] border border-white/10 bg-black/18 backdrop-blur-[2px]">
                       <Image
                         src={selectedPromotion.image}
-                        alt={selectedPromotion.title || "Promocion"}
+                        alt={selectedPromotion.title || "Promoción"}
                         fill
                         unoptimized
                         sizes="(max-width: 1280px) 100vw, 55vw"
@@ -275,10 +276,10 @@ export default function PromotionsIndexPage() {
                       {selectedPromotion.product?.name || "Pieza destacada"}
                     </p>
                     <h3 className="mt-3 font-display text-4xl leading-tight text-white md:text-6xl">
-                      {selectedPromotion.title || "Promocion sin titular"}
+                      {selectedPromotion.title || "Promoción sin titular"}
                     </h3>
                     <p className="mt-4 max-w-xl text-base leading-8 text-cream/85 md:text-lg">
-                      {selectedPromotion.message || "Esta promocion aun no tiene mensaje escrito."}
+                      {selectedPromotion.message || "Esta promoción aún no tiene un mensaje escrito."}
                     </p>
                     <div className="mt-7">
                       <span className="inline-flex min-h-12 items-center justify-center rounded-full bg-gold-accent px-7 py-3 text-sm font-semibold text-forest-deep shadow-glow-button">

@@ -9,7 +9,6 @@ export default function Footer() {
     { label: t("nav.home"), href: "/" },
     { label: t("nav.catalog"), href: "/catalogo" },
     { label: t("nav.about"), href: "/sobre-nosotros" },
-    { label: t("nav.order"), href: "/encargos" },
     { label: t("nav.orderInfo"), href: "/informacion-de-encargo" },
     { label: t("nav.gallery"), href: "/galeria" },
     { label: t("nav.news"), href: "/noticias" },

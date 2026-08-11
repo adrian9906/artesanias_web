@@ -78,12 +78,12 @@ export default function Blog({ articleId }) {
     <div className="relative min-h-screen antialiased bg-forest-dark animate-blurred-fade-in">
       <div className="fixed inset-0 z-0 pointer-events-none" />
 
-      <div className="relative z-10 pt-32 pb-24">
-        <section className="container mx-auto px-6 pt-8 pb-8">
+      <div className="relative z-10 pb-20 pt-24 sm:pt-28 md:pt-32">
+        <section className="container mx-auto px-4 pb-6 pt-6 sm:px-5 md:px-6 md:pb-8 md:pt-8">
           <button
             type="button"
             onClick={() => router.push("/noticias")}
-            className="inline-flex items-center gap-2 rounded-full border border-gold-accent/40 px-5 py-2 text-sm text-gold-light hover:bg-gold-accent hover:text-forest-dark transition-colors"
+            className="inline-flex items-center gap-2 rounded-full border border-gold-accent/40 px-4 py-2 text-sm text-gold-light transition-colors hover:bg-gold-accent hover:text-forest-dark sm:px-5"
           >
             <span aria-hidden>←</span>
             {t("common.backToNews")}
@@ -91,7 +91,7 @@ export default function Blog({ articleId }) {
         </section>
 
         {!article && (
-          <section className="container mx-auto max-w-4xl px-6">
+          <section className="container mx-auto max-w-4xl px-4 sm:px-5 md:px-6">
             <div className="space-y-4">
               <div className="h-10 w-2/3 animate-pulse rounded-xl bg-white/10" />
               <div className="h-6 w-1/3 animate-pulse rounded-xl bg-white/5" />
@@ -107,15 +107,15 @@ export default function Blog({ articleId }) {
 
         {article && (
         <>
-        <section className="container mx-auto px-6 text-center pt-6 pb-14">
-          <h1 className="text-5xl md:text-7xl font-bold text-cream leading-tight drop-shadow-lg max-w-5xl mx-auto font-display">
+        <section className="container mx-auto px-4 pb-10 pt-4 text-center sm:px-5 md:px-6 md:pb-14 md:pt-6">
+          <h1 className="mx-auto max-w-5xl font-display text-[clamp(2.7rem,10vw,4.4rem)] font-bold leading-[1.02] text-cream drop-shadow-lg md:text-7xl">
             {article.title}
           </h1>
         </section>
 
-        <section className="container mx-auto px-4 max-w-4xl relative">
+        <section className="container relative mx-auto max-w-4xl px-4 sm:px-5">
           <div
-            className="rounded-2xl p-8 md:p-12 relative overflow-hidden"
+            className="relative overflow-hidden rounded-2xl p-4 sm:p-6 md:p-12"
             style={{
               background: "rgba(38, 59, 34, 0.76)",
               backdropFilter: "blur(12px)",
@@ -123,31 +123,31 @@ export default function Blog({ articleId }) {
               boxShadow: "inset 0 0 40px rgba(200, 228, 157, 0.08), 0 22px 55px rgba(15, 29, 12, 0.2)",
             }}
           >
-            <div className="flex items-center justify-between border-b border-cream/20 pb-6 mb-8">
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full object-cover border border-cream/20 bg-gradient-to-br from-gold-accent/30 to-gold-accent/10" />
+            <div className="mb-6 flex flex-col gap-4 border-b border-cream/20 pb-5 sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:pb-6">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="h-11 w-11 rounded-full border border-cream/20 bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 sm:h-12 sm:w-12" />
                 <div>
                   <p className="text-xs text-cream/40 uppercase tracking-wider mb-1">{t('blog.writtenBy')}</p>
-                  <p className="text-lg font-medium text-cream">{article.author ?? "Equipo Thay Art"}</p>
+                  <p className="text-base font-medium text-cream sm:text-lg">{article.author ?? "Equipo Thay Art"}</p>
                 </div>
               </div>
-              <div className="text-right text-sm text-cream/40 uppercase tracking-widest">
+              <div className="text-left text-xs uppercase tracking-[0.18em] text-cream/40 sm:text-right sm:text-sm">
                 {article.date} · {article.readTime ?? "6 min de lectura"}
               </div>
             </div>
 
-            <div className="my-8">
+            <div className="my-6 sm:my-8">
               <img
                 alt={article.title}
-                className="w-full h-auto max-h-[420px] rounded-lg shadow-2xl object-cover border border-white/5"
+                className="h-auto max-h-[420px] w-full rounded-xl border border-white/5 object-cover shadow-2xl"
                 src={article.image}
               />
             </div>
 
             <article className="text-cream/70 font-light leading-relaxed">
-              <p className="text-xl mb-6 italic">{article.excerpt}</p>
+              <p className="mb-5 text-lg italic leading-8 sm:mb-6 sm:text-xl">{article.excerpt}</p>
               {article.body ? (
-                <div className="cms-body space-y-4" dangerouslySetInnerHTML={{ __html: article.body }} />
+                <div className="cms-body space-y-4 text-[1rem] leading-8 sm:text-[1.05rem]" dangerouslySetInnerHTML={{ __html: article.body }} />
               ) : (
                 <>
                   <p className="mb-6">
@@ -160,11 +160,11 @@ export default function Blog({ articleId }) {
               )}
             </article>
 
-            <div className="flex flex-wrap gap-3 mt-12 pt-8 border-t border-cream/20">
+            <div className="mt-10 flex flex-wrap gap-2.5 border-t border-cream/20 pt-6 sm:mt-12 sm:gap-3 sm:pt-8">
               {[`#${article.category?.toUpperCase() ?? "DESTACADO"}`, "#ARTESANÍA", "#NATURALEZA"].map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-1.5 rounded-full border border-cream/20 text-xs text-cream/60 hover:bg-cream/10 transition-colors cursor-pointer uppercase tracking-wider"
+                  className="cursor-pointer rounded-full border border-cream/20 px-3 py-1.5 text-[11px] uppercase tracking-wider text-cream/60 transition-colors hover:bg-cream/10 sm:px-4 sm:text-xs"
                 >
                   {tag}
                 </span>
@@ -173,10 +173,10 @@ export default function Blog({ articleId }) {
           </div>
         </section>
 
-        <section className="container mx-auto px-6 max-w-6xl mt-24">
-          <h3 className="text-3xl font-display text-cream mb-8">{t('blog.relatedStories')}</h3>
+        <section className="container mx-auto mt-16 max-w-6xl px-4 sm:px-5 md:mt-24 md:px-6">
+          <h3 className="mb-6 font-display text-2xl text-cream sm:text-3xl md:mb-8">{t('blog.relatedStories')}</h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
             {relatedArticles.map((related, i) => (
               <article
                 key={i}
@@ -188,14 +188,14 @@ export default function Blog({ articleId }) {
                   boxShadow: "inset 0 0 40px rgba(200, 228, 157, 0.08), 0 22px 55px rgba(15, 29, 12, 0.2)",
                 }}
               >
-                <div className="h-48 overflow-hidden">
+                <div className="h-44 overflow-hidden sm:h-48">
                   <img
                     alt={related.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     src={related.image}
                   />
                 </div>
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <p className={`text-[10px] uppercase tracking-widest font-semibold mb-2 ${related.categoryColor}`}>
                     {related.category}
                   </p>

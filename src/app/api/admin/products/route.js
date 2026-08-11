@@ -11,11 +11,11 @@ export async function GET() {
 
 export async function POST(request) {
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const store = await readStore()
   if (!store.sections.some((section) => section.id === body.sectionId)) {
-    return jsonError("La seccion seleccionada no existe.")
+    return jsonError("La sección seleccionada no existe.")
   }
 
   const result = normalizeProduct(body, store.products.map((product) => product.id))

@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Hero from './components/hero'
-import VideoSection from './components/VideoSection'
 
 import { Sparkle } from 'lucide-react'
 import { Marquee } from './components/ui/marquee'
@@ -43,6 +42,8 @@ function Categories() {
 
       const rows = gsap.utils.toArray('.category-story-row')
 
+      const isCompactViewport = window.matchMedia('(max-width: 767px)').matches
+
       rows.forEach((row) => {
         const story = row.querySelector('.category-story')
         const card = row.querySelector('.category-card-zoom')
@@ -50,9 +51,9 @@ function Categories() {
 
         gsap.fromTo(
           story,
-          { y: 90 },
+          { y: isCompactViewport ? 36 : 90 },
           {
-            y: -90,
+            y: isCompactViewport ? -36 : -90,
             ease: 'none',
             scrollTrigger: {
               trigger: row,
@@ -65,10 +66,10 @@ function Categories() {
 
         gsap.fromTo(
           card,
-          { y: -70, scale: 0.85, autoAlpha: 0.7 },
+          { y: isCompactViewport ? -24 : -70, scale: isCompactViewport ? 0.97 : 0.85, autoAlpha: 0.82 },
           {
-            y: 70,
-            scale: 1.08,
+            y: isCompactViewport ? 24 : 70,
+            scale: isCompactViewport ? 1.01 : 1.08,
             autoAlpha: 1,
             ease: 'none',
             scrollTrigger: {
@@ -82,9 +83,9 @@ function Categories() {
 
         gsap.fromTo(
           image,
-          { scale: 1 },
+          { scale: 1.02 },
           {
-            scale: 1.15,
+            scale: isCompactViewport ? 1.06 : 1.15,
             ease: 'none',
             scrollTrigger: {
               trigger: row,
@@ -125,31 +126,31 @@ function Categories() {
       <div className="absolute inset-0 bg-forest-deep/20" />
       <div className="absolute inset-0 noise-overlay" />
 
-      <div className="container relative z-10 mx-auto px-4 md:px-6">
+      <div className="container relative z-10 mx-auto px-5 sm:px-6 md:px-6">
         <div className="categories-title text-center mb-12 md:mb-20">
           <h2 className="font-display text-3xl md:text-4xl text-cream mb-4">{t('home.categories')}</h2>
           <div className="w-16 h-px bg-gold-accent/60 mx-auto" />
         </div>
 
-        <div className="space-y-14 md:space-y-28">
+        <div className="space-y-16 md:space-y-28">
           {categories.map((cat, i) => {
             const catText = categoriesData[i] ?? {}
             return (
             <div
               key={cat.title}
-              className="category-story-row grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center"
+              className="category-story-row grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-20 items-center"
             >
-              <div className="category-story">
+              <div className="category-story px-1 sm:px-2 md:px-0">
                 <p className="text-gold-accent/70 uppercase tracking-[0.25em] text-xs mb-4">
                   {t('home.category')} {String(i + 1).padStart(2, '0')}
                 </p>
                 <h3 className="font-display text-3xl md:text-4xl text-cream mb-5">{catText.title}</h3>
-                <p className="text-cream/60 text-base leading-relaxed mb-6">{catText.story}</p>
-                <p className="text-cream/50 text-sm leading-relaxed">{catText.desc}</p>
+                <p className="text-cream/60 text-base leading-8 mb-6">{catText.story}</p>
+                <p className="text-cream/50 text-sm leading-7">{catText.desc}</p>
               </div>
 
-              <div className="category-card-zoom category-card p-6 md:p-10 rounded-2xl border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm">
-                <div className="relative h-72 md:h-80 rounded-xl overflow-hidden border border-gold-accent/25">
+              <div className="category-card-zoom category-card mx-1 p-4 sm:p-5 md:p-10 rounded-[1.75rem] border border-gold-accent/20 bg-forest-mid/70 backdrop-blur-sm md:mx-0">
+                <div className="relative h-64 sm:h-72 md:h-80 rounded-[1.1rem] overflow-hidden border border-gold-accent/25">
                   <Image
                     alt={cat.title}
                     className="category-image object-cover"
@@ -159,14 +160,14 @@ function Categories() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/80 via-transparent to-transparent" />
                 </div>
-                <div className="pt-6">
-                  <h4 className="font-display text-2xl text-cream mb-3">{catText.title}</h4>
-                  <a
-                    className="inline-block px-6 py-2 bg-gold-accent text-forest-dark rounded-full text-xs font-bold hover:bg-gold-light transition-colors duration-300"
-                    href="#"
+                <div className="pt-5 sm:pt-6">
+                  <h4 className="font-display text-[1.75rem] text-cream mb-3">{catText.title}</h4>
+                  <Link
+                    className="inline-flex min-h-11 items-center rounded-full bg-gold-accent px-5 py-2.5 text-xs font-bold uppercase tracking-[0.18em] text-forest-dark transition-colors duration-300 hover:bg-gold-light"
+                    href="/catalogo"
                   >
                     {catText.cta}
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -180,7 +181,7 @@ function Categories() {
 
 function CTABanner() {
   gsap.registerPlugin(ScrollTrigger)
-  const { t } = useI18n()
+  const { lang } = useI18n()
   const sectionRef = useRef(null)
   const cardRef = useRef(null)
   const buttonRef = useRef(null)
@@ -247,6 +248,12 @@ function CTABanner() {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [])
+
+  const ctaTitle = lang === 'en' ? 'Explore our catalog' : 'Visualiza nuestro catálogo'
+  const ctaText = lang === 'en'
+    ? 'Browse the collections, compare pieces, and choose the design you want to reserve or personalize.'
+    : 'Recorre las colecciones, compara piezas y descubre con calma la que quieres reservar o personalizar.'
+  const ctaButton = lang === 'en' ? 'Go to catalog' : 'Ir al catálogo'
   return (
     <section ref={sectionRef} className="max-w-6xl mx-auto px-4 md:px-6 mb-16 md:mb-[165px] mt-12 md:mt-20">
       <div
@@ -262,20 +269,21 @@ function CTABanner() {
           </div>
 
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl text-heading text-cream font-semibold max-w-3xl mb-6 md:mb-8">
-            {t('home.ctaTitle')}
+            {ctaTitle}
           </h2>
 
           <p className="font-body text-sm md:text-base text-cream font-semibold max-w-xl mb-8 md:mb-12">
-            {t('home.ctaText')}
+            {ctaText}
           </p>
 
-          <button
+          <Link
             ref={buttonRef}
+            href="/catalogo"
             className="bg-gold-accent text-forest-deep px-[26.4px] hover:bg-gold-light hover:scale-105 py-[14.4px] rounded-full text-button font-button flex items-center gap-2 transition-[background-color,transform] duration-300 opacity-0"
           >
-            <span className="truncate text-black font-extrabold">{t('home.ctaButton')}</span>
+            <span className="truncate text-black font-extrabold">{ctaButton}</span>
             <ChevronRight className="text-black" size={20} />
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -352,7 +360,7 @@ function Testimonials() {
       <div className="absolute top-0 left-1/4 w-64 h-64 bg-gold-accent/[0.08] rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-secondary-fixed/[0.06] rounded-full blur-3xl" />
 
-      <div className="relative z-10 max-w-full mx-auto px-4 md:px-8">
+      <div className="relative z-10 max-w-full mx-auto px-5 sm:px-6 md:px-8">
         <div ref={titleRef} className="text-center mb-16">
           <span className="text-xs uppercase tracking-[0.3em] text-gold-accent/70">{t('home.testimonials')}</span>
           <h2 className="font-display text-3xl md:text-4xl text-cream mt-4 mb-4">{t('home.testimonialsTitle')}</h2>
@@ -360,21 +368,21 @@ function Testimonials() {
         </div>
 
         <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-          <Marquee pauseOnHover className="[--duration:20s]">
+          <Marquee pauseOnHover className="[--duration:20s] [--gap:1rem] md:[--gap:1.5rem]">
             {visibleTestimonials.map((item) => (
 
               <div
                 key={`${item.name}-${item.location}`}
-                className="rounded-2xl border border-gold-accent/20 bg-forest-mid/70 p-8 shadow-[0_18px_48px_rgba(15,29,12,0.22)] backdrop-blur-md"
+                className="w-[74vw] max-w-[16.5rem] rounded-2xl border border-gold-accent/20 bg-forest-mid/70 p-4 shadow-[0_18px_48px_rgba(15,29,12,0.22)] backdrop-blur-md sm:w-[19rem] sm:max-w-none sm:p-5 md:w-[23rem] md:p-8"
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 border border-gold-accent/20" />
+                <div className="mb-4 flex items-center gap-3 md:mb-6 md:gap-4">
+                  <div className="h-10 w-10 rounded-full border border-gold-accent/20 bg-gradient-to-br from-gold-accent/30 to-gold-accent/10 md:h-12 md:w-12" />
                   <div>
-                    <p className="text-cream font-semibold">{item.name}</p>
+                    <p className="text-[0.92rem] font-semibold text-cream md:text-base">{item.name}</p>
                     <p className="text-cream/40 text-xs uppercase tracking-widest">{item.location}</p>
                   </div>
                 </div>
-                <p className="text-cream/60 text-sm leading-relaxed font-light">
+                <p className="text-[0.88rem] font-light leading-6 text-cream/60 md:text-sm md:leading-7">
                   "{item.text}"
                 </p>
               </div>
@@ -402,7 +410,6 @@ export default function HomePage() {
       <Hero />
       <Categories />
       <Testimonials />
-      <VideoSection />
       <CTABanner />
     </>
   )

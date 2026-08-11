@@ -79,7 +79,7 @@ export default function RichTextEditor({ value, onChange, placeholder = "Escribe
   }
 
   function setLink() {
-    const url = window.prompt("URL del enlace:", "https://")
+    const url = window.prompt("Pega aquí el enlace:", "https://")
     if (!url) return
     run("createLink", url)
   }

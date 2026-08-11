@@ -1,7 +1,6 @@
 ﻿import { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ArrowDown } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 import { ArrowLeft } from 'lucide-react'
@@ -73,7 +72,7 @@ export default function Hero() {
       accent: '#C8E49D',
       images: [
         { src: productImages.funkos[1], alt: 'Funko y estilo artesanal', className: 'left-[8%] top-[18%] h-42 w-34 md:h-56 md:w-44 rotate-[-8deg]' },
-        { src: productImages.jarras[0], alt: 'Jarra en coleccion mixta', className: 'left-[36%] top-[34%] h-40 w-34 md:h-52 md:w-42 rotate-[6deg]' },
+        { src: productImages.jarras[0], alt: 'Jarra en colección mixta', className: 'left-[36%] top-[34%] h-40 w-34 md:h-52 md:w-42 rotate-[6deg]' },
         { src: productImages.funkos[2], alt: 'Funko edicion especial', className: 'right-[8%] top-[16%] h-46 w-36 md:h-62 md:w-48 rotate-[12deg]' },
       ],
     },
@@ -83,8 +82,8 @@ export default function Hero() {
       background: 'radial-gradient(circle at 78% 20%, rgba(71,104,54,0.48), rgba(27,41,24,0.96) 58%)',
       accent: '#9DD07A',
       images: [
-        { src: productImages.aretes[1], alt: 'Aretes en coleccion mixta', className: 'left-[9%] top-[22%] h-44 w-34 md:h-58 md:w-44 rotate-[7deg]' },
-        { src: productImages.jarras[2], alt: 'Jarra floral en coleccion mixta', className: 'left-[38%] top-[12%] h-40 w-34 md:h-52 md:w-42 rotate-[-10deg]' },
+        { src: productImages.aretes[1], alt: 'Aretes en colección mixta', className: 'left-[9%] top-[22%] h-44 w-34 md:h-58 md:w-44 rotate-[7deg]' },
+        { src: productImages.jarras[2], alt: 'Jarra floral en colección mixta', className: 'left-[38%] top-[12%] h-40 w-34 md:h-52 md:w-42 rotate-[-10deg]' },
         { src: productImages.aretes[0], alt: 'Aretes edicion natural', className: 'right-[10%] top-[24%] h-46 w-36 md:h-60 md:w-46 rotate-[10deg]' },
       ],
     },
@@ -98,7 +97,6 @@ export default function Hero() {
   const titleRef = useRef(null)
   const heroTitleRef = useRef(null)
   const heroSubRef = useRef(null)
-  const heroCtaRef = useRef(null)
   const [handDone, setHandDone] = useState(false)
 
   const activeSlide = useMemo(() => gallerySlides[activeIndex], [activeIndex, gallerySlides])
@@ -173,13 +171,6 @@ export default function Hero() {
           heroSubRef.current,
           { autoAlpha: 0, y: 16 },
           { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out', delay: 0.3 }
-        )
-      }
-      if (heroCtaRef.current) {
-        gsap.fromTo(
-          heroCtaRef.current,
-          { autoAlpha: 0, y: 14 },
-          { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', delay: 0.55 }
         )
       }
     }, heroSectionRef)
@@ -282,14 +273,6 @@ export default function Hero() {
           >
             {t('hero.subtitle')}
           </p>
-          <Link
-            ref={heroCtaRef}
-            style={{ opacity: 0 }}
-            className="mt-8 inline-flex min-h-12 items-center justify-center rounded-full border border-gold-accent bg-gold-accent px-6 py-3 text-base font-semibold text-forest-deep shadow-glow-button opacity-0 transition-[background-color,transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:bg-gold-light sm:mt-10 sm:px-8 sm:text-lg"
-            href="/encargos"
-          >
-            {t('hero.cta')}
-          </Link>
         </div>
         <ArrowDown className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-cream/80 animate-bounce md:block" />
       </section>

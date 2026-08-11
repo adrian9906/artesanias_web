@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Admin CMS · Thay Art",
-  description: "Panel de administración de contenido de Thay Art.",
+  title: "Administración · Thay Art",
+  description: "Área privada de Thay Art.",
   robots: { index: false, follow: false },
 }
 

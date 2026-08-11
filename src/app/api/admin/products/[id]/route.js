@@ -18,14 +18,14 @@ export async function GET(_request, { params }) {
 export async function PUT(request, { params }) {
   const { id } = await params
   const body = await request.json().catch(() => null)
-  if (!body) return jsonError("Datos invalidos.")
+  if (!body) return jsonError("Datos inválidos.")
 
   const store = await readStore()
   const index = store.products.findIndex((item) => item.id === id)
   if (index === -1) return jsonError("Producto no encontrado.", 404)
 
   if (!store.sections.some((section) => section.id === body.sectionId)) {
-    return jsonError("La seccion seleccionada no existe.")
+    return jsonError("La sección seleccionada no existe.")
   }
 
   const result = normalizeProduct(body, store.products.map((item) => item.id), store.products[index])

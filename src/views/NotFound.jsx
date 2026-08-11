@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowLeft, Compass, PackagePlus } from 'lucide-react'
+import { ArrowLeft, Compass } from 'lucide-react'
 import { useI18n } from '../i18n'
 
 export default function NotFound() {
@@ -30,9 +30,6 @@ export default function NotFound() {
             </Link>
             <Link href="/galeria" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-gold-accent/35 bg-white/5 px-6 py-3 text-sm font-semibold text-cream transition-colors duration-300 hover:border-gold-accent hover:text-gold-light focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
               <Compass size={18} />{t('notFound.secondaryCta')}
-            </Link>
-            <Link href="/encargos" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/15 bg-transparent px-6 py-3 text-sm font-semibold text-cream/80 transition-colors duration-300 hover:border-gold-accent/50 hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light">
-              <PackagePlus size={18} />{t('notFound.tertiaryCta')}
             </Link>
           </div>
         </div>

@@ -16,11 +16,11 @@ export function normalizeProduct(body, existingIds, previous = null) {
   if (!name) return { error: "El nombre del producto es obligatorio." }
 
   const sectionId = String(body.sectionId || "").trim()
-  if (!sectionId) return { error: "Selecciona la seccion del producto." }
+  if (!sectionId) return { error: "Selecciona la sección del producto." }
 
   const price = Number(body.price)
   if (Number.isNaN(price) || price < 0) {
-    return { error: "El precio debe ser un numero valido." }
+    return { error: "El precio debe ser un número válido." }
   }
 
   const inStock = body.inStock === true || body.inStock === "true"
@@ -74,7 +74,7 @@ export function enrichProduct(product, sections) {
     ...product,
     eyebrow: product.eyebrow || section?.name || "",
     materials: Array.isArray(product.materials) ? product.materials : [],
-    sectionName: section?.name || "Sin seccion",
+    sectionName: section?.name || "Sin sección",
     sectionDescription: section?.description || "",
   }
 }

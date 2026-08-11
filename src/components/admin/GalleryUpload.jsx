@@ -33,18 +33,13 @@ export default function GalleryUpload({ value, onChange, label = "Fotos", classN
     }
   }
 
-  function addUrl(url) {
-    if (!url) return
-    onChange([...photos, url])
-  }
-
   function remove(index) {
     onChange(photos.filter((_, i) => i !== index))
   }
 
   return (
     <div className={cn("space-y-2", className)}>
-      <label className="block text-sm text-cream/70">{label}</label>
+      <p className="text-sm text-cream/70">{label}</p>
       <div className="flex flex-wrap gap-3">
         {photos.map((photo, index) => (
           <div
@@ -69,7 +64,7 @@ export default function GalleryUpload({ value, onChange, label = "Fotos", classN
           className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-white/15 bg-white/5 text-cream/40 transition hover:bg-white/10 disabled:opacity-50"
         >
           {uploading ? <Loader2 className="size-5 animate-spin" /> : <ImagePlus className="size-5" />}
-          <span className="text-[11px]">{uploading ? "Subiendo…" : "Subir"}</span>
+          <span className="text-[11px]">{uploading ? "Guardando…" : "Elegir"}</span>
         </button>
       </div>
       <input
@@ -80,25 +75,7 @@ export default function GalleryUpload({ value, onChange, label = "Fotos", classN
         className="hidden"
         onChange={(e) => uploadFiles(e.target.files)}
       />
-      <div className="flex items-center gap-2">
-        <input
-          type="url"
-          placeholder="O pega una URL /ruta/imagen.jpg"
-          className="h-10 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-cream outline-none placeholder:text-cream/30 focus:border-gold-accent/40"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              addUrl(e.target.value)
-              e.currentTarget.value = ""
-            }
-          }}
-          onBlur={(e) => {
-            if (e.target.value) {
-              addUrl(e.target.value)
-              e.currentTarget.value = ""
-            }
-          }}
-        />
-      </div>
+      <p className="text-xs leading-5 text-cream/40">Puedes elegir varias fotos a la vez.</p>
       {error && <p className="text-xs text-red-300">{error}</p>}
     </div>
   )

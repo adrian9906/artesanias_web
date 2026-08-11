@@ -31,7 +31,7 @@ export default function AdminLogoutButton() {
       className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-gold-accent/25 bg-gold-accent/10 px-4 text-sm text-gold-light transition hover:bg-gold-accent/15 disabled:opacity-60"
     >
       <LogOut className="size-4" />
-      {loading ? "Saliendo..." : "Cerrar sesion"}
+      {loading ? "Saliendo..." : "Cerrar sesión"}
     </button>
   )
 }
