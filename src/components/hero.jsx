@@ -240,7 +240,7 @@ export default function Hero({ beforeGallery = null }) {
         <div className="absolute inset-0 z-0 overflow-hidden">
           <div className="absolute inset-0 bg-forest-deep" />
           <Image
-            src="/fondo2.jpeg"
+            src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562874/thay-art/fondo2.jpg"
             alt=""
             fill
             preload

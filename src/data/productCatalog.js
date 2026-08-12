@@ -1,18 +1,18 @@
 export const productImages = {
   funkos: [
-    "/productos/funko.jpeg",
-    "/productos/funko2.jpeg",
-    "/productos/funko3_messi.jpeg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562911/thay-art/productos/funko.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562920/thay-art/productos/funko2.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562923/thay-art/productos/funko3_messi.jpg",
   ],
   jarras: [
-    "/productos/jarra1.jpeg",
-    "/productos/jarra2.jpeg",
-    "/productos/jarra3_flores.jpeg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562927/thay-art/productos/jarra1.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562930/thay-art/productos/jarra2.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562933/thay-art/productos/jarra3_flores.jpg",
   ],
   aretes: [
-    "/productos/aretes1.jpeg",
-    "/productos/aretes2.jpeg",
-    "/productos/aretes3.png",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562938/thay-art/productos/aretes1.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562940/thay-art/productos/aretes2.jpg",
+    "https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562942/thay-art/productos/aretes3.png",
   ],
 }
 

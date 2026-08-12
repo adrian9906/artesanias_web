@@ -1,6 +1,10 @@
 import { productImages } from '../data/productCatalog'
 
 function carouselPreview(src) {
+  if (src.includes("res.cloudinary.com/")) {
+    return src.replace("/upload/", "/upload/c_limit,f_auto,q_auto,w_640/")
+  }
+
   return src
     .replace('/productos/', '/productos/carousel/')
     .replace(/\.[^.]+$/, '_carousel.webp')

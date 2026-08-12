@@ -42,7 +42,7 @@ export default function Galeria() {
       <div
         aria-hidden="true"
         className="fixed inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/gallery-ceramics-studio-bg.png')" }}
+        style={{ backgroundImage: "url('https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562952/thay-art/images/gallery-ceramics-studio-bg.png')" }}
       />
       <div className="fixed inset-0 bg-[linear-gradient(180deg,rgba(17,36,19,0.34)_0%,rgba(17,36,19,0.64)_44%,rgba(17,36,19,0.92)_100%)]" />
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_16%,rgba(71,104,54,0.1),rgba(17,36,19,0.38)_72%)]" />

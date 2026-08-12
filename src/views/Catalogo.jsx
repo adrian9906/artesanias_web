@@ -745,7 +745,7 @@ export default function Catalogo() {
     <LazyMotion features={domAnimation}>
       <main className="relative min-h-screen overflow-hidden bg-forest-deep pb-24 pt-28 md:pt-36 animate-blurred-fade-in">
         <div className="absolute inset-x-0 top-0 h-[38rem]">
-          <Image src="/images/artisan-worktable-bg.png" alt="" fill loading="eager" sizes="100vw" className="object-cover object-center opacity-45" />
+          <Image src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562870/thay-art/images/artisan-worktable-bg.png" alt="" fill loading="eager" sizes="100vw" className="object-cover object-center opacity-45" />
           <div className="absolute inset-0 bg-gradient-to-b from-forest-deep/45 via-forest-deep/75 to-forest-deep" />
         </div>
         <div className="absolute inset-0 noise-overlay" />

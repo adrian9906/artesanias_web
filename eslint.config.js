@@ -5,7 +5,7 @@ import nextPlugin from '@next/eslint-plugin-next'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['.next', 'node_modules', 'public/uploads']),
+  globalIgnores(['.next', 'node_modules', 'public/uploads', 'src/generated']),
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     extends: [
@@ -26,7 +26,7 @@ export default defineConfig([
     },
   },
   {
-    files: ['src/app/api/**/*.{js,jsx,ts,tsx}', 'src/lib/cms/**/*.{js,jsx,ts,tsx}'],
+    files: ['src/app/api/**/*.{js,jsx,ts,tsx}', 'src/lib/cms/**/*.{js,jsx,ts,tsx}', 'src/lib/cloudinary.js'],
     languageOptions: {
       globals: {
         ...globals.node,

@@ -1,6 +1,6 @@
-import { promises as fs } from "fs"
 import path from "path"
 import { jsonError, jsonOk, slugify } from "@/lib/cms/store"
+import { uploadImageBuffer } from "@/lib/cloudinary"
 
 export const dynamic = "force-dynamic"
 
@@ -28,13 +28,10 @@ export async function POST(request) {
     const original = file.name || "upload.jpg"
     const ext = path.extname(original).toLowerCase() || ".jpg"
     const base = slugify(path.basename(original, ext)) || "imagen"
-    const filename = `${base}-${Date.now()}${ext}`
-    const uploadDir = path.join(process.cwd(), "public", "uploads")
+    const publicId = `${base}-${Date.now()}`
+    const result = await uploadImageBuffer(bytes, { publicId })
 
-    await fs.mkdir(uploadDir, { recursive: true })
-    await fs.writeFile(path.join(uploadDir, filename), bytes)
-
-    return jsonOk({ url: `/uploads/${filename}`, filename })
+    return jsonOk({ url: result.secure_url, filename: `${publicId}${ext}` })
   } catch (error) {
     console.error("Upload error:", error)
     return jsonError("No se pudo subir la imagen.", 500)

@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils"
 export default function AdminBrandIcon({ className }) {
   return (
     <Image
-      src="/images/admin/thay-art-icon.png"
+      src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562871/thay-art/images/admin/thay-art-icon.png"
       alt=""
       aria-hidden="true"
       width={64}

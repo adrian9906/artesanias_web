@@ -130,7 +130,7 @@ function Categories() {
     <section ref={sectionRef} className="home-scroll-reveal relative overflow-hidden bg-forest-deep py-16 md:py-24">
       <div className="absolute inset-x-0 top-0 h-[46rem] overflow-hidden md:h-[58rem]">
         <Image
-          src="/images/artisan-worktable-bg.png"
+          src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562870/thay-art/images/artisan-worktable-bg.png"
           alt=""
           fill
           sizes="100vw"
@@ -140,7 +140,7 @@ function Categories() {
       </div>
       <div className="absolute inset-x-0 bottom-0 h-[42rem] overflow-hidden md:h-[54rem]">
         <Image
-          src="/images/artisan-worktable-bg.png"
+          src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562870/thay-art/images/artisan-worktable-bg.png"
           alt=""
           fill
           sizes="100vw"
@@ -159,7 +159,7 @@ function Categories() {
 
         <div className="space-y-16 md:space-y-28">
           {categories.map((cat, i) => {
-            const fallbackImage = homeCategories[i % homeCategories.length]?.img || '/images/artisan-worktable-bg.png'
+            const fallbackImage = homeCategories[i % homeCategories.length]?.img || 'https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562870/thay-art/images/artisan-worktable-bg.png'
             return (
             <div
               key={cat.id}

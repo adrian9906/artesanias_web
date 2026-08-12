@@ -58,7 +58,7 @@ export default function AdminLoginForm() {
       <SmoothCursor />
       <div className="absolute inset-0">
         <Image
-          src="/images/admin-login-botanical-bg.png"
+          src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562866/thay-art/images/admin-login-botanical-bg.png"
           alt=""
           fill
           priority

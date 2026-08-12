@@ -84,7 +84,7 @@ export default function InformacionEncargo() {
                 <img
                   alt="Hand Holding Flowers"
                   className="rounded-lg object-cover w-full max-w-[280px] border border-white/10 shadow-lg"
-                  src="/productos/promocion1.jpeg"
+                  src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562945/thay-art/productos/promocion1.jpg"
                 />
               </div>
             </div>

@@ -163,7 +163,7 @@ export default function VideoSection() {
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-forest-deep py-24">
       <Image
-        src="/images/porcelain-garden-bg.png"
+        src="https://res.cloudinary.com/dxjnjcqax/image/upload/v1786562878/thay-art/images/porcelain-garden-bg.png"
         alt=""
         fill
         sizes="100vw"
