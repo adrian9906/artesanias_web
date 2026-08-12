@@ -31,7 +31,7 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang="es">
-      <body style={themeStyle}>
+      <body suppressHydrationWarning style={themeStyle}>
         <ClientShell>{children}</ClientShell>
       </body>
     </html>

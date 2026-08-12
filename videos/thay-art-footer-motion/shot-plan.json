@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "category": "kinetic-type",
+  "duration": 24,
+  "asset_needs": [],
+  "brief": "Promo silencioso para el footer de la web actual de Thay Art. Presenta identidad, productos reales y llamada al catálogo con Branding Aliskaje y The Artisan.",
+  "content": {
+    "block": "custom-editorial-product-cards",
+    "motion": ["staggered typography reveal", "organic frame drift", "product card collage", "soft closing pulse"],
+    "formats": ["1920x1080", "1080x1920"]
+  }
+}

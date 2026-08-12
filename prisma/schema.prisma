@@ -32,6 +32,11 @@ model Section {
   id          String    @id
   name        String
   description String
+  homeVisible Boolean   @default(true)
+  homeImage   String    @default("")
+  homeStory   String    @default("")
+  homeCta     String    @default("Ver colección")
+  homeOrder   Int       @default(0)
   createdAt   DateTime
   updatedAt   DateTime
   products    Product[]
@@ -54,6 +59,7 @@ model Product {
   inStock         Boolean
   stockQty        Int
   variants        Json
+  model3dUrl      String?      @default("")
   createdAt       DateTime
   updatedAt       DateTime
   section         Section      @relation(fields: [sectionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -91,14 +97,18 @@ model GalleryImage {
 }
 
 model Feedback {
-  id        String         @id
-  type      FeedbackType
-  name      String
-  text      String
-  status    FeedbackStatus
-  origin    String
-  createdAt DateTime
-  updatedAt DateTime
+  id             String         @id
+  type           FeedbackType
+  name           String
+  location       String         @default("")
+  photo          String         @default("")
+  text           String
+  status         FeedbackStatus
+  origin         String
+  featuredOnHome Boolean        @default(true)
+  homeOrder      Int            @default(0)
+  createdAt      DateTime
+  updatedAt      DateTime
 
   @@map("feedback")
 }

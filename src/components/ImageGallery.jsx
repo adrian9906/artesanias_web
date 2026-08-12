@@ -3,12 +3,14 @@
 import { useMemo } from 'react'
 import { LazyImage } from '@/components/lazy-image'
 
+const EMPTY_PHOTOS = []
+
 /**
  * Galería tipo masonry. Recibe las fotos desde el CMS (urls reales) y las
  * reparte en 4 columnas. Cada imagen puede ser vertical u horizontal; la
  * columna mira a sumar alturas similares para balancear el grid.
  */
-export function ImageGallery({ photos = [], columns = 4 }) {
+export function ImageGallery({ photos = EMPTY_PHOTOS, columns = 4 }) {
   // Divide las fotos en N columnas balanceando las proporciones.
   const cols = useMemo(() => {
     const items = photos.map((p, i) => ({
@@ -29,7 +31,7 @@ export function ImageGallery({ photos = [], columns = 4 }) {
 
 	if (!photos.length) {
 		return (
-			<div className="rounded-2xl border border-dashed border-[#f9aca2]/35 bg-white/[0.02] px-6 py-16 text-center">
+			<div className="rounded-2xl border border-dashed border-gold-accent/30 bg-forest-deep/55 px-6 py-16 text-center">
 				<p className="text-cream/70">Aún no hay imágenes en la galería.</p>
 			</div>
 		)

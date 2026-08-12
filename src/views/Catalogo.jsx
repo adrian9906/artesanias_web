@@ -625,7 +625,7 @@ function CatalogSection({ section, index, lang, copy, onOpenImage }) {
         </div>
       </div>
 
-        <div className={`flex flex-col justify-center px-1 py-3 sm:px-2 md:px-4 lg:py-10 ${index % 2 ? 'lg:order-1' : ''}`}>
+      <div className={`flex flex-col justify-center px-1 py-3 sm:px-2 md:px-4 lg:py-10 ${index % 2 ? 'lg:order-1' : ''}`}>
         <div className="mb-6 flex flex-col gap-3 border-b border-white/10 pb-5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           <span className="text-xs uppercase tracking-[0.2em] text-gold-light/85 sm:text-sm">
             {copy.collection} {String(index + 1).padStart(2, '0')}
@@ -743,7 +743,7 @@ export default function Catalogo() {
 
   return (
     <LazyMotion features={domAnimation}>
-      <main className="relative min-h-screen overflow-hidden bg-forest-deep pb-24 pt-28 md:pt-36">
+      <main className="relative min-h-screen overflow-hidden bg-forest-deep pb-24 pt-28 md:pt-36 animate-blurred-fade-in">
         <div className="absolute inset-x-0 top-0 h-[38rem]">
           <Image src="/images/artisan-worktable-bg.png" alt="" fill loading="eager" sizes="100vw" className="object-cover object-center opacity-45" />
           <div className="absolute inset-0 bg-gradient-to-b from-forest-deep/45 via-forest-deep/75 to-forest-deep" />
@@ -768,8 +768,8 @@ export default function Catalogo() {
                 section={section}
                 index={index}
                 lang={lang}
-                 copy={copy}
-                 onOpenImage={openLightbox}
+                copy={copy}
+                onOpenImage={openLightbox}
               />
             ))}
           </div>

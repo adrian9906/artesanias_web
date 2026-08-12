@@ -28,6 +28,13 @@ export function normalizeFeedback(body, existingIds, previous = null, overrides 
   }
 
   const origin = String(body.origin || overrides.origin || "admin").trim() || "admin"
+  const location = String(body.location ?? previous?.location ?? "").trim()
+  const photo = String(body.photo ?? previous?.photo ?? "").trim()
+  const featuredOnHome = Boolean(
+    body.featuredOnHome ?? overrides.featuredOnHome ?? previous?.featuredOnHome ?? (origin !== "public"),
+  )
+  const parsedHomeOrder = Number(body.homeOrder ?? previous?.homeOrder ?? 0)
+  const homeOrder = Number.isFinite(parsedHomeOrder) ? Math.max(0, Math.trunc(parsedHomeOrder)) : 0
   const now = new Date().toISOString()
 
   return {
@@ -35,9 +42,13 @@ export function normalizeFeedback(body, existingIds, previous = null, overrides 
       id: previous?.id || uniqueId(body.id || `${type}-${name}`, existingIds),
       type,
       name,
+      location,
+      photo,
       text,
       status,
       origin,
+      featuredOnHome,
+      homeOrder,
       createdAt: previous?.createdAt || now,
       updatedAt: now,
     },

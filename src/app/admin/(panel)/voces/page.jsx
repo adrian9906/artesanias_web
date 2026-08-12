@@ -3,6 +3,7 @@
 import { Pencil, Plus, Trash2 } from "lucide-react"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import Modal from "@/components/admin/Modal"
+import ImageUpload from "@/components/admin/ImageUpload"
 import {
   Card,
   DangerButton,
@@ -21,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Switch } from "@/components/ui/switch"
 import {
   FEEDBACK_STATUSES,
   FEEDBACK_TYPES,
@@ -33,9 +35,13 @@ import { api } from "@/lib/cms/client"
 const emptyForm = {
   type: "opinion",
   name: "",
+  location: "",
+  photo: "",
   text: "",
   status: "published",
   origin: "admin",
+  featuredOnHome: true,
+  homeOrder: 0,
 }
 
 export default function AdminFeedbackPage() {
@@ -88,9 +94,13 @@ export default function AdminFeedbackPage() {
     setForm({
       type: item.type || "opinion",
       name: item.name || "",
+      location: item.location || "",
+      photo: item.photo || "",
       text: item.text || "",
       status: item.status || "published",
       origin: item.origin || "admin",
+      featuredOnHome: item.featuredOnHome !== false,
+      homeOrder: item.homeOrder || 0,
     })
     setFormError("")
     setModalOpen(true)
@@ -197,14 +207,23 @@ export default function AdminFeedbackPage() {
                 {feedbackStatusLabel(item.status)}
               </StatusBadge>
               <StatusBadge tone="neutral">{item.origin === "public" ? "Recibido" : item.origin}</StatusBadge>
+              {item.type === "testimonial" && item.featuredOnHome && (
+                <StatusBadge tone="success">Visible en inicio</StatusBadge>
+              )}
             </div>
 
-            <div>
+            <div className="flex items-start gap-4">
+              {item.type === "testimonial" && item.photo && (
+                <img src={item.photo} alt="" className="size-14 shrink-0 rounded-full object-cover ring-1 ring-gold-accent/30" />
+              )}
+              <div className="min-w-0 flex-1">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-base font-medium text-cream">{item.name}</h3>
                 <span className="text-xs text-cream/40">{formatDate(item.createdAt)}</span>
               </div>
+              {item.location && <p className="mt-1 text-xs text-gold-light/65">{item.location}</p>}
               <p className="mt-2 text-sm leading-relaxed text-cream/70">{item.text}</p>
+              </div>
             </div>
 
             <div className="flex gap-2 border-t border-white/10 pt-3">
@@ -261,6 +280,48 @@ export default function AdminFeedbackPage() {
               placeholder="Nombre visible o Anónimo"
             />
           </Field>
+
+          {form.type === "testimonial" && (
+            <div className="flex flex-col gap-4">
+              <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-sm text-cream">Mostrar en el inicio</p>
+                    <p className="mt-1 text-xs text-cream/45">Solo los testimonios publicados y activados aparecen en la portada.</p>
+                  </div>
+                  <Switch
+                    checked={form.featuredOnHome}
+                    onCheckedChange={(checked) => setForm((current) => ({ ...current, featuredOnHome: checked }))}
+                    aria-label="Mostrar testimonio en el inicio"
+                  />
+                </div>
+              </div>
+
+              <ImageUpload
+                value={form.photo}
+                onChange={(photo) => setForm((current) => ({ ...current, photo }))}
+                label="Foto de la persona"
+              />
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field label="Ubicación">
+                  <TextInput
+                    value={form.location}
+                    onChange={(e) => setForm((current) => ({ ...current, location: e.target.value }))}
+                    placeholder="Ej. La Habana"
+                  />
+                </Field>
+                <Field label="Orden en el inicio" hint="0 aparece primero; después 1, 2, 3...">
+                  <TextInput
+                    type="number"
+                    min="0"
+                    value={form.homeOrder}
+                    onChange={(e) => setForm((current) => ({ ...current, homeOrder: e.target.value }))}
+                  />
+                </Field>
+              </div>
+            </div>
+          )}
 
           <Field label="Mensaje">
             <TextTextarea

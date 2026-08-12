@@ -38,16 +38,25 @@ export default function Galeria() {
   const gallerySubtitle = useMemo(() => t("gallery.subtitle"), [t])
 
   return (
-    <div className="min-h-screen bg-forest-dark relative animate-blurred-fade-in">
-      <div className="absolute inset-0 noise-overlay" />
+    <div className="relative min-h-screen overflow-hidden bg-[#1b2d1c] font-branding text-cream animate-blurred-fade-in">
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/images/gallery-ceramics-studio-bg.png')" }}
+      />
+      <div className="fixed inset-0 bg-[linear-gradient(180deg,rgba(17,36,19,0.34)_0%,rgba(17,36,19,0.64)_44%,rgba(17,36,19,0.92)_100%)]" />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_50%_16%,rgba(71,104,54,0.1),rgba(17,36,19,0.38)_72%)]" />
+      <div className="fixed inset-0 noise-overlay opacity-30" />
 
       <div className="relative z-10 pt-24 md:pt-32 pb-20 px-4 md:px-6">
         <section className="text-center mb-12 md:mb-16 max-w-3xl mx-auto">
-          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6">{galleryTitle}</h1>
-          <p className="text-cream/60 text-lg font-light leading-relaxed">{gallerySubtitle}</p>
+          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-gold-accent">Archivo artesanal</p>
+          <h1 className="font-display text-4xl md:text-7xl font-bold text-cream mb-6 drop-shadow-[0_3px_20px_rgba(8,20,9,0.5)]">{galleryTitle}</h1>
+          <p className="text-cream/75 text-lg font-light leading-relaxed">{gallerySubtitle}</p>
+          <div className="mx-auto mt-7 h-px w-20 bg-gold-accent/80" />
         </section>
 
-        <div className="mx-auto max-w-6xl">
+        <div className="mx-auto max-w-6xl rounded-[2rem] border border-gold-accent/20 bg-[#203b27]/80 p-3 shadow-[0_28px_90px_rgba(5,18,7,0.48)] backdrop-blur-md sm:p-5 md:p-7">
           {loaded && <ImageGallery photos={photos} />}
         </div>
       </div>

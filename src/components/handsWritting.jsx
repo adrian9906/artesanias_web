@@ -35,7 +35,7 @@ export function HandsWritting({ onComplete }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Thay Artisian
+          Thay Artesanías
         </text>
         {/* Relleno que aparece suavemente al terminar el trazo */}
         <text
@@ -45,7 +45,7 @@ export function HandsWritting({ onComplete }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Thay Artisian
+          Thay Artesanías
         </text>
       </svg>
       <svg
@@ -71,7 +71,7 @@ export function HandsWritting({ onComplete }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Artisian
+          Artesanías
         </text>
         <text
           className="hw-fill hw-fill-compact"
@@ -89,7 +89,7 @@ export function HandsWritting({ onComplete }) {
           textAnchor="middle"
           dominantBaseline="middle"
         >
-          Artisian
+          Artesanías
         </text>
       </svg>
     </div>

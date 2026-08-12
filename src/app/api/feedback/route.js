@@ -7,10 +7,13 @@ export async function GET() {
   const store = await readStore()
   const items = visibleFeedback(store.feedback).slice().sort(sortByNewest)
   const grouped = groupFeedbackEntries(items)
+  const testimonials = grouped.testimonials
+    .filter((item) => item.featuredOnHome !== false)
+    .sort((left, right) => (left.homeOrder || 0) - (right.homeOrder || 0) || sortByNewest(left, right))
   return jsonOk({
     items,
     grouped,
-    testimonials: grouped.testimonials,
+    testimonials,
   })
 }
 
@@ -22,6 +25,7 @@ export async function POST(request) {
   const result = normalizeFeedback(body, store.feedback.map((item) => item.id), null, {
     origin: "public",
     status: "published",
+    featuredOnHome: false,
   })
   if (result.error) return jsonError(result.error)
 

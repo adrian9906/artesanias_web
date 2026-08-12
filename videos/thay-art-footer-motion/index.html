@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Branding Aliskaje"; src: url("assets/Branding Aliskaje.woff2") format("woff2"); }
+      @font-face { font-family: "The Artisan"; src: url("assets/the artisan.otf") format("opentype"); }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #1b2918; }
+      body { color: #fff9f4; font-family: "Branding Aliskaje", serif; }
+      #mobile { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .clip { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+      .fill { position: absolute; inset: 0; }
+      .atelier { background: #1b2918 url("assets/gallery-ceramics-studio-bg.png") center/cover no-repeat; }
+      .veil { background: linear-gradient(180deg, rgba(16,33,17,.72), rgba(27,41,24,.48) 42%, rgba(16,33,17,.95)); }
+      .grain { opacity: .1; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E"); }
+      .orbit { position: absolute; width: 680px; height: 680px; border: 5px solid rgba(249,172,162,.48); border-radius: 48% 52% 43% 57%; }
+      .label { color: #f9aca2; font-size: 25px; letter-spacing: .24em; text-transform: uppercase; }
+      .brand { font-family: "The Artisan", cursive; color: #f9aca2; font-size: 235px; line-height: .74; font-weight: 400; }
+      .headline { margin: 0; font-size: 100px; line-height: .94; font-weight: 400; letter-spacing: -.02em; }
+      .copy { margin: 34px 0 0; color: rgba(255,249,244,.76); font-size: 40px; line-height: 1.38; }
+      .intro { position: absolute; inset: 0; z-index: 4; display: flex; flex-direction: column; justify-content: center; padding: 120px 86px; }
+      .intro .brand { margin: 55px 0 78px; font-size: 205px; line-height: .9; }
+      .products { position: absolute; inset: 0; padding: 105px 72px; z-index: 4; }
+      .product-copy { position: relative; z-index: 4; }
+      .product-copy .headline { margin-top: 28px; font-size: 84px; }
+      .product-copy .copy { font-size: 34px; }
+      .stack { position: absolute; left: 72px; right: 72px; bottom: 100px; height: 960px; }
+      .photo { position: absolute; overflow: hidden; border: 3px solid rgba(249,172,162,.48); box-shadow: 0 34px 90px rgba(3,14,5,.5); background: #263b22; }
+      .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .main { left: 84px; top: 28px; width: 680px; height: 790px; border-radius: 48% 48% 28px 28px; }
+      .side { left: 0; bottom: 0; width: 420px; height: 430px; border-radius: 30px 30px 50% 50%; }
+      .dot { right: 0; bottom: 20px; width: 330px; height: 330px; border-radius: 50%; }
+      .closing { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; text-align: center; padding: 95px 72px; }
+      .closing .brand { font-size: 195px; line-height: .9; }
+      .closing h2 { margin: 82px 0 0; font-size: 90px; line-height: .96; font-weight: 400; }
+      .closing p { margin: 46px 0 0; color: rgba(255,249,244,.76); font-size: 38px; line-height: 1.35; }
+      .pill { display: inline-flex; margin-top: 70px; padding: 24px 42px; border-radius: 999px; background: #f9aca2; color: #1b2918; font-size: 34px; }
+    </style>
+  </head>
+  <body>
+    <main id="mobile" data-composition-id="mobile" data-start="0" data-duration="24" data-width="1080" data-height="1920">
+      <section id="mobile-main-scene" class="clip" data-start="0" data-duration="24" data-track-index="1">
+        <div class="fill atelier"></div><div class="fill veil"></div><div class="fill grain"></div>
+        <div id="m-orbit-a" class="orbit" data-layout-allow-overflow data-layout-ignore style="right:-370px;top:-230px"></div>
+        <div id="m-orbit-b" class="orbit" data-layout-allow-overflow data-layout-ignore style="left:-420px;bottom:-300px;width:850px;height:850px"></div>
+        <div id="m-intro" class="intro">
+          <div id="m-intro-label" class="label" data-layout-allow-overlap>Cerámica fría · Hecho a mano</div>
+          <div id="m-brand" class="brand" data-layout-allow-overlap>Thay Art</div>
+          <h1 id="m-intro-title" class="headline" data-layout-allow-overlap>Piezas con alma artesana</h1>
+          <p id="m-intro-copy" class="copy">Cada detalle nace en el taller y se transforma en una pieza creada para ti.</p>
+        </div>
+        <div id="m-products" class="products">
+          <div class="product-copy">
+            <div id="m-products-label" class="label">Nuestro catálogo</div>
+            <h2 id="m-products-title" class="headline">Tu idea, convertida en arte</h2>
+            <p id="m-products-copy" class="copy">Funkos personalizados, cerámica floral y accesorios modelados a mano.</p>
+          </div>
+          <div class="stack">
+            <figure id="m-photo-main" class="photo main"><img src="assets/funko.jpeg" alt="Figura personalizada artesanal" /></figure>
+            <figure id="m-photo-side" class="photo side"><img src="assets/jarra3_flores.jpeg" alt="Taza de cerámica floral" /></figure>
+            <figure id="m-photo-dot" class="photo dot"><img src="assets/aretes3.png" alt="Aretes artesanales" /></figure>
+          </div>
+        </div>
+        <div id="m-closing" class="closing">
+          <div>
+            <div id="m-close-brand" class="brand">Thay Art</div>
+            <h2 id="m-close-title">Encuentra una pieza tan única como tú</h2>
+            <p id="m-close-copy">Explora el catálogo y descubre nuestros trabajos realizados.</p>
+            <div id="m-close-pill" class="pill">Visita nuestro catálogo →</div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+      tl.fromTo("#m-orbit-a", { rotation: -18, scale: .82, opacity: 0 }, { rotation: 8, scale: 1, opacity: 1, duration: 3 }, 0)
+        .fromTo("#m-orbit-b", { rotation: 12, scale: .9, opacity: 0 }, { rotation: -8, scale: 1, opacity: .72, duration: 3 }, .2)
+        .fromTo("#m-intro-label", { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: .9 }, .3)
+        .fromTo("#m-brand", { y: 65, scale: .86, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.2 }, .65)
+        .fromTo("#m-intro-title", { y: 70, opacity: 0 }, { y: 0, opacity: 1, duration: 1.05 }, 1.25)
+        .fromTo("#m-intro-copy", { y: 46, opacity: 0 }, { y: 0, opacity: 1, duration: .9 }, 1.75)
+        .to("#m-intro", { y: -110, opacity: 0, duration: 1.1, ease: "power2.in" }, 6.25)
+        .fromTo("#m-products", { opacity: 0 }, { opacity: 1, duration: .6 }, 6.85)
+        .fromTo("#m-products-label", { x: -55, opacity: 0 }, { x: 0, opacity: 1, duration: .75 }, 7.05)
+        .fromTo("#m-products-title", { y: 55, opacity: 0 }, { y: 0, opacity: 1, duration: .9 }, 7.25)
+        .fromTo("#m-products-copy", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: .8 }, 7.7)
+        .fromTo("#m-photo-main", { x: 160, rotation: 8, scale: .86, opacity: 0 }, { x: 0, rotation: 0, scale: 1, opacity: 1, duration: 1.15 }, 7.25)
+        .fromTo("#m-photo-side", { x: -100, y: 80, rotation: -10, scale: .8, opacity: 0 }, { x: 0, y: 0, rotation: -3, scale: 1, opacity: 1, duration: 1.05 }, 7.8)
+        .fromTo("#m-photo-dot", { x: 100, y: 70, scale: .7, opacity: 0 }, { x: 0, y: 0, scale: 1, opacity: 1, duration: 1 }, 8.2)
+        .to("#m-photo-main", { y: -18, scale: 1.02, duration: 4.8, ease: "sine.inOut" }, 9.3)
+        .to("#m-photo-side", { y: 16, rotation: 1, duration: 4.8, ease: "sine.inOut" }, 9.3)
+        .to("#m-photo-dot", { y: -14, rotation: 7, duration: 4.8, ease: "sine.inOut" }, 9.3)
+        .to("#m-products", { y: -90, opacity: 0, duration: 1.1, ease: "power2.in" }, 15.1)
+        .fromTo("#m-closing", { opacity: 0 }, { opacity: 1, duration: .6 }, 15.75)
+        .fromTo("#m-close-brand", { y: 65, scale: .82, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.15 }, 16)
+        .fromTo("#m-close-title", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, 16.7)
+        .fromTo("#m-close-copy", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: .8 }, 17.25)
+        .fromTo("#m-close-pill", { y: 38, scale: .86, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .8 }, 17.7)
+        .to("#m-close-pill", { scale: 1.045, duration: 2.2, ease: "sine.inOut" }, 19)
+        .to("#m-close-pill", { scale: 1, duration: 2.2, ease: "sine.inOut" }, 21.2)
+        .to("#m-closing", { opacity: .985, duration: .6 }, 23.35);
+      window.__timelines.mobile = tl;
+    </script>
+  </body>
+</html>

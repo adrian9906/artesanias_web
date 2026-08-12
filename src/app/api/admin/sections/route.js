@@ -23,6 +23,11 @@ export async function POST(request) {
     id: uniqueId(body.id || body.name, store.sections.map((s) => s.id)),
     name: String(body.name).trim(),
     description: String(body.description || "").trim(),
+    homeVisible: body.homeVisible !== false,
+    homeImage: String(body.homeImage || "").trim(),
+    homeStory: String(body.homeStory || "").trim(),
+    homeCta: String(body.homeCta || "Ver colección").trim(),
+    homeOrder: Math.max(0, Math.trunc(Number(body.homeOrder) || 0)),
     createdAt: now,
     updatedAt: now,
   }

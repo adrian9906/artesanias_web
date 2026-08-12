@@ -8,7 +8,7 @@ import { productImages } from '../data/productCatalog'
 import { useI18n } from '../i18n'
 import { HandsWritting } from './handsWritting'
 
-export default function Hero() {
+export default function Hero({ beforeGallery = null }) {
   const { t } = useI18n()
   const renderAnimatedWords = (text, className = '') =>
     String(text || '')
@@ -277,7 +277,9 @@ export default function Hero() {
         <ArrowDown className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 text-cream/80 animate-bounce md:block" />
       </section>
 
-      <section ref={sectionRef} className="py-14 md:py-24 bg-forest-dark relative">
+      {beforeGallery}
+
+      <section ref={sectionRef} className="home-scroll-reveal py-14 md:py-24 bg-forest-dark relative">
         <div className="container w-full max-w-6xl mx-auto px-4 md:px-6 relative">
           <div ref={titleRef} className="mb-10 text-center">
             <p className="text-gold-accent/70 uppercase tracking-[0.24em] text-xs mb-3">{t('hero.galleryLabel')}</p>
@@ -341,35 +343,33 @@ export default function Hero() {
               <p className="text-cream/75 text-xs sm:text-sm md:text-base">{activeSlide.subtitle}</p>
             </div>
 
+            <button
+              type="button"
+              onClick={goPrevious}
+              aria-label="Mostrar colección anterior"
+              className="absolute left-5 top-1/2 z-40 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border shadow-2xl transition-[background-color,color,transform] duration-300 hover:-translate-y-1/2 hover:scale-110 md:flex lg:left-7"
+              style={{
+                color: activeSlide.accent,
+                borderColor: activeSlide.accent,
+                backgroundColor: 'rgba(27,41,24,0.82)',
+              }}
+            >
+              <ArrowLeft size={22} />
+            </button>
+            <button
+              type="button"
+              onClick={goNext}
+              aria-label="Mostrar colección siguiente"
+              className="absolute right-5 top-1/2 z-40 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full border shadow-2xl transition-[background-color,color,transform] duration-300 hover:-translate-y-1/2 hover:scale-110 md:flex lg:right-7"
+              style={{
+                color: activeSlide.accent,
+                borderColor: activeSlide.accent,
+                backgroundColor: 'rgba(27,41,24,0.82)',
+              }}
+            >
+              <ArrowRight size={22} />
+            </button>
           </div>
-
-
-          <button
-            type="button"
-            onClick={goPrevious}
-            aria-label="Mostrar colección anterior"
-            className="absolute hidden md:block left-0 top-1/3 shadow-2xl rounded-2xl -translate-y-1/2 -translate-x-8 lg:-translate-x-12 p-3 transition-[background-color,color,transform] duration-300 hover:scale-110 z-40"
-            style={{
-              color: activeSlide.accent,
-              borderColor: activeSlide.accent,
-              backgroundColor: 'rgba(27,41,24,0.74)',
-            }}
-          >
-            <ArrowLeft />
-          </button>
-          <button
-            type="button"
-            onClick={goNext}
-            aria-label="Mostrar colección siguiente"
-            className="absolute hidden md:block right-0 top-1/3 -translate-y-1/2 translate-x-8 lg:translate-x-12 p-3 rounded-full transition-[background-color,color,transform] duration-300 hover:scale-110 z-40"
-            style={{
-              color: activeSlide.accent,
-              borderColor: activeSlide.accent,
-              backgroundColor: 'rgba(27,41,24,0.74)',
-            }}
-          >
-            <ArrowRight />
-          </button>
         </div>
       </section>
     </>

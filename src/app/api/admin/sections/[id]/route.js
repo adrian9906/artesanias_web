@@ -30,6 +30,11 @@ export async function PUT(request, { params }) {
     ...store.sections[index],
     name: String(body.name).trim(),
     description: String(body.description || "").trim(),
+    homeVisible: body.homeVisible !== false,
+    homeImage: String(body.homeImage || "").trim(),
+    homeStory: String(body.homeStory || "").trim(),
+    homeCta: String(body.homeCta || "Ver colección").trim(),
+    homeOrder: Math.max(0, Math.trunc(Number(body.homeOrder) || 0)),
     updatedAt: new Date().toISOString(),
   }
 
